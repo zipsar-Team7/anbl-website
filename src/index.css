@@ -206,6 +206,35 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .inner-hero__sub { color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1.6; }
 .inner-hero .section-label { color: var(--red); opacity: 1; }
 
+/* Molecular Wave Particles */
+.inner-hero__particles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.vibrating-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--red);
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(1px);
+  animation: particleWave 4s infinite ease-in-out;
+}
+@keyframes particleWave {
+  0%   { transform: translateX(-20px) translateY(0); opacity: 0; }
+  20%  { opacity: 0.5; }
+  50%  { transform: translateX(50px) translateY(-25px); }
+  80%  { opacity: 0.5; }
+  100% { transform: translateX(120px) translateY(0); opacity: 0; }
+}
+
 
 /* ── Announcement Bar ───────────────────────────────────── */
 .announcement-bar {

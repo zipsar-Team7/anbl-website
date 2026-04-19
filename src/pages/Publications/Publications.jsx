@@ -9,6 +9,20 @@ export default function Publications() {
       {/* ── HERO ───────────────────────────────────────── */}
       <section className="inner-hero">
         <div className="inner-hero__bg-gradient" aria-hidden="true" />
+        <div className="inner-hero__particles">
+          {[...Array(40)].map((_, i) => (
+            <div 
+              key={i} 
+              className="vibrating-particle" 
+              style={{ 
+                bottom: `${Math.random() * 80}px`, 
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${3 + Math.random() * 2}s`
+              }} 
+            />
+          ))}
+        </div>
         <div className="container">
           <div className="inner-hero__content">
             <span className="section-label">Academic Impact</span>
