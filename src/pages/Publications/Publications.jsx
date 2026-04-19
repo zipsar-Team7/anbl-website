@@ -6,13 +6,18 @@ import './Publications.css';
 import publicationsData from '../../data/publications.json';
 
 const scholarUrl = labData.labInfo.contact.googleScholar;
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 4;
 
 export default function Publications() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeYear, setActiveYear] = useState('All');
+  const [activeTopic, setActiveTopic] = useState('All Topics');
   const [currentPage, setCurrentPage] = useState(1);
   const [appliedSearch, setAppliedSearch] = useState('');
+
+  // Custom Dropdown State
+  const [isYearOpen, setIsYearOpen] = useState(false);
+  const [isTopicOpen, setIsTopicOpen] = useState(false);
 
   // Extract unique years for filtering
   const years = useMemo(() => {
@@ -21,6 +26,16 @@ export default function Publications() {
       .filter(year => year && year.length === 4);
     const uniqueYears = [...new Set(allYears)];
     return ['All', ...uniqueYears.sort((a, b) => b - a)];
+  }, []);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsYearOpen(false);
+      setIsTopicOpen(false);
+    };
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, []);
 
   // Filter logic
@@ -34,10 +49,15 @@ export default function Publications() {
         
         const matchesYear = activeYear === 'All' || pub.year === activeYear;
         
-        return matchesSearch && matchesYear;
+        const matchesTopic = activeTopic === 'All Topics' || 
+          pub.title?.toLowerCase().includes(activeTopic.toLowerCase()) ||
+          pub.publication?.toLowerCase().includes(activeTopic.toLowerCase()) ||
+          pub.authors?.toLowerCase().includes(activeTopic.toLowerCase());
+        
+        return matchesSearch && matchesYear && matchesTopic;
       })
       .sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
-  }, [appliedSearch, activeYear]);
+  }, [appliedSearch, activeYear, activeTopic]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredPublications.length / ITEMS_PER_PAGE);
@@ -49,7 +69,7 @@ export default function Publications() {
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [appliedSearch, activeYear]);
+  }, [appliedSearch, activeYear, activeTopic]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -111,53 +131,90 @@ export default function Publications() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                {(searchTerm || appliedSearch || activeYear !== 'All') && (
+                {(searchTerm || appliedSearch || activeYear !== 'All' || activeTopic !== 'All Topics') && (
                   <button 
                     type="button" 
                     className="search-hub__clear-btn"
-                    onClick={() => {setSearchTerm(''); setAppliedSearch(''); setActiveYear('All');}}
+                    onClick={() => {
+                      setSearchTerm(''); 
+                      setAppliedSearch(''); 
+                      setActiveYear('All'); 
+                      setActiveTopic('All Topics');
+                    }}
                     title="Clear all filters"
                   >
                     Clear All
                   </button>
                 )}
                 <button type="submit" className="search-hub__submit-btn">
-                  Search
+                  <span className="submit-btn-text">Search</span>
+                  <svg className="submit-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
                   <span className="btn-shine"></span>
                 </button>
               </div>
             </form>
 
-            <div className="search-hub__meta">
-              <div className="meta-group">
-                <span className="meta-label">Quick Topics:</span>
-                <div className="quick-topics">
-                  {['Nanomedicine', 'Biosafety', 'AI', 'Cancer', 'Nanoparticles'].map(topic => (
-                    <button 
-                      key={topic}
-                      className="topic-tag"
-                      onClick={() => {setSearchTerm(topic); setAppliedSearch(topic);}}
-                    >
-                      {topic}
-                    </button>
-                  ))}
+            <div className="search-hub__filters">
+              <div className="filter-group" onClick={(e) => e.stopPropagation()}>
+                <label className="filter-label">Filter by Research Area</label>
+                <div className={`custom-select-container ${isTopicOpen ? 'open' : ''}`}>
+                  <button 
+                    type="button"
+                    className="custom-select-trigger"
+                    onClick={() => {setIsTopicOpen(!isTopicOpen); setIsYearOpen(false);}}
+                  >
+                    <span>{activeTopic}</span>
+                    <div className="select-arrow"></div>
+                  </button>
+                  {isTopicOpen && (
+                    <div className="custom-select-options">
+                      <div className={`custom-option ${activeTopic === 'All Topics' ? 'selected' : ''}`} onClick={() => {setActiveTopic('All Topics'); setIsTopicOpen(false);}}>
+                        All Research Topics
+                      </div>
+                      {['Nanomedicine', 'Biosafety', 'AI', 'Cancer', 'Nanoparticles'].map(topic => (
+                        <div 
+                          key={topic} 
+                          className={`custom-option ${activeTopic === topic ? 'selected' : ''}`}
+                          onClick={() => {setActiveTopic(topic); setIsTopicOpen(false);}}
+                        >
+                          {topic}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               
-              <div className="meta-group">
-                <span className="meta-label">Archive:</span>
-                <div className="year-selector">
-                  <div className="year-scroll">
-                    {years.map(year => (
-                      <button 
-                        key={year}
-                        className={`year-nav-item ${activeYear === year ? 'active' : ''}`}
-                        onClick={() => setActiveYear(year)}
-                      >
-                        {year}
-                      </button>
-                    ))}
-                  </div>
+              <div className="filter-group" onClick={(e) => e.stopPropagation()}>
+                <label className="filter-label">Filter by Publication Year</label>
+                <div className={`custom-select-container ${isYearOpen ? 'open' : ''}`}>
+                  <button 
+                    type="button"
+                    className="custom-select-trigger"
+                    onClick={() => {setIsYearOpen(!isYearOpen); setIsTopicOpen(false);}}
+                  >
+                    <span>{activeYear === 'All' ? 'All Publication Years' : activeYear}</span>
+                    <div className="select-arrow"></div>
+                  </button>
+                  {isYearOpen && (
+                    <div className="custom-select-options">
+                      <div className={`custom-option ${activeYear === 'All' ? 'selected' : ''}`} onClick={() => {setActiveYear('All'); setIsYearOpen(false);}}>
+                        All Publication Years
+                      </div>
+                      {years.filter(y => y !== 'All').map(year => (
+                        <div 
+                          key={year} 
+                          className={`custom-option ${activeYear === year ? 'selected' : ''}`}
+                          onClick={() => {setActiveYear(year); setIsYearOpen(false);}}
+                        >
+                          {year}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -237,7 +294,7 @@ export default function Publications() {
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(prev => prev - 1)}
               >
-                ← Previous
+                Previous
               </button>
               <div className="page-numbers">
                 {[...Array(totalPages)].map((_, i) => (
@@ -255,7 +312,7 @@ export default function Publications() {
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(prev => prev + 1)}
               >
-                Next →
+                Next
               </button>
             </div>
           )}
