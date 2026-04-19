@@ -106,6 +106,99 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── TEAM SECTION ───────────────────────────────────── */}
+      <section className="section team-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">Our People</span>
+            <h2 className="t-h2">Research Team</h2>
+          </div>
+
+          {/* Research Scientists */}
+          <div className="team-group">
+            <h3 className="team-category-title">Research Scientists</h3>
+            <div className="team-grid">
+              {labData.team.researchScientists.map((member, i) => (
+                <div key={i} className="team-card">
+                  <div className="team-card__img-box">
+                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                  </div>
+                  <div className="team-card__info">
+                    <h4 className="team-card__name">{member.name}</h4>
+                    <p className="team-card__role">{member.role}</p>
+                    <p className="team-card__focus">{member.focus}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Students */}
+          <div className="team-group">
+            <h3 className="team-category-title">Graduate & Undergraduate Students</h3>
+            <div className="team-grid">
+              {labData.team.students.map((member, i) => (
+                <div key={i} className="team-card">
+                  <div className="team-card__img-box">
+                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                  </div>
+                  <div className="team-card__info">
+                    <h4 className="team-card__name">{member.name}</h4>
+                    <p className="team-card__role">{member.role}</p>
+                    <p className="team-card__focus">{member.focus}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Staff */}
+          <div className="team-group">
+            <h3 className="team-category-title">Staff Members</h3>
+            <div className="team-grid">
+              {labData.team.staff.map((member, i) => (
+                <div key={i} className="team-card">
+                  <div className="team-card__img-box">
+                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                  </div>
+                  <div className="team-card__info">
+                    <h4 className="team-card__name">{member.name}</h4>
+                    <p className="team-card__role">{member.role}</p>
+                    <p className="team-card__focus">{member.focus}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── GALLERY SECTION ────────────────────────────────── */}
+      <section className="section gallery-section" style={{ background: 'var(--surface)' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">Visual Journey</span>
+            <h2 className="t-h2">Lab Gallery</h2>
+          </div>
+          <div className="gallery-grid">
+            {labData.gallery.map((item, i) => (
+              <div key={i} className="gallery-item">
+                <div className="gallery-media">
+                  {item.type === 'image' ? (
+                    <img src={item.url} alt={item.caption} />
+                  ) : (
+                    <video src={item.url} controls />
+                  )}
+                  <div className="gallery-overlay">
+                    <p className="gallery-caption">{item.caption}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA BAND ───────────────────────────────────────── */}
       <section className="cta-band">
         <div className="container cta-band__inner">

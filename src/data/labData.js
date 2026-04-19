@@ -178,4 +178,42 @@ export const labData = {
       { name: "Suresh Ramakrishna", institution: "Hanyang University" },
     ],
   },
+  team: {
+    researchScientists: [
+      {
+        name: "Dr. Sample Scientist",
+        role: "Senior Research Scientist",
+        focus: "Nanoparticle-Immune Interactions",
+        image: null // placeholder
+      }
+    ],
+    students: [
+      {
+        name: "Member Name",
+        role: "Ph.D. Candidate",
+        focus: "AI-Driven Toxicity Prediction",
+        image: null
+      },
+      {
+        name: "Member Name",
+        role: "M.S. Student",
+        focus: "Multi-Omics Analysis",
+        image: null
+      }
+    ],
+    staff: [
+      {
+        name: "Staff Name",
+        role: "Lab Manager",
+        focus: "Administrative & Safety Oversight",
+        image: null
+      }
+    ]
+  },
+  gallery: [
+    { type: 'image', url: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80', caption: 'ANBL Laboratory Facility' },
+    { type: 'image', url: 'https://images.unsplash.com/photo-1576086213369-97a306dca1c5?auto=format&fit=crop&q=80', caption: 'Nanotechnology Research' },
+    { type: 'image', url: 'https://images.unsplash.com/photo-1532187875605-1ef6c016b149?auto=format&fit=crop&q=80', caption: 'Cell Culture Analysis' },
+    { type: 'image', url: 'https://images.unsplash.com/photo-1579154235602-3c3753738010?auto=format&fit=crop&q=80', caption: 'Collaborative Discussion' }
+  ]
 };
