@@ -1,0 +1,12 @@
+/* App.css — global layout rules that apply across all pages */
+
+/* push footer to bottom */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}

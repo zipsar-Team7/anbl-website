@@ -1,0 +1,50 @@
+.pub-year-group {
+  margin-bottom: 80px;
+}
+.pub-year {
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--border-strong);
+  margin-bottom: 32px;
+  opacity: 0.3;
+}
+.pub-items {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.pub-item {
+  padding: 32px 40px;
+}
+.pub-meta {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--red);
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.pub-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.pub-authors {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.pub-links {
+  display: flex;
+  gap: 24px;
+}
+.t-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+  text-decoration: none;
+}
+.t-link:hover {
+  text-decoration: underline;
+}

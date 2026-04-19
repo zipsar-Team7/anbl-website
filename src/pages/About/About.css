@@ -1,0 +1,101 @@
+.about-hero {
+  padding-bottom: 0;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+.profile-img-placeholder {
+  width: 100%;
+  aspect-ratio: 0.8;
+  background: var(--surface);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+}
+.profile-title {
+  font-size: 24px;
+  color: var(--red);
+  margin-top: 8px;
+}
+.profile-affiliation {
+  margin-top: 32px;
+  max-width: 500px;
+}
+.profile-actions {
+  margin-top: 40px;
+}
+
+.bio-text p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+.column-title {
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--red);
+  display: inline-block;
+  padding-bottom: 8px;
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.timeline-item {
+  position: relative;
+  padding-left: 24px;
+  border-left: 1px solid var(--border-strong);
+}
+.timeline-date {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+  display: block;
+  margin-bottom: 8px;
+}
+.timeline-role {
+  font-size: 18px;
+  font-weight: 700;
+}
+.timeline-inst {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.team-filters {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.filter-btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn.active {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .profile-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+  .profile-affiliation { margin-left: auto; margin-right: auto; }
+  .history-grid { grid-template-columns: 1fr; }
+}
