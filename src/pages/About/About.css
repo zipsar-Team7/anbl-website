@@ -1,101 +1,108 @@
-.about-hero {
-  padding-bottom: 0;
-}
-.profile-grid {
+/* ── About Page ─────────────────────────────────────────── */
+
+/* Profile Hero */
+.profile-hero { padding: 100px 0; }
+.profile-hero__grid {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 80px;
+  grid-template-columns: 320px 1fr;
+  gap: 64px;
   align-items: center;
 }
-.profile-img-placeholder {
+.profile-img-box {
   width: 100%;
-  aspect-ratio: 0.8;
-  background: var(--surface);
-  border-radius: 24px;
+  aspect-ratio: 4/5;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border);
+  overflow: hidden;
 }
-.profile-title {
-  font-size: 24px;
+.profile-img-fallback {
+  font-size: 40px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 4px;
+}
+.profile-hero .t-h1 { color: #fff; margin: 16px 0; }
+.profile-hero__title {
+  font-size: 20px;
   color: var(--red);
-  margin-top: 8px;
-}
-.profile-affiliation {
-  margin-top: 32px;
-  max-width: 500px;
-}
-.profile-actions {
-  margin-top: 40px;
-}
-
-.bio-text p {
+  font-weight: 600;
   margin-bottom: 24px;
-  line-height: 1.8;
 }
+.profile-hero__meta {
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.profile-hero__meta p { color: inherit; }
+.profile-email a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 
+/* Biography */
+.bio-content { line-height: 1.8; color: var(--text-secondary); }
+.bio-content p + p { margin-top: 24px; }
+
+/* Timeline */
 .history-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
 }
-.column-title {
-  margin-bottom: 40px;
-  border-bottom: 2px solid var(--red);
-  display: inline-block;
-  padding-bottom: 8px;
-}
-.timeline {
+.history-title { margin-bottom: 40px; }
+.custom-timeline {
   display: flex;
   flex-direction: column;
   gap: 32px;
-}
-.timeline-item {
   position: relative;
   padding-left: 24px;
-  border-left: 1px solid var(--border-strong);
 }
-.timeline-date {
-  font-size: 14px;
+.custom-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-node { position: relative; }
+.node-marker {
+  position: absolute;
+  left: -28.5px; top: 6px;
+  width: 10px; height: 10px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  z-index: 2;
+}
+.node-date {
+  font-size: 13px;
   font-weight: 700;
   color: var(--red);
   display: block;
   margin-bottom: 8px;
 }
-.timeline-role {
-  font-size: 18px;
-  font-weight: 700;
-}
-.timeline-inst {
-  font-size: 15px;
-  color: var(--text-muted);
-  margin-top: 4px;
-}
+.node-role { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.node-inst { font-size: 14px; color: var(--text-muted); }
 
-.team-filters {
+/* CTA Banner */
+.cta-banner {
+  background: var(--black-deep);
+  border-radius: var(--radius-lg);
+  padding: 64px;
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 48px;
-}
-.filter-btn {
-  padding: 10px 24px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  background: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.filter-btn.active {
-  background: var(--red);
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
   color: #fff;
-  border-color: var(--red);
+  border: 1px solid rgba(220, 21, 12, 0.2);
 }
+.cta-banner .t-h2 { margin-bottom: 16px; color: #fff; }
+.cta-banner .t-body { color: rgba(255,255,255,0.7); max-width: 500px; }
 
 @media (max-width: 900px) {
-  .profile-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
-  .profile-affiliation { margin-left: auto; margin-right: auto; }
-  .history-grid { grid-template-columns: 1fr; }
+  .profile-hero__grid { grid-template-columns: 1fr; text-align: center; }
+  .profile-img-box { max-width: 280px; margin: 0 auto; }
+  .history-grid { grid-template-columns: 1fr; gap: 64px; }
+  .cta-banner { flex-direction: column; text-align: center; padding: 40px 32px; }
 }

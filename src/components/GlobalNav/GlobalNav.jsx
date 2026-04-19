@@ -16,9 +16,7 @@ export default function GlobalNav() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  const isHome = location.pathname === '/';
-  // Force scrolled state on non-home pages
-  const isSolid = !isHome || scrolled;
+  const isSolid = scrolled;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -26,19 +24,18 @@ export default function GlobalNav() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  // close on route change
   useEffect(() => setOpen(false), [location]);
 
   return (
-    <header className={`gnav ${isSolid ? 'gnav--scrolled' : ''}`}>
+    <header className={`gnav ${isSolid ? 'gnav--scrolled' : 'gnav--transparent'}`}>
       <div className="gnav__inner container">
         {/* Logo */}
         <NavLink to="/" className="gnav__logo" id="nav-logo">
-          <img 
-            src={isSolid ? logoDark : logoLight} 
-            alt="ANBL Logo" 
-            className="gnav__logo-img" 
-            style={{ height: '36px', width: 'auto', objectFit: 'contain' }} 
+          <img
+            src={isSolid ? logoDark : logoLight}
+            alt="ANBL Logo"
+            className="gnav__logo-img"
+            style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
           />
         </NavLink>
 
@@ -59,14 +56,14 @@ export default function GlobalNav() {
           ))}
         </nav>
 
-        {/* Right slot */}
+        {/* Right CTA */}
         <div className="gnav__right">
           <NavLink
             to="/contact"
-            className="btn btn-white btn-sm gnav__contact-btn"
+            className="btn gnav__contact-btn"
             id="nav-contact"
           >
-            Get Started
+            Contact Us
           </NavLink>
           <button
             className={`gnav__hamburger ${open ? 'open' : ''}`}
@@ -95,7 +92,7 @@ export default function GlobalNav() {
             </NavLink>
           ))}
           <div className="gnav__mobile-actions">
-            <NavLink to="/contact" className="btn btn-outline btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
+            <NavLink to="/contact" className="btn btn-red" style={{ width: '100%', justifyContent: 'center' }}>
               Contact Us
             </NavLink>
           </div>
