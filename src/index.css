@@ -343,4 +343,41 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .container { padding: 0 20px; }
   .section    { padding: 64px 0; }
   .section-lg { padding: 80px 0; }
+  
+  .inner-hero { padding: 80px 0 50px; text-align: center; }
+  .inner-hero__content { margin: 0 auto; }
+  .inner-hero .t-h1 { font-size: 36px; line-height: 1.1; }
+  
+  .cta-band { padding: 60px 0; }
+  .cta-band__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    text-align: left;
+  }
+  .cta-band__text { width: 100%; }
+  .cta-band__headline { font-size: 32px; line-height: 1.2; }
+  .cta-band__actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  .cta-band__actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .inner-hero .t-h1 { font-size: 30px; }
+  .cta-band__headline { font-size: 26px; }
+  .section-label { font-size: 10px; letter-spacing: 0.15em; }
+  
+  .t-h1 { font-size: 36px !important; }
+  .t-h2 { font-size: 28px !important; }
+  .t-h3 { font-size: 22px !important; }
+  
+  .btn-lg { padding: 18px 32px !important; font-size: 17px !important; }
 }

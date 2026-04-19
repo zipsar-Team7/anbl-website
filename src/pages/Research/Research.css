@@ -153,3 +153,33 @@
 @media (max-width: 900px) {
   .collab-grid { grid-template-columns: 1fr; gap: 64px; }
 }
+
+@media (max-width: 768px) {
+  .themes-grid { grid-template-columns: 1fr; gap: 24px; }
+  
+  .platform-card.horizontal { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 24px; 
+    padding: 32px 24px;
+  }
+  
+  .platform-card .card-content { max-width: 100%; }
+  
+  .resource-card { padding: 32px 24px; }
+  
+  .grant-item { padding: 24px; }
+  
+  .grant-details { 
+    flex-direction: column; 
+    gap: 12px; 
+    border-top: 1px solid var(--border-light);
+    padding-top: 16px;
+  }
+  
+  .grant-meta { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px; 
+  }
+}
