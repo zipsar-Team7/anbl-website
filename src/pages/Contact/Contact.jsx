@@ -104,6 +104,25 @@ export default function Contact() {
           </div>
         </div>
       </section>
+      {/* ── CTA BAND ───────────────────────────────────────── */}
+      <section className="cta-band">
+        <div className="container cta-band__inner">
+          <div className="cta-band__text">
+            <p className="cta-band__label">Our Vision</p>
+            <h2 className="cta-band__headline">Advancing health through nanotechnology.</h2>
+            <p className="cta-band__sub">
+              We are dedicated to developing safer, more effective medical 
+              solutions for the next generation.
+            </p>
+          </div>
+          <div className="cta-band__actions">
+            <a href="/research" className="btn btn-red btn-lg">Explore Research</a>
+            <a href="/about" className="btn btn-lg" style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.06)' }}>
+              Meet the Team
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

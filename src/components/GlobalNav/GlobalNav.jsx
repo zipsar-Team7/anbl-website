@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import './GlobalNav.css';
-import logoDark from '../../assets/logo.png';
-import logoLight from '../../assets/logo-footer.png';
+import logoDark from '../../assets/logo-new.png';
+import logoLight from '../../assets/logo-footer-new.png';
 
 const links = [
   { to: '/', label: 'Home' },

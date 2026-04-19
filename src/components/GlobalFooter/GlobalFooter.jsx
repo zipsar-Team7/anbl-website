@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { labData } from '../../data/labData';
 import './GlobalFooter.css';
-import logo from '../../assets/logo-footer.png';
+import logo from '../../assets/logo-footer-new.png';
 
 const { labInfo } = labData;
 

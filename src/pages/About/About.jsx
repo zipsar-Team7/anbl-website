@@ -106,20 +106,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── JOIN US CALLOUT ─────────────────────────────── */}
-      <section className="section join-section">
-        <div className="container">
-          <div className="cta-banner">
-            <div className="cta-content">
-              <h2 className="t-h2">Join Our Research Mission</h2>
-              <p className="t-body">
-                We are always looking for passionate researchers to join our mission in 
-                redefining nanomedicine through AI.
-              </p>
-            </div>
-            <div className="cta-action">
-              <a href="/contact" className="btn btn-red btn-lg">View Openings</a>
-            </div>
+      {/* ── CTA BAND ───────────────────────────────────────── */}
+      <section className="cta-band">
+        <div className="container cta-band__inner">
+          <div className="cta-band__text">
+            <p className="cta-band__label">Join the Team</p>
+            <h2 className="cta-band__headline">Shaping the next generation of researchers.</h2>
+            <p className="cta-band__sub">
+              Are you passionate about nanomedicine and AI? We're looking for 
+              dedicated researchers and students to join our mission.
+            </p>
+          </div>
+          <div className="cta-band__actions">
+            <a href="/contact" className="btn btn-red btn-lg">View Open Positions</a>
           </div>
         </div>
       </section>

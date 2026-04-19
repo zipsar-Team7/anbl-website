@@ -206,6 +206,69 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .inner-hero__sub { color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1.6; }
 .inner-hero .section-label { color: var(--red); opacity: 1; }
 
+/* ── Global CTA Band ─────────────────────────────────────── */
+.cta-band {
+  background: var(--black-deep);
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+.cta-band::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220,21,12,0.12) 0%, transparent 65%);
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.cta-band__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+.cta-band__text { max-width: 640px; text-align: left; }
+.cta-band__label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+.cta-band__headline {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.cta-band__sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+.cta-band__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .cta-band__inner { flex-direction: column; text-align: center; align-items: center; }
+  .cta-band__text { text-align: center; }
+  .cta-band__actions { flex-direction: row; }
+}
+
 /* Molecular Wave Particles */
 .inner-hero__particles {
   position: absolute;
