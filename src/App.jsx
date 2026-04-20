@@ -27,7 +27,7 @@ function App() {
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
             <span>
-              Hundreds of AI-Driven Discoveries! See Our Record-Breaking Research Results! <a href="/publications">View Now →</a>
+              Elevate Your Research with AI: Early Access for Our Advanced Web Tools is Now Open! <a href="/contact">Get Early Access →</a>
             </span>
             <button 
               className="announcement-bar__close" 

@@ -303,35 +303,44 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .announcement-bar {
   background: var(--black-deep);
   color: rgba(255,255,255,0.8);
-  height: var(--bar-h);
+  min-height: var(--bar-h);
   font-size: 13px;
   font-weight: 500;
   display: flex;
   align-items: center;
   position: relative;
   z-index: 1001;
+  padding: 8px 0;
 }
 .announcement-bar__inner {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  text-align: center;
+  line-height: 1.4;
 }
 .announcement-bar a {
   color: var(--red);
   font-weight: 600;
   margin-left: 8px;
   transition: opacity 0.2s;
+  white-space: nowrap;
 }
 .announcement-bar a:hover { opacity: 0.8; }
 .announcement-bar__close {
-  position: absolute; right: 0; top: 50%;
+  position: absolute; 
+  right: 12px; 
+  top: 50%;
   transform: translateY(-50%);
   background: none; border: none;
   color: rgba(255,255,255,0.4);
-  font-size: 15px; cursor: pointer;
-  padding: 4px;
+  font-size: 16px; cursor: pointer;
+  padding: 8px;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .announcement-bar__close:hover { color: #fff; }
 
@@ -371,6 +380,10 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   }
 }
 @media (max-width: 480px) {
+  .announcement-bar { font-size: 11px; padding: 10px 0; }
+  .announcement-bar__inner { padding-right: 36px; }
+  .announcement-bar a { display: inline-block; margin-top: 2px; }
+
   .inner-hero .t-h1 { font-size: 30px; }
   .cta-band__headline { font-size: 26px; }
   .section-label { font-size: 10px; letter-spacing: 0.15em; }

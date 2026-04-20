@@ -211,9 +211,9 @@ export const labData = {
     ]
   },
   gallery: [
-    { type: 'image', url: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80', caption: 'ANBL Laboratory Facility' },
-    { type: 'image', url: 'https://images.unsplash.com/photo-1576086213369-97a306dca1c5?auto=format&fit=crop&q=80', caption: 'Nanotechnology Research' },
-    { type: 'image', url: 'https://images.unsplash.com/photo-1532187875605-1ef6c016b149?auto=format&fit=crop&q=80', caption: 'Cell Culture Analysis' },
-    { type: 'image', url: 'https://images.unsplash.com/photo-1579154235602-3c3753738010?auto=format&fit=crop&q=80', caption: 'Collaborative Discussion' }
+    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=ANBL+Laboratory+Facility', caption: 'ANBL Laboratory Facility' },
+    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
+    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
+    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
   ]
 };
