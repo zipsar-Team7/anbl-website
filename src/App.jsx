@@ -90,21 +90,30 @@ function MainLayout({ showBar, setShowBar }) {
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (import.meta.env.SSR) return true;
+    return !sessionStorage.getItem('anbl_has_loaded');
+  });
   const [showBar, setShowBar] = import.meta.env.SSR ? [true] : useState(true);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => setLoading(false), 2000);
-    
+    if (loading) {
+      const timer = setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem('anbl_has_loaded', 'true');
+      }, 1800);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
+  useEffect(() => {
     const handleOnline = () => setIsOffline(false);
     const handleOffline = () => setIsOffline(true);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
     
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
