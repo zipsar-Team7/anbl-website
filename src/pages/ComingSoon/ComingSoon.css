@@ -1,0 +1,111 @@
+.coming-soon-page {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 120px 0;
+}
+
+.coming-soon-header {
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 20;
+}
+
+.cs-logo {
+  height: 52px;
+  width: auto;
+  margin: 0 auto;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.cs-logo:hover {
+  opacity: 1;
+}
+
+.coming-soon-content {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.coming-soon-title {
+  margin: 16px 0 32px;
+  background: linear-gradient(135deg, var(--red) 0%, #ff4d4d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.coming-soon-page .t-body {
+  margin-bottom: 48px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.coming-soon-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* ── Particles ────────────────────────────────────────── */
+.coming-soon-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cs-particle-wrapper {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transition: transform 0.4s cubic-bezier(0.1, 0, 0, 1);
+  will-change: transform;
+  z-index: 1;
+}
+
+.cs-particle {
+  width: var(--size);
+  height: var(--size);
+  background: var(--red);
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(1px);
+  /* Dual animation: slow drift + fast vibration */
+  animation: 
+    moveParticle var(--duration) linear infinite,
+    vibrateParticle 0.3s infinite alternate ease-in-out;
+  animation-delay: var(--delay);
+  will-change: transform;
+}
+
+@keyframes moveParticle {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  20% { opacity: 0.5; }
+  80% { opacity: 0.5; }
+  100% { transform: translate(120px, -120px) scale(0.5); opacity: 0; }
+}
+
+@keyframes vibrateParticle {
+  0% { transform: translate(-1px, -1px); }
+  100% { transform: translate(2px, 2px); }
+}
+
+@media (max-width: 600px) {
+  .coming-soon-actions {
+    flex-direction: column;
+  }
+  .coming-soon-actions .btn {
+    width: 100%;
+  }
+}

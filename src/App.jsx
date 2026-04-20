@@ -8,6 +8,7 @@ import Research from './pages/Research/Research';
 import Publications from './pages/Publications/Publications';
 import Contact from './pages/Contact/Contact';
 import NotFound from './pages/NotFound/NotFound';
+import ComingSoon from './pages/ComingSoon/ComingSoon';
 
 /* ── LOADING SCREEN ────────────────────────────────── */
 function LoadingScreen() {
@@ -70,7 +71,7 @@ function MainLayout({ showBar, setShowBar }) {
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
             <span>
-              Elevate Your Research with AI: Early Access for Our Advanced Web Tools is Now Open! <a href="/contact">Get Early Access →</a>
+              Elevate Your Research with AI: Early Access for Our Advanced Web Tools is Now Open! <a href="/webtool">Get Early Access →</a>
             </span>
             <button 
               className="announcement-bar__close" 
@@ -136,7 +137,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
 
-        {/* 404 Page without Nav & Footer */}
+        {/* 404 & Coming Soon Pages without Nav & Footer */}
+        <Route path="/webtool" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

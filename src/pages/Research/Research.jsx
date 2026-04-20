@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { labData } from '../../data/labData';
 import './Research.css';
 
@@ -80,7 +81,7 @@ export default function Research() {
                   <p className="t-body">{plat.description}</p>
                 </div>
                 <div className="card-action">
-                  <button className="btn btn-red btn-sm">Explore Platform</button>
+                  <Link to="/webtool" className="btn btn-red btn-sm">Explore Platform</Link>
                 </div>
               </div>
             ))}

@@ -8,6 +8,23 @@
   padding: 100px 0;
 }
 
+.not-found-header {
+  margin-bottom: 40px;
+}
+
+.error-logo {
+  height: 48px;
+  width: auto;
+  margin: 0 auto;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.error-logo:hover {
+  opacity: 1;
+}
+
 .not-found-content {
   position: relative;
   z-index: 2;

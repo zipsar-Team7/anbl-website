@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo-new.png';
 import './NotFound.css';
 
 export default function NotFound() {
   return (
     <main className="not-found-page">
       <div className="container center">
+        <div className="not-found-header">
+          <Link to="/">
+            <img src={logo} alt="ANBL Logo" className="error-logo" />
+          </Link>
+        </div>
         <div className="not-found-content">
           <div className="error-code">404</div>
           <h1 className="t-h1">Page Not Found</h1>
