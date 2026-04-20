@@ -394,3 +394,86 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   
   .btn-lg { padding: 18px 32px !important; font-size: 17px !important; }
 }
+
+/* ── Loading Screen ──────────────────────────────────────── */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+.wave-container {
+  display: flex;
+  gap: 12px;
+  height: 60px;
+  align-items: center;
+}
+.wave-particle {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  filter: blur(1px);
+  box-shadow: 0 0 10px var(--red);
+  animation: loadingWave 1.5s infinite ease-in-out;
+  animation-delay: calc(var(--idx) * 0.1s);
+}
+@keyframes loadingWave {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) scale(1.5); opacity: 1; }
+}
+.loading-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.loading-brand {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+}
+.loading-dots {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+
+/* ── Offline Overlay ────────────────────────────────────── */
+.offline-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.offline-card {
+  background: var(--black-deep);
+  border: 1px solid var(--red-border);
+  padding: 48px;
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(220, 21, 12, 0.2);
+}
+.offline-icon { font-size: 48px; margin-bottom: 24px; }
+.offline-card .t-h2 { color: #fff; margin-bottom: 16px; }
+.offline-card .t-body { color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+

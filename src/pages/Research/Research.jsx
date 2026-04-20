@@ -69,7 +69,7 @@ export default function Research() {
         <div className="container">
           <div className="section-header">
             <h2 className="t-h2">Databases & Predictive Platforms</h2>
-            <p className="t-body text-muted">Open-source tools for the scientific community.</p>
+            <p className="t-body text-muted">Predictive tools for the scientific community.</p>
           </div>
           
           <div className="platforms-grid">
@@ -80,7 +80,7 @@ export default function Research() {
                   <p className="t-body">{plat.description}</p>
                 </div>
                 <div className="card-action">
-                  <button className="btn btn-red btn-sm">Access Portal</button>
+                  <button className="btn btn-red btn-sm">Explore Platform</button>
                 </div>
               </div>
             ))}

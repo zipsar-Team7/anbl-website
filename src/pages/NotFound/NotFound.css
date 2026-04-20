@@ -1,0 +1,73 @@
+.not-found-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.not-found-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error-code {
+  font-size: clamp(100px, 15vw, 180px);
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 24px;
+  opacity: 0.15;
+  letter-spacing: -0.05em;
+}
+
+.not-found-page .t-h1 {
+  margin-bottom: 24px;
+}
+
+.not-found-page .t-body {
+  margin-bottom: 40px;
+  color: var(--text-muted);
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.not-found-visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.error-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(1px);
+  animation: floatError 8s infinite alternate ease-in-out;
+}
+
+@keyframes floatError {
+  from { transform: translate(0, 0); }
+  to { transform: translate(40px, 40px); }
+}
+
+@media (max-width: 600px) {
+  .not-found-actions {
+    flex-direction: column;
+  }
+  .not-found-actions .btn {
+    width: 100%;
+  }
+}

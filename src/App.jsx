@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import GlobalNav from './components/GlobalNav/GlobalNav';
 import GlobalFooter from './components/GlobalFooter/GlobalFooter';
@@ -7,6 +7,51 @@ import About from './pages/About/About';
 import Research from './pages/Research/Research';
 import Publications from './pages/Publications/Publications';
 import Contact from './pages/Contact/Contact';
+import NotFound from './pages/NotFound/NotFound';
+
+/* ── LOADING SCREEN ────────────────────────────────── */
+function LoadingScreen() {
+  return (
+    <div className="loading-screen">
+      <div className="loading-visual">
+        <div className="wave-container">
+          {[...Array(20)].map((_, i) => (
+            <div 
+              key={i} 
+              className="wave-particle" 
+              style={{ '--idx': i }}
+            />
+          ))}
+        </div>
+        <div className="loading-text">
+          <span className="loading-brand">ANBL</span>
+          <span className="loading-dots">Initializing Website</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── OFFLINE SCREEN ────────────────────────────────── */
+function OfflineScreen() {
+  return (
+    <div className="offline-screen">
+      <div className="container center">
+        <div className="offline-card">
+          <div className="offline-icon">📡</div>
+          <h2 className="t-h2">You're Offline</h2>
+          <p className="t-body">
+            Please check your internet connection. This research platform requires an active connection 
+            to process AI models and database queries.
+          </p>
+          <button className="btn btn-red" onClick={() => window.location.reload()}>
+            Retry Connection
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* Scroll to top on every route change */
 function ScrollToTop() {
@@ -17,12 +62,10 @@ function ScrollToTop() {
   return null;
 }
 
-function App() {
-  const [showBar, setShowBar] = import.meta.env.SSR ? [true] : useState(true);
-
+/* ── MAIN LAYOUT ───────────────────────────────────── */
+function MainLayout({ showBar, setShowBar }) {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
+    <>
       {showBar && (
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
@@ -40,14 +83,53 @@ function App() {
         </div>
       )}
       <GlobalNav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/research" element={<Research />} />
-        <Route path="/publications" element={<Publications />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <Outlet />
       <GlobalFooter />
+    </>
+  );
+}
+
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [showBar, setShowBar] = import.meta.env.SSR ? [true] : useState(true);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    // Simulate initial loading
+    const timer = setTimeout(() => setLoading(false), 2000);
+    
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  if (loading) return <LoadingScreen />;
+
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      {isOffline && <OfflineScreen />}
+      
+      <Routes>
+        {/* Standard pages with Nav & Footer */}
+        <Route element={<MainLayout showBar={showBar} setShowBar={setShowBar} />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/research" element={<Research />} />
+          <Route path="/publications" element={<Publications />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+
+        {/* 404 Page without Nav & Footer */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 }
