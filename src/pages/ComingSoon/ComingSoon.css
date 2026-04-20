@@ -82,11 +82,18 @@
   opacity: 0.3;
   filter: blur(1px);
   /* Dual animation: slow drift + fast vibration */
-  animation: 
-    moveParticle var(--duration) linear infinite,
-    vibrateParticle 0.3s infinite alternate ease-in-out;
+  animation: moveParticle var(--duration) linear infinite;
   animation-delay: var(--delay);
   will-change: transform;
+}
+
+/* Enable vibration only on desktop */
+@media (min-width: 768px) {
+  .cs-particle {
+    animation: 
+      moveParticle var(--duration) linear infinite,
+      vibrateParticle 0.3s infinite alternate ease-in-out;
+  }
 }
 
 @keyframes moveParticle {

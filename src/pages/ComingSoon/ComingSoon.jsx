@@ -12,6 +12,9 @@ export default function ComingSoon() {
     if (!container) return;
 
     const handleMouseMove = (e) => {
+      // Skip heavy calculations on small screens or touch devices
+      if (window.innerWidth < 768) return;
+
       const { clientX, clientY } = e;
       
       particlesRef.current.forEach((particle) => {
@@ -53,6 +56,9 @@ export default function ComingSoon() {
     };
   }, []);
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const particleCount = isMobile ? 40 : 150;
+
   return (
     <main className="coming-soon-page" ref={containerRef}>
       <div className="container center">
@@ -76,9 +82,9 @@ export default function ComingSoon() {
           </div>
         </div>
         
-        {/* Particle Animation Background — Increased density for "Vibrating" effect */}
+        {/* Particle Animation Background — Adaptive density for performance */}
         <div className="coming-soon-particles">
-          {[...Array(150)].map((_, i) => (
+          {[...Array(particleCount)].map((_, i) => (
             <div 
               key={i} 
               ref={el => particlesRef.current[i] = el}
