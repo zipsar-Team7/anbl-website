@@ -78,6 +78,7 @@ img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 p { margin: 0; }
+main { flex: 1; }
 button { font-family: var(--font); cursor: pointer; border: none; background: none; }
 
 /* ── Typography scale ───────────────────────────────────── */
