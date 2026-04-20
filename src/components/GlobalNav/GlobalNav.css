@@ -12,7 +12,8 @@
   border-bottom: 1px solid var(--border);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  transition: box-shadow 0.3s;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: background, box-shadow;
 }
 .gnav--scrolled {
   box-shadow: 0 1px 0 var(--border), 0 4px 20px rgba(0,0,0,0.05);
@@ -43,8 +44,36 @@
   text-decoration: none;
   transition: opacity 0.2s;
 }
-.gnav__logo:hover { opacity: 0.75; }
-.gnav__logo-img { transition: opacity 0.3s; }
+.gnav__logo:hover { opacity: 0.85; }
+
+.logo-wrapper {
+  position: relative;
+  height: 42px;
+  width: 180px; /* Increased width to accommodate larger logo */
+  display: flex;
+  align-items: center;
+}
+
+.gnav__logo-img {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast; /* Improves clarity on some browsers */
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+.gnav__logo-img.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gnav__logo-img.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* ── Desktop links ────────────────────────────────────── */
 .gnav__links {

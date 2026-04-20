@@ -22,7 +22,7 @@ export default function GlobalFooter() {
         {/* Brand */}
         <div className="gfooter__brand">
           <div className="gfooter__logo">
-            <img src={logo} alt="ANBL Logo" className="gfooter__logo-img" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+            <img src={logo} alt="ANBL Logo" className="gfooter__logo-img" />
           </div>
           <p className="gfooter__desc">
             Integrating experimental biology with artificial intelligence to build next-generation predictive biosafety and nanomedicine frameworks.

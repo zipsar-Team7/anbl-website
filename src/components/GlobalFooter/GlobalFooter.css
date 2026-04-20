@@ -27,7 +27,13 @@
   align-items: center;
   margin-bottom: 20px;
 }
-.gfooter__logo-img { opacity: 0.9; }
+.gfooter__logo-img { 
+  height: 48px; 
+  width: auto; 
+  object-fit: contain; 
+  opacity: 0.95; 
+  image-rendering: -webkit-optimize-contrast;
+}
 .gfooter__desc {
   font-size: 13.5px;
   line-height: 1.75;

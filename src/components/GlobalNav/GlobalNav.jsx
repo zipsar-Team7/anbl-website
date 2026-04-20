@@ -19,9 +19,18 @@ export default function GlobalNav() {
   const isSolid = scrolled;
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => setOpen(false), [location]);
@@ -29,14 +38,20 @@ export default function GlobalNav() {
   return (
     <header className={`gnav ${isSolid ? 'gnav--scrolled' : 'gnav--transparent'}`}>
       <div className="gnav__inner container">
-        {/* Logo */}
+        {/* Logo — Optimized with dual-rendering to prevent loading glitches */}
         <NavLink to="/" className="gnav__logo" id="nav-logo">
-          <img
-            src={isSolid ? logoDark : logoLight}
-            alt="ANBL Logo"
-            className="gnav__logo-img"
-            style={{ height: '32px', width: 'auto', objectFit: 'contain' }}
-          />
+          <div className="logo-wrapper">
+            <img
+              src={logoDark}
+              alt="ANBL Logo"
+              className={`gnav__logo-img logo-dark ${isSolid ? 'visible' : 'hidden'}`}
+            />
+            <img
+              src={logoLight}
+              alt="ANBL Logo"
+              className={`gnav__logo-img logo-light ${isSolid ? 'hidden' : 'visible'}`}
+            />
+          </div>
         </NavLink>
 
         {/* Desktop links */}
