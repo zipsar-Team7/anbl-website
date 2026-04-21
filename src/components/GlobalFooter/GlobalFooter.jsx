@@ -1,15 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import { labData } from '../../data/labData';
 import './GlobalFooter.css';
-import logo from '../../assets/logo-footer-new.png';
+import logo from '../../assets/logo-new.png';
 
 const { labInfo } = labData;
 
 const footerNav = [
   { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
+  { label: 'Principal Investigator', to: '/about' },
   { label: 'Research', to: '/research' },
+  { label: 'Projects', to: '/projects' },
   { label: 'Publications', to: '/publications' },
+  { label: 'News', to: '/news' },
+  { label: 'Opportunities', to: '/opportunities' },
+  { label: 'Web Tools', to: '/webtool' },
   { label: 'Contact', to: '/contact' },
 ];
 

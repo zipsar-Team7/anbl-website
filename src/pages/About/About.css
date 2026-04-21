@@ -7,13 +7,15 @@
   grid-template-columns: 320px 1fr;
   gap: 64px;
   align-items: center;
+  position: relative;
+  z-index: 5;
 }
 .profile-img-box {
   width: 100%;
   aspect-ratio: 4/5;
-  background: rgba(255,255,255,0.05);
+  background: var(--surface);
   border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,10 +24,10 @@
 .profile-img-fallback {
   font-size: 40px;
   font-weight: 800;
-  color: rgba(255,255,255,0.2);
+  color: var(--text-light);
   letter-spacing: 4px;
 }
-.profile-hero .t-h1 { color: #fff; margin: 16px 0; }
+.profile-hero .t-h1 { color: var(--text-primary); margin: 16px 0; }
 .profile-hero__title {
   font-size: 20px;
   color: var(--red);
@@ -33,12 +35,12 @@
   margin-bottom: 24px;
 }
 .profile-hero__meta {
-  color: rgba(255,255,255,0.7);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 32px;
 }
 .profile-hero__meta p { color: inherit; }
-.profile-email a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.profile-email a { color: var(--red); text-decoration: underline; text-underline-offset: 4px; }
 
 /* Biography */
 .bio-content { line-height: 1.8; color: var(--text-secondary); }

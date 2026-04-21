@@ -1,25 +1,13 @@
 /* ── Research Page ─────────────────────────────────────── */
 
 /* Inner Hero Pattern */
-.inner-hero {
-  position: relative;
-  background: var(--black-deep);
-  padding: 120px 0 80px;
-  overflow: hidden;
-}
-.inner-hero__bg-gradient {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(220, 21, 12, 0.15) 0%, transparent 70%);
-  z-index: 1;
-}
 .inner-hero__content {
   position: relative;
   z-index: 2;
   max-width: 800px;
 }
-.inner-hero__content .t-h1 { color: #fff; margin: 24px 0; }
-.inner-hero__sub { color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1.6; }
+.inner-hero__content .t-h1 { margin: 24px 0; }
+.inner-hero__sub { font-size: 18px; line-height: 1.6; }
 
 /* Themes Grid */
 .themes-grid {

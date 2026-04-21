@@ -6,50 +6,30 @@ import logoLight from '../../assets/logo-footer-new.png';
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
+  { to: '/about', label: 'Principal Investigator' },
   { to: '/research', label: 'Research' },
+  { to: '/projects', label: 'Projects' },
   { to: '/publications', label: 'Publications' },
+  { to: '/news', label: 'News' },
+  { to: '/opportunities', label: 'Opportunities' },
+  { to: '/webtool', label: 'Web Tools' },
 ];
 
 export default function GlobalNav() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
-
-  const isSolid = scrolled;
-
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => setOpen(false), [location]);
 
   return (
-    <header className={`gnav ${isSolid ? 'gnav--scrolled' : 'gnav--transparent'}`}>
+    <header className="gnav">
       <div className="gnav__inner container">
-        {/* Logo — Optimized with dual-rendering to prevent loading glitches */}
         <NavLink to="/" className="gnav__logo" id="nav-logo">
           <div className="logo-wrapper">
             <img
               src={logoDark}
               alt="ANBL Logo"
-              className={`gnav__logo-img logo-dark ${isSolid ? 'visible' : 'hidden'}`}
-            />
-            <img
-              src={logoLight}
-              alt="ANBL Logo"
-              className={`gnav__logo-img logo-light ${isSolid ? 'hidden' : 'visible'}`}
+              className="gnav__logo-img logo-dark visible"
             />
           </div>
         </NavLink>

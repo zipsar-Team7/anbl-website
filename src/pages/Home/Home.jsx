@@ -1,19 +1,18 @@
-import { labData } from '../../data/labData';
-import './Home.css';
-import heroBg from '../../assets/herobg.jpg';
-import nanoTech from '../../assets/nano-tech.jpg';
-
+import { labData } from "../../data/labData";
+import "./Home.css";
+import heroBg from "../../assets/herobg.jpg";
+import nanoTech from "../../assets/herobgmain.jpg";
+// src\assets\herobgmain.jpg
 const { labInfo, quickNav, researchThemes } = labData;
 
 export default function Home() {
   return (
     <main id="home-page">
-
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="hero" id="hero">
         <img src={heroBg} className="hero__bg-img" alt="" aria-hidden="true" />
         <div className="hero__bg-gradient" aria-hidden="true" />
-        
+
         {/* Nanoparticle Animation */}
         <div className="hero__visual-particles" aria-hidden="true">
           {[...Array(12)].map((_, i) => (
@@ -28,28 +27,31 @@ export default function Home() {
               Advanced Nanomedicine &amp; Biosafety Lab · Hanyang University
             </p>
             <h1 className="t-hero hero__headline">
-              Pioneering the Future<br />
-              of <span className="accent">Nanomedicine</span><br />
+              Pioneering the Future
+              <br />
+              of <span className="accent">Nanomedicine</span>
+              <br />
               with AI.
             </h1>
-            <p className="hero__sub">
-              {labInfo.subHeadline}
-            </p>
+            <p className="hero__sub">{labInfo.subHeadline}</p>
             <div className="hero__actions">
-              <a href="/research" className="btn btn-red btn-lg">Explore Our Research</a>
-              <a href="/publications" className="btn btn-lg" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.08)' }}>
-                View Publications
+              <a href="/webtool" className="btn btn-red btn-lg">
+                Explore Our Tools
               </a>
             </div>
 
             {/* Stats */}
             <div className="hero__stats">
               <div>
-                <div className="hero__stat-num">100<span>+</span></div>
+                <div className="hero__stat-num">
+                  100<span>+</span>
+                </div>
                 <div className="hero__stat-label">Peer-Reviewed Articles</div>
               </div>
               <div>
-                <div className="hero__stat-num">7<span>+</span></div>
+                <div className="hero__stat-num">
+                  7<span>+</span>
+                </div>
                 <div className="hero__stat-label">Global Collaborations</div>
               </div>
               <div>
@@ -81,10 +83,10 @@ export default function Home() {
 
             <div className="intro-visual">
               <div className="visual-box">
-                <img 
-                  src={nanoTech} 
-                  alt="Advanced Nanomedicine Lab" 
-                  className="visual-img" 
+                <img
+                  src={nanoTech}
+                  alt="Advanced Nanomedicine Lab"
+                  className="visual-img"
                 />
               </div>
             </div>
@@ -97,7 +99,11 @@ export default function Home() {
         <div className="container">
           <div className="section-header center">
             <span className="section-label">Our Methodology</span>
-            <h2 className="t-h2">A multi-scale, AI-integrated framework for<br />predicting nanomaterial biosafety and recovery</h2>
+            <h2 className="t-h2">
+              A multi-scale, AI-integrated framework for
+              <br />
+              predicting nanomaterial biosafety and recovery
+            </h2>
           </div>
 
           <div className="framework-flow">
@@ -205,9 +211,15 @@ export default function Home() {
           <div className="pillars-header">
             <div>
               <p className="section-label">Core Research Areas</p>
-              <h2 className="t-h2">Five Pillars of<br />Scientific Excellence</h2>
+              <h2 className="t-h2">
+                Five Pillars of
+                <br />
+                Scientific Excellence
+              </h2>
             </div>
-            <a href="/research" className="btn btn-outline">View All Research →</a>
+            <a href="/research" className="btn btn-outline">
+              View All Research →
+            </a>
           </div>
 
           <div className="pillars-grid">
@@ -217,8 +229,10 @@ export default function Home() {
                 <h3 className="pillar-title">{theme.title}</h3>
                 <p className="pillar-desc">{theme.description}</p>
                 <div className="pillar-tags">
-                  {theme.keywords.split(' · ').map((tag, j) => (
-                    <span key={j} className="pillar-tag">{tag}</span>
+                  {theme.keywords.split(" · ").map((tag, j) => (
+                    <span key={j} className="pillar-tag">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -229,24 +243,47 @@ export default function Home() {
 
       {/* ── MISSION CTA BAND ─────────────────────────────────── */}
       <section className="cta-band" id="mission">
-        <div className="container cta-band__inner">
-          <div className="cta-band__text">
-            <p className="cta-band__label">Our Mission</p>
-            <h2 className="cta-band__headline">{labInfo.missionHighlight}</h2>
-            <p className="cta-band__sub">
-              Join us in transforming nanotoxicology into a mechanism-informed,
-              predictive science — reducing cost, time, and reliance on animal testing.
-            </p>
-          </div>
-          <div className="cta-band__actions">
-            <a href="/contact" className="btn btn-red btn-lg">Collaborate With Us</a>
-            <a href="/about" className="btn btn-lg" style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.06)' }}>
-              Meet the Team
-            </a>
+        {/* Background Particles */}
+        <div className="cta-band__visual-particles" aria-hidden="true">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                width: `${Math.random() * 40 + 20}px`,
+                height: `${Math.random() * 40 + 20}px`,
+                top: `${Math.random() * 100}%`,
+                right: `${Math.random() * 50}%`,
+                animationDelay: `${Math.random() * -10}s`,
+                opacity: 0.15,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="container">
+          <div className="cta-band__glass">
+            <div className="cta-band__inner">
+              <div className="cta-band__text">
+                <p className="cta-band__label">Our Mission</p>
+                <h2 className="cta-band__headline">
+                  {labInfo.missionHighlight}
+                </h2>
+                <p className="cta-band__sub">
+                  Join us in transforming nanotoxicology into a
+                  mechanism-informed, predictive science — reducing cost, time,
+                  and reliance on animal testing.
+                </p>
+              </div>
+              <div className="cta-band__actions">
+                <a href="/contact" className="btn btn-red btn-lg">
+                  Collaborate With Us
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
     </main>
   );
 }

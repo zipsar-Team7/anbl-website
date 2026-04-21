@@ -1,0 +1,105 @@
+.opps-page .inner-hero {
+  padding: 160px 0 80px;
+}
+
+.positions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .positions-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.position-card {
+  padding: 40px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+}
+
+.position-card:hover {
+  border-color: var(--brand-red);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.position-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.position-card .t-h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.position-type {
+  font-size: 0.7rem;
+  background: var(--surface);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.position-loc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.position-card .t-body {
+  flex-grow: 1;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.section--dark {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.section--dark .t-h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.info-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--brand-red);
+}
+
+.step-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--brand-red);
+  opacity: 0.8;
+}
+
+.step p {
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
+}

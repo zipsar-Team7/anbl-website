@@ -215,5 +215,39 @@ export const labData = {
     { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
     { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
     { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
+  ],
+  webTools: [
+    {
+      id: 'toxicology-ai',
+      name: "ANBL Toxicology AI",
+      category: "Predictive Analytics",
+      description: "Advanced machine learning models for predicting nanomaterial biosafety and toxicity outcomes.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'omics-hub',
+      name: "Multi-Omics Hub",
+      category: "Data Integration",
+      description: "Integrated platform for scRNA-seq and CyTOF data analysis in the context of nanotechnology.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'polymer-db',
+      name: "Polymer Material DB",
+      category: "Database",
+      description: "Comprehensive repository of polymeric nanomaterials with curated physicochemical properties.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'alzheimers-pred',
+      name: "AD-Nano Predictor",
+      category: "Disease Modeling",
+      description: "Specialized framework for evaluating nanoparticle therapeutic potential in Alzheimer's systems.",
+      status: "Early Access",
+      link: "/coming-soon"
+    }
   ]
 };

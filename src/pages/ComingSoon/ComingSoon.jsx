@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
-import logo from '../../assets/logo-new.png';
-import './ComingSoon.css';
+import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import logo from "../../assets/logo-new.png";
+import "./ComingSoon.css";
 
 export default function ComingSoon() {
   const containerRef = useRef(null);
@@ -16,18 +16,18 @@ export default function ComingSoon() {
       if (window.innerWidth < 768) return;
 
       const { clientX, clientY } = e;
-      
+
       particlesRef.current.forEach((particle) => {
         if (!particle) return;
-        
+
         const rect = particle.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
+
         const dx = centerX - clientX;
         const dy = centerY - clientY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         // Repel distance
         const maxDist = 150;
         if (distance < maxDist) {
@@ -42,21 +42,21 @@ export default function ComingSoon() {
     };
 
     const handleMouseLeave = () => {
-      particlesRef.current.forEach(p => {
+      particlesRef.current.forEach((p) => {
         if (p) p.style.transform = `translate(0, 0)`;
       });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    
+    window.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const particleCount = isMobile ? 40 : 150;
 
   return (
@@ -72,29 +72,34 @@ export default function ComingSoon() {
           <h1 className="t-h1">ANBL Web Platform</h1>
           <h2 className="t-h2 coming-soon-title">Coming Soon</h2>
           <p className="t-body">
-            We are currently engineering a state-of-the-art, AI-driven platform for predictive 
-            nanomaterial analysis. This tool will integrate multi-omics datasets and 
-            machine learning models to provide rapid biosafety assessments.
+            We are currently engineering a state-of-the-art, AI-driven platform
+            for predictive nanomaterial analysis. This tool will integrate
+            multi-omics datasets and machine learning models to provide rapid
+            biosafety assessments.
           </p>
           <div className="coming-soon-actions">
-            <Link to="/contact" className="btn btn-red btn-lg">Join the Waitlist</Link>
-            <Link to="/" className="btn btn-outline btn-lg">Back to Home</Link>
+            <Link to="/webtool" className="btn btn-red btn-lg">
+              Back to Webtools
+            </Link>
+            <Link to="/" className="btn btn-outline btn-lg">
+              Back to Home
+            </Link>
           </div>
         </div>
-        
+
         {/* Particle Animation Background — Adaptive density for performance */}
         <div className="coming-soon-particles">
           {[...Array(particleCount)].map((_, i) => (
-            <div 
-              key={i} 
-              ref={el => particlesRef.current[i] = el}
-              className="cs-particle-wrapper" 
+            <div
+              key={i}
+              ref={(el) => (particlesRef.current[i] = el)}
+              className="cs-particle-wrapper"
               style={{
-                '--x': `${Math.random() * 100}%`,
-                '--y': `${Math.random() * 100}%`,
-                '--duration': `${15 + Math.random() * 20}s`,
-                '--delay': `${-Math.random() * 20}s`,
-                '--size': `${2 + Math.random() * 4}px`
+                "--x": `${Math.random() * 100}%`,
+                "--y": `${Math.random() * 100}%`,
+                "--duration": `${15 + Math.random() * 20}s`,
+                "--delay": `${-Math.random() * 20}s`,
+                "--size": `${2 + Math.random() * 4}px`,
               }}
             >
               <div className="cs-particle" />

@@ -1,5 +1,5 @@
-import { labData } from '../../data/labData';
-import './About.css';
+import { labData } from "../../data/labData";
+import "./About.css";
 
 const { director } = labData;
 
@@ -11,15 +11,15 @@ export default function About() {
         <div className="inner-hero__bg-gradient" aria-hidden="true" />
         <div className="inner-hero__particles">
           {[...Array(40)].map((_, i) => (
-            <div 
-              key={i} 
-              className="vibrating-particle" 
-              style={{ 
-                bottom: `${Math.random() * 80}px`, 
+            <div
+              key={i}
+              className="vibrating-particle"
+              style={{
+                bottom: `${Math.random() * 80}px`,
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }} 
+                animationDuration: `${3 + Math.random() * 2}s`,
+              }}
             />
           ))}
         </div>
@@ -44,7 +44,9 @@ export default function About() {
                 </p>
               </div>
               <div className="profile-hero__actions">
-                <button className="btn btn-red">Download CV</button>
+                <a href="/opportunities" className="btn btn-red">
+                  Join Our Team
+                </a>
               </div>
             </div>
           </div>
@@ -58,7 +60,7 @@ export default function About() {
             <h2 className="t-h2">Biography</h2>
           </div>
           <div className="bio-content t-body">
-            {director.bio.split('\n\n').map((para, i) => (
+            {director.bio.split("\n\n").map((para, i) => (
               <p key={i}>{para}</p>
             ))}
           </div>
@@ -66,7 +68,10 @@ export default function About() {
       </section>
 
       {/* ── JOURNEY (TIMELINE) ───────────────────────────── */}
-      <section className="section history-section" style={{ background: 'var(--surface)' }}>
+      <section
+        className="section history-section"
+        style={{ background: "var(--surface)" }}
+      >
         <div className="container">
           <div className="history-grid">
             {/* Experience */}
@@ -121,7 +126,13 @@ export default function About() {
               {labData.team.researchScientists.map((member, i) => (
                 <div key={i} className="team-card">
                   <div className="team-card__img-box">
-                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                    {member.image ? (
+                      <img src={member.image} alt={member.name} />
+                    ) : (
+                      <div className="team-card__placeholder">
+                        <span>{member.name.charAt(0)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="team-card__info">
                     <h4 className="team-card__name">{member.name}</h4>
@@ -135,12 +146,20 @@ export default function About() {
 
           {/* Students */}
           <div className="team-group">
-            <h3 className="team-category-title">Graduate & Undergraduate Students</h3>
+            <h3 className="team-category-title">
+              Graduate & Undergraduate Students
+            </h3>
             <div className="team-grid">
               {labData.team.students.map((member, i) => (
                 <div key={i} className="team-card">
                   <div className="team-card__img-box">
-                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                    {member.image ? (
+                      <img src={member.image} alt={member.name} />
+                    ) : (
+                      <div className="team-card__placeholder">
+                        <span>{member.name.charAt(0)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="team-card__info">
                     <h4 className="team-card__name">{member.name}</h4>
@@ -159,7 +178,13 @@ export default function About() {
               {labData.team.staff.map((member, i) => (
                 <div key={i} className="team-card">
                   <div className="team-card__img-box">
-                    {member.image ? <img src={member.image} alt={member.name} /> : <div className="team-card__placeholder"><span>{member.name.charAt(0)}</span></div>}
+                    {member.image ? (
+                      <img src={member.image} alt={member.name} />
+                    ) : (
+                      <div className="team-card__placeholder">
+                        <span>{member.name.charAt(0)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="team-card__info">
                     <h4 className="team-card__name">{member.name}</h4>
@@ -174,7 +199,10 @@ export default function About() {
       </section>
 
       {/* ── GALLERY SECTION ────────────────────────────────── */}
-      <section className="section gallery-section" style={{ background: 'var(--surface)' }}>
+      <section
+        className="section gallery-section"
+        style={{ background: "var(--surface)" }}
+      >
         <div className="container">
           <div className="section-header">
             <span className="section-label">Visual Journey</span>
@@ -184,7 +212,7 @@ export default function About() {
             {labData.gallery.map((item, i) => (
               <div key={i} className="gallery-item">
                 <div className="gallery-media">
-                  {item.type === 'image' ? (
+                  {item.type === "image" ? (
                     <img src={item.url} alt={item.caption} />
                   ) : (
                     <video src={item.url} controls />
@@ -201,17 +229,53 @@ export default function About() {
 
       {/* ── CTA BAND ───────────────────────────────────────── */}
       <section className="cta-band">
-        <div className="container cta-band__inner">
-          <div className="cta-band__text">
-            <p className="cta-band__label">Join the Team</p>
-            <h2 className="cta-band__headline">Shaping the next generation of researchers.</h2>
-            <p className="cta-band__sub">
-              Are you passionate about nanomedicine and AI? We're looking for 
-              dedicated researchers and students to join our mission.
-            </p>
-          </div>
-          <div className="cta-band__actions">
-            <a href="/contact" className="btn btn-red btn-lg">View Open Positions</a>
+        {/* Background Particles */}
+        <div className="cta-band__visual-particles" aria-hidden="true">
+          {[...Array(12)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                width: `${Math.random() * 40 + 20}px`,
+                height: `${Math.random() * 40 + 20}px`,
+                top: `${Math.random() * 100}%`,
+                right: `${Math.random() * 50}%`,
+                animationDelay: `${Math.random() * -10}s`,
+                opacity: 0.15,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="container">
+          <div className="cta-band__glass">
+            <div className="cta-band__inner">
+              <div className="cta-band__text">
+                <p className="cta-band__label">Join the Team</p>
+                <h2 className="cta-band__headline">
+                  Shaping the next generation of researchers.
+                </h2>
+                <p className="cta-band__sub">
+                  Are you passionate about nanomedicine and AI? We're looking
+                  for dedicated researchers and students to join our mission.
+                </p>
+              </div>
+              <div className="cta-band__actions">
+                <a href="/opportunities" className="btn btn-red btn-lg">
+                  View Open Positions
+                </a>
+                <a
+                  href="/contact"
+                  className="btn btn-outline btn-lg"
+                  style={{
+                    color: "var(--text-primary)",
+                    background: "rgba(0,0,0,0.03)",
+                  }}
+                >
+                  Contact Us
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
