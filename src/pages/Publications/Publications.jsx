@@ -6,7 +6,7 @@ import './Publications.css';
 import publicationsData from '../../data/publications.json';
 
 const scholarUrl = labData.labInfo.contact.googleScholar;
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 10;
 
 export default function Publications() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -80,34 +80,15 @@ export default function Publications() {
     <main className="publications-page">
       {/* ── HERO ───────────────────────────────────────── */}
       <section className="inner-hero">
-        <div className="inner-hero__bg-gradient" aria-hidden="true" />
-        <div className="inner-hero__particles">
-          {[...Array(40)].map((_, i) => (
-            <div 
-              key={i} 
-              className="vibrating-particle" 
-              style={{ 
-                bottom: `${Math.random() * 80}px`, 
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }} 
-            />
-          ))}
-        </div>
         <div className="container">
-          <div className="inner-hero__content">
+          <div className="inner-hero__content reveal-up">
             <span className="section-label">Academic Impact</span>
             <h1 className="t-h1">Peer-Reviewed Publications</h1>
             <p className="t-body inner-hero__sub">
               Explore our laboratory's research contributions to high-impact international journals. 
               Search through our complete bibliography or filter by year.
             </p>
-            <div className="inner-hero__actions" style={{ marginTop: '32px' }}>
-              <a href={scholarUrl} target="_blank" rel="noopener noreferrer" className="btn btn-red">
-                View on Google Scholar
-              </a>
-            </div>
+
           </div>
         </div>
       </section>

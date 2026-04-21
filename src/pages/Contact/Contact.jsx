@@ -8,23 +8,8 @@ export default function Contact() {
     <main className="contact-page">
       {/* ── HERO ───────────────────────────────────────── */}
       <section className="inner-hero">
-        <div className="inner-hero__bg-gradient" aria-hidden="true" />
-        <div className="inner-hero__particles">
-          {[...Array(40)].map((_, i) => (
-            <div 
-              key={i} 
-              className="vibrating-particle" 
-              style={{ 
-                bottom: `${Math.random() * 80}px`, 
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
-              }} 
-            />
-          ))}
-        </div>
         <div className="container">
-          <div className="inner-hero__content">
+          <div className="inner-hero__content reveal-up">
             <span className="section-label">Collaboration</span>
             <h1 className="t-h1">Get in Touch</h1>
             <p className="t-body inner-hero__sub">
@@ -117,8 +102,8 @@ export default function Contact() {
           </div>
           <div className="cta-band__actions">
             <a href="/research" className="btn btn-red btn-lg">Explore Research</a>
-            <a href="/about" className="btn btn-lg" style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.06)' }}>
-              Meet the Team
+            <a href="/pi" className="btn btn-outline btn-lg">
+              Principal Investigator
             </a>
           </div>
         </div>

@@ -25,7 +25,7 @@ export default function Research() {
           ))}
         </div>
         <div className="container">
-          <div className="inner-hero__content">
+          <div className="inner-hero__content reveal-up">
             <span className="section-label">Research Program</span>
             <h1 className="t-h1">Multi-Scale, Mechanism-Informed Research</h1>
             <p className="t-body inner-hero__sub">
@@ -48,15 +48,15 @@ export default function Research() {
           
           <div className="themes-grid">
             {researchThemes.map((theme, i) => (
-              <div key={i} className="theme-card resource-card">
-                <div className="card-header">
-                  <span className="card-tag">{theme.id}</span>
+              <div key={i} className="theme-card">
+                <div className="theme-card__header">
+                  <span className="theme-card__num">{theme.id}</span>
                 </div>
-                <h3 className="t-h3">{theme.title}</h3>
-                <p className="t-body">{theme.description}</p>
-                <div className="card-footer-tags">
+                <h3 className="theme-card__title">{theme.title}</h3>
+                <p className="theme-card__desc">{theme.description}</p>
+                <div className="theme-card__tags">
                   {theme.keywords.split(' · ').map((tag, j) => (
-                    <span key={j} className="pill-tag">{tag}</span>
+                    <span key={j} className="theme-card__tag">{tag}</span>
                   ))}
                 </div>
               </div>

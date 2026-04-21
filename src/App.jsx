@@ -7,25 +7,31 @@ import About from './pages/About/About';
 import Research from './pages/Research/Research';
 import Publications from './pages/Publications/Publications';
 import Contact from './pages/Contact/Contact';
+import News from './pages/News/News';
+import Opportunities from './pages/Opportunities/Opportunities';
 import NotFound from './pages/NotFound/NotFound';
 import ComingSoon from './pages/ComingSoon/ComingSoon';
 
 /* ── LOADING SCREEN ────────────────────────────────── */
 function LoadingScreen() {
   return (
-    <div className="loading-screen">
+    <div className="loading-screen" style={{ background: '#ffffff' }}>
       <div className="loading-visual">
         <div className="wave-container">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <div 
               key={i} 
               className="wave-particle" 
-              style={{ '--idx': i }}
+              style={{ 
+                '--idx': i,
+                background: '#c0392b',
+                boxShadow: '0 0 10px rgba(192, 57, 43, 0.3)'
+              }}
             />
           ))}
         </div>
         <div className="loading-text">
-          <span className="loading-brand">ANBL</span>
+          <span className="loading-brand" style={{ color: '#1d1d1f' }}>ANBL</span>
           <span className="loading-dots">Initializing Website</span>
         </div>
       </div>
@@ -131,9 +137,12 @@ function App() {
         {/* Standard pages with Nav & Footer */}
         <Route element={<MainLayout showBar={showBar} setShowBar={setShowBar} />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/pi" element={<About />} />
           <Route path="/research" element={<Research />} />
+          <Route path="/projects" element={<ComingSoon />} />
           <Route path="/publications" element={<Publications />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
 

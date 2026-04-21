@@ -7,10 +7,10 @@
 /* ── Design Tokens ──────────────────────────────────────── */
 :root {
   /* Primary accent */
-  --red:          #DC150C;
-  --red-dark:     #b8100a;
-  --red-soft:     rgba(220, 21, 12, 0.06);
-  --red-border:   rgba(220, 21, 12, 0.18);
+  --red:          #c0392b;
+  --red-dark:     #a93226;
+  --red-soft:     rgba(192, 57, 43, 0.06);
+  --red-border:   rgba(192, 57, 43, 0.18);
 
   /* Blacks & surfaces */
   --black:        #000000;
@@ -83,7 +83,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 /* ── Typography scale ───────────────────────────────────── */
 .t-hero   { font-size: clamp(44px, 7vw, 80px); font-weight: 700; line-height: 1.04; letter-spacing: -0.04em; }
-.t-h1     { font-size: clamp(32px, 4vw, 56px); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
+.t-h1     { font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
 .t-h2     { font-size: clamp(24px, 3vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
 .t-h3     { font-size: 21px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
 .t-body   { font-size: 17px; line-height: 1.7; color: var(--text-secondary); font-weight: 400; }
@@ -184,49 +184,108 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .divider    { height: 1px; background: var(--border); margin: 48px 0; }
 .divider-sm { height: 1px; background: var(--border); margin: 24px 0; }
 
-/* ── Inner Hero Pattern (Global) ────────────────────────── */
+/* ── Global Animated Background ────────────────────────── */
+body {
+  background: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 50% 50%, var(--red) 2%, transparent 3%),
+    radial-gradient(circle at 10% 10%, var(--red) 1%, transparent 2%),
+    linear-gradient(30deg, rgba(192, 57, 43, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(192, 57, 43, 0.03) 87.5%, rgba(192, 57, 43, 0.03)),
+    linear-gradient(150deg, rgba(192, 57, 43, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(192, 57, 43, 0.03) 87.5%, rgba(192, 57, 43, 0.03)),
+    linear-gradient(30deg, rgba(192, 57, 43, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(192, 57, 43, 0.03) 87.5%, rgba(192, 57, 43, 0.03)),
+    linear-gradient(150deg, rgba(192, 57, 43, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(192, 57, 43, 0.03) 87.5%, rgba(192, 57, 43, 0.03)),
+    linear-gradient(60deg, rgba(192, 57, 43, 0.03) 25%, transparent 25.5%, transparent 75%, rgba(192, 57, 43, 0.03) 75.5%, rgba(192, 57, 43, 0.03)),
+    linear-gradient(60deg, rgba(192, 57, 43, 0.03) 25%, transparent 25.5%, transparent 75%, rgba(192, 57, 43, 0.03) 75.5%, rgba(192, 57, 43, 0.03));
+  background-size: 80px 140px, 60px 100px, 80px 140px, 80px 140px, 80px 140px, 80px 140px, 80px 140px, 80px 140px;
+  background-position: 0 0, 40px 70px, 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  animation: patternFloatGlobal 100s linear infinite;
+}
+
+@keyframes patternFloatGlobal {
+  from { background-position: 0 0, 40px 70px, 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px; }
+  to { background-position: 1000px 1000px, 1040px 1070px, 1000px 1000px, 1000px 1000px, 1040px 1070px, 1040px 1070px, 1000px 1000px, 1040px 1070px; }
+}
+
+/* ── Content Reveal Animation ────────────────────────── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Inner Hero (Global for Subpages) ────────────────────────── */
 .inner-hero {
   position: relative;
-  background: var(--black-deep);
-  padding: 120px 0 80px;
+  background: transparent;
+  padding: 100px 0;
+  color: var(--text-primary);
   overflow: hidden;
-  color: #fff;
+  text-align: center;
 }
-.inner-hero__bg-gradient {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 70% 30%, rgba(220, 21, 12, 0.15) 0%, transparent 70%);
-  z-index: 1;
-}
+
 .inner-hero__content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.inner-hero .t-h1 { color: #fff !important; margin: 24px 0; }
-.inner-hero__sub { color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1.6; }
-.inner-hero .section-label { color: var(--red); opacity: 1; }
+
+.inner-hero .t-h1 { 
+  color: var(--text-primary) !important; 
+  margin: 0 0 24px; 
+  font-weight: 800; 
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.1;
+}
+
+.inner-hero__sub { 
+  color: var(--text-secondary); 
+  font-size: 18px; 
+  line-height: 1.6; 
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.inner-hero .section-label { 
+  color: var(--red); 
+  display: block; 
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.inner-hero__bg-gradient,
+.inner-hero__particles {
+  display: none;
+}
 
 /* ── Global CTA Band ─────────────────────────────────────── */
 .cta-band {
-  background: var(--black-deep);
-  padding: 96px 0;
+  background: #ffffff;
+  padding: 100px 0;
   position: relative;
   overflow: hidden;
-  color: #fff;
+  color: var(--text-primary);
+  border-top: 1px solid #f0f0f0;
 }
-.cta-band::before {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(220,21,12,0.12) 0%, transparent 65%);
-  right: -150px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
+
 .cta-band__inner {
   position: relative;
   z-index: 1;
@@ -237,31 +296,34 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 .cta-band__text { max-width: 640px; text-align: left; }
 .cta-band__label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--red);
   margin-bottom: 16px;
 }
 .cta-band__headline {
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 700;
-  color: #fff;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: var(--text-primary);
   letter-spacing: -0.025em;
   line-height: 1.15;
   margin-bottom: 16px;
 }
 .cta-band__sub {
-  font-size: 16px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.65;
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 .cta-band__actions {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   flex-shrink: 0;
+}
+
+.cta-band::before {
+  display: none;
 }
 
 @media (max-width: 768px) {

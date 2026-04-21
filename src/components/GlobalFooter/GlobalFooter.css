@@ -1,13 +1,14 @@
-/* ── GlobalFooter — Deep Black, Apple-Inspired ─────────── */
+/* ── GlobalFooter — Clean Academic Style ─────────── */
 .gfooter {
-  background: var(--black-deep);
-  color: rgba(255,255,255,0.55);
+  background: #ffffff;
+  color: var(--text-secondary);
   margin-top: auto;
+  border-top: 1px solid #eeeeee;
 }
 
 /* Red accent bar at very top */
 .gfooter__accent {
-  height: 3px;
+  height: 4px;
   background: var(--red);
   width: 100%;
 }
@@ -25,20 +26,54 @@
 .gfooter__logo  {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  color: var(--text-primary);
 }
+
+.logo-wrapper {
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+
 .gfooter__logo-img { 
-  height: 48px; 
+  height: 100%; 
   width: auto; 
   object-fit: contain; 
-  opacity: 0.95; 
-  image-rendering: -webkit-optimize-contrast;
+}
+
+.brand-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font);
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-divider {
+  color: var(--border);
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.brand-sub {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 .gfooter__desc {
-  font-size: 13.5px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.4);
-  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 320px;
   margin-bottom: 24px;
 }
 .gfooter__links-inline {
@@ -48,72 +83,73 @@
 .gfooter__ext-link {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255,255,255,0.45);
+  color: var(--red);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: opacity 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
-.gfooter__ext-link:hover { color: #fff; }
+.gfooter__ext-link:hover { opacity: 0.7; }
 
 /* Nav column */
 .gfooter__col-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
   margin-bottom: 22px;
 }
 .gfooter__col ul {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 .gfooter__nav-link {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.45);
+  font-size: 14px;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s;
 }
-.gfooter__nav-link:hover { color: #fff; }
-.gfooter__nav-link.active { color: var(--red); }
+.gfooter__nav-link:hover { color: var(--red); }
+.gfooter__nav-link.active { color: var(--red); font-weight: 600; }
 
 /* Contact column */
 .gfooter__address {
   font-style: normal;
-  font-size: 13px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
   margin-bottom: 16px;
 }
 .gfooter__emails {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 .gfooter__email {
-  font-size: 13px;
-  color: rgba(255,255,255,0.45);
+  font-size: 14px;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s;
 }
-.gfooter__email:hover { color: #fff; }
+.gfooter__email:hover { color: var(--red); }
 
 /* Bottom bar */
 .gfooter__bottom {
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
 }
 .gfooter__bottom-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
-.gfooter__copy  { font-size: 12px; color: rgba(255,255,255,0.25); }
-.gfooter__legal { font-size: 12px; color: rgba(255,255,255,0.2); }
+.gfooter__copy  { font-size: 12px; color: var(--text-muted); }
+.gfooter__legal { font-size: 12px; color: var(--text-light); }
 
 @media (max-width: 900px) {
   .gfooter__top { grid-template-columns: 1fr 1fr; }
