@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from "react";
 import { labData } from "../../data/labData";
 import "./Publications.css";
 
-// Removed static import: import publicationsData from '../../data/publications.json';
 import { API_ENDPOINTS } from '../../config/api';
 
 const scholarUrl = labData.labInfo.contact.googleScholar;
@@ -177,9 +176,10 @@ export default function Publications() {
                 <input
                   type="text"
                   className="search-hub__input"
-                  placeholder="Deep search publications..."
+                  placeholder={publicationsData.length === 0 ? "Search disabled (No data)..." : "Deep search publications..."}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  disabled={publicationsData.length === 0}
                 />
                 {(searchTerm ||
                   appliedSearch ||
@@ -199,7 +199,7 @@ export default function Publications() {
                     Clear All
                   </button>
                 )}
-                <button type="submit" className="search-hub__submit-btn">
+                <button type="submit" className="search-hub__submit-btn" disabled={publicationsData.length === 0}>
                   <span className="submit-btn-text">Search</span>
                   <svg
                     className="submit-btn-icon"
@@ -233,9 +233,11 @@ export default function Publications() {
                     type="button"
                     className="custom-select-trigger"
                     onClick={() => {
+                      if (publicationsData.length === 0) return;
                       setIsTopicOpen(!isTopicOpen);
                       setIsYearOpen(false);
                     }}
+                    style={{ opacity: publicationsData.length === 0 ? 0.6 : 1, cursor: publicationsData.length === 0 ? 'not-allowed' : 'pointer' }}
                   >
                     <span>{activeTopic}</span>
                     <div className="select-arrow"></div>
@@ -288,9 +290,11 @@ export default function Publications() {
                     type="button"
                     className="custom-select-trigger"
                     onClick={() => {
+                      if (publicationsData.length === 0) return;
                       setIsYearOpen(!isYearOpen);
                       setIsTopicOpen(false);
                     }}
+                    style={{ opacity: publicationsData.length === 0 ? 0.6 : 1, cursor: publicationsData.length === 0 ? 'not-allowed' : 'pointer' }}
                   >
                     <span>
                       {activeYear === "All"
@@ -440,20 +444,32 @@ export default function Publications() {
 
             {!loading && !error && filteredPublications.length === 0 && (
               <div className="no-results center">
-                <div className="no-results-icon">∅</div>
-                <p className="t-h3">
-                  No publications found matching your search.
-                </p>
-                <button
-                  className="btn btn-outline"
-                  onClick={() => {
-                    setSearchTerm("");
-                    setAppliedSearch("");
-                    setActiveYear("All");
-                  }}
-                >
-                  Reset All Filters
-                </button>
+                <div className="no-results-icon">
+                  {publicationsData.length === 0 ? "📭" : "∅"}
+                </div>
+                {publicationsData.length === 0 ? (
+                  <div className="empty-db-state">
+                    <p className="t-h3">No data exists in the database.</p>
+                    <p className="t-body" style={{ marginTop: '12px', opacity: 0.7 }}>
+                      Our bibliography is currently being updated. Please check back soon.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <p className="t-h3">No publications found matching your search.</p>
+                    <button
+                      className="btn btn-outline"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setAppliedSearch("");
+                        setActiveYear("All");
+                        setActiveTopic("All Topics");
+                      }}
+                    >
+                      Reset All Filters
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>
