@@ -6,50 +6,32 @@ import logoLight from '../../assets/logo-footer-new.png';
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
+  { to: '/about', label: 'Principal Investigator' },
   { to: '/research', label: 'Research' },
+  { to: '/team', label: 'Research Team' },
+  { to: '/projects', label: 'Projects' },
+  { to: '/webtool', label: 'Web Tools' },
   { to: '/publications', label: 'Publications' },
+  { to: '/opportunities', label: 'Opportunities' },
+  { to: '/news', label: 'News' },
+  { to: '/contact', label: 'Contact Us' },
 ];
 
 export default function GlobalNav() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
-
-  const isSolid = scrolled;
-
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => setOpen(false), [location]);
 
   return (
-    <header className={`gnav ${isSolid ? 'gnav--scrolled' : 'gnav--transparent'}`}>
-      <div className="gnav__inner container">
-        {/* Logo — Optimized with dual-rendering to prevent loading glitches */}
+    <header className="gnav">
+      <div className="gnav__inner">
         <NavLink to="/" className="gnav__logo" id="nav-logo">
           <div className="logo-wrapper">
             <img
               src={logoDark}
               alt="ANBL Logo"
-              className={`gnav__logo-img logo-dark ${isSolid ? 'visible' : 'hidden'}`}
-            />
-            <img
-              src={logoLight}
-              alt="ANBL Logo"
-              className={`gnav__logo-img logo-light ${isSolid ? 'hidden' : 'visible'}`}
+              className="gnav__logo-img logo-dark visible"
             />
           </div>
         </NavLink>
@@ -73,13 +55,6 @@ export default function GlobalNav() {
 
         {/* Right CTA */}
         <div className="gnav__right">
-          <NavLink
-            to="/contact"
-            className="btn gnav__contact-btn"
-            id="nav-contact"
-          >
-            Contact Us
-          </NavLink>
           <button
             className={`gnav__hamburger ${open ? 'open' : ''}`}
             id="nav-mobile-toggle"
@@ -106,11 +81,6 @@ export default function GlobalNav() {
               {l.label}
             </NavLink>
           ))}
-          <div className="gnav__mobile-actions">
-            <NavLink to="/contact" className="btn btn-red" style={{ width: '100%', justifyContent: 'center' }}>
-              Contact Us
-            </NavLink>
-          </div>
         </div>
       )}
     </header>

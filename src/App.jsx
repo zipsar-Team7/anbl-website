@@ -1,33 +1,54 @@
-import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import GlobalNav from './components/GlobalNav/GlobalNav';
-import GlobalFooter from './components/GlobalFooter/GlobalFooter';
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
-import Research from './pages/Research/Research';
-import Publications from './pages/Publications/Publications';
-import Contact from './pages/Contact/Contact';
-import NotFound from './pages/NotFound/NotFound';
-import ComingSoon from './pages/ComingSoon/ComingSoon';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Outlet,
+} from "react-router-dom";
+import { useState, useEffect } from "react";
+import GlobalNav from "./components/GlobalNav/GlobalNav";
+import GlobalFooter from "./components/GlobalFooter/GlobalFooter";
+import logo from "./assets/logo-new.png";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import ResearchTeam from "./pages/ResearchTeam/ResearchTeam";
+import Research from "./pages/Research/Research";
+import Publications from "./pages/Publications/Publications";
+import Contact from "./pages/Contact/Contact";
+import Projects from "./pages/Projects/Projects";
+import News from "./pages/News/News";
+import Opportunities from "./pages/Opportunities/Opportunities";
+import WebTools from "./pages/WebTools/WebTools";
+import NotFound from "./pages/NotFound/NotFound";
+import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 /* ── LOADING SCREEN ────────────────────────────────── */
 function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loading-visual">
-        <div className="wave-container">
-          {[...Array(20)].map((_, i) => (
-            <div 
-              key={i} 
-              className="wave-particle" 
-              style={{ '--idx': i }}
-            />
-          ))}
-        </div>
-        <div className="loading-text">
-          <span className="loading-brand">ANBL</span>
-          <span className="loading-dots">Initializing Website</span>
-        </div>
+      {/* Vibrating Particles Background */}
+      <div className="loading-particles">
+        {[...Array(15)].map((_, i) => (
+          <div 
+            key={i} 
+            className="vibrate-particle" 
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
+              animationDelay: `${Math.random() * 0.2}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="loading-logo-container">
+        <img src={logo} alt="ANBL Logo" className="loading-logo-img" />
+      </div>
+
+      <div className="loading-progress-container">
+        <div className="loading-progress-bar" />
       </div>
     </div>
   );
@@ -37,18 +58,20 @@ function LoadingScreen() {
 function OfflineScreen() {
   return (
     <div className="offline-screen">
-      <div className="container center">
-        <div className="offline-card">
-          <div className="offline-icon">📡</div>
-          <h2 className="t-h2">You're Offline</h2>
-          <p className="t-body">
-            Please check your internet connection. This research platform requires an active connection 
-            to process AI models and database queries.
-          </p>
-          <button className="btn btn-red" onClick={() => window.location.reload()}>
-            Retry Connection
-          </button>
-        </div>
+      <div className="offline-card">
+        <div className="offline-icon">📡</div>
+        <h2 className="t-h2">You're Offline</h2>
+        <p className="t-body">
+          Please check your internet connection. This research platform
+          requires an active connection to process AI models and database
+          queries.
+        </p>
+        <button
+          className="btn btn-red"
+          onClick={() => window.location.reload()}
+        >
+          Retry Connection
+        </button>
       </div>
     </div>
   );
@@ -58,7 +81,7 @@ function OfflineScreen() {
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
   return null;
 }
@@ -67,7 +90,7 @@ function ScrollToTop() {
 function MainLayout({ showBar, setShowBar }) {
   return (
     <>
-      {showBar && (
+      {/* {showBar && (
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
             <span>
@@ -82,7 +105,7 @@ function MainLayout({ showBar, setShowBar }) {
             </button>
           </div>
         </div>
-      )}
+      )} */}
       <GlobalNav />
       <Outlet />
       <GlobalFooter />
@@ -93,7 +116,7 @@ function MainLayout({ showBar, setShowBar }) {
 function App() {
   const [loading, setLoading] = useState(() => {
     if (import.meta.env.SSR) return true;
-    return !sessionStorage.getItem('anbl_has_loaded');
+    return !sessionStorage.getItem("anbl_has_loaded");
   });
   const [showBar, setShowBar] = import.meta.env.SSR ? [true] : useState(true);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
@@ -102,7 +125,7 @@ function App() {
     if (loading) {
       const timer = setTimeout(() => {
         setLoading(false);
-        sessionStorage.setItem('anbl_has_loaded', 'true');
+        sessionStorage.setItem("anbl_has_loaded", "true");
       }, 1800);
       return () => clearTimeout(timer);
     }
@@ -111,12 +134,12 @@ function App() {
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
     const handleOffline = () => setIsOffline(true);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -126,19 +149,27 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       {isOffline && <OfflineScreen />}
-      
+
       <Routes>
         {/* Standard pages with Nav & Footer */}
-        <Route element={<MainLayout showBar={showBar} setShowBar={setShowBar} />}>
+        <Route
+          element={<MainLayout showBar={showBar} setShowBar={setShowBar} />}
+        >
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<ResearchTeam />} />
           <Route path="/research" element={<Research />} />
           <Route path="/publications" element={<Publications />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/webtool" element={<WebTools />} />
         </Route>
 
         {/* 404 & Coming Soon Pages without Nav & Footer */}
-        <Route path="/webtool" element={<ComingSoon />} />
+
+        <Route path="/coming-soon" element={<ComingSoon />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

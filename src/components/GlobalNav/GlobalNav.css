@@ -8,24 +8,10 @@
   height: var(--nav-h);
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.92);
+  background: #ffffff;
   border-bottom: 1px solid var(--border);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  will-change: background, box-shadow;
-}
-.gnav--scrolled {
   box-shadow: 0 1px 0 var(--border), 0 4px 20px rgba(0,0,0,0.05);
-}
-
-/* transparent over hero */
-.gnav:not(.gnav--scrolled).gnav--home {
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  margin-bottom: calc(-1 * var(--nav-h));
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gnav__inner {
@@ -33,6 +19,9 @@
   align-items: center;
   height: 100%;
   gap: 0;
+  width: 100%;
+  max-width: none;
+  padding: 0 20px;
 }
 
 /* ── Logo ─────────────────────────────────────────────── */
@@ -40,7 +29,6 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-right: 56px;
   text-decoration: none;
   transition: opacity 0.2s;
 }
@@ -49,7 +37,7 @@
 .logo-wrapper {
   position: relative;
   height: 42px;
-  width: 180px; /* Increased width to accommodate larger logo */
+  width: 180px; 
   display: flex;
   align-items: center;
 }
@@ -60,14 +48,9 @@
   height: 100%;
   width: auto;
   object-fit: contain;
-  image-rendering: -webkit-optimize-contrast; /* Improves clarity on some browsers */
+  image-rendering: -webkit-optimize-contrast;
   transition: opacity 0.3s ease;
   will-change: opacity;
-}
-
-.gnav__logo-img.hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .gnav__logo-img.visible {
@@ -79,12 +62,13 @@
 .gnav__links {
   display: flex;
   align-items: center;
-  gap: 0;
-  flex: 1;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-left: auto;
 }
 .gnav__link {
   position: relative;
-  padding: 6px 14px;
+  padding: 6px 10px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-secondary);
@@ -115,26 +99,11 @@
 }
 .gnav__link--active { color: var(--red) !important; font-weight: 600; }
 
-/* transparent hero state (Applied to all pages at top) */
-.gnav--transparent {
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  margin-bottom: calc(-1 * var(--nav-h));
-}
-
-.gnav--transparent .gnav__link { color: rgba(255,255,255,0.85); }
-.gnav--transparent .gnav__link::after { background: #fff; }
-.gnav--transparent .gnav__link:hover { color: #fff; }
-.gnav--transparent .gnav__link--active { color: #fff !important; }
-
 /* ── Right slot ───────────────────────────────────────── */
 .gnav__right {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: auto;
 }
 .gnav__contact-btn {
   font-size: 14px;
@@ -146,15 +115,6 @@
 .gnav__contact-btn:hover {
   background: var(--red-dark);
   border-color: var(--red-dark);
-}
-.gnav--transparent .gnav__contact-btn {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.4);
-  color: #fff !important;
-  backdrop-filter: blur(8px);
-}
-.gnav--transparent .gnav__contact-btn:hover {
-  background: rgba(255,255,255,0.25);
 }
 
 /* ── Hamburger ────────────────────────────────────────── */
@@ -176,7 +136,6 @@
   border-radius: 2px;
   transition: all 0.3s;
 }
-.gnav--transparent .gnav__hamburger span { background: #fff; }
 .gnav__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .gnav__hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .gnav__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }

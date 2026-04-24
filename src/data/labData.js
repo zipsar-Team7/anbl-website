@@ -167,15 +167,40 @@ export const labData = {
   ],
   collaborations: {
     international: [
-      { name: "Prof. Ivan Mijakovic & Dr. Shadi Rahimi", institution: "Chalmers University, Sweden" },
-      { name: "Prof. Tomasz Puzyn", institution: "University of Gdańsk, Poland" },
-      { name: "Dr. Tommaso Serchi", institution: "LIST, Luxembourg" },
-      { name: "Dr. Priyanka Singh", institution: "Technical University of Denmark" },
+      { 
+        name: "Prof. Ivan Mijakovic", 
+        institution: "Chalmers University, Sweden",
+      },
+      { 
+        name: "Dr. Shadi Rahimi", 
+        institution: "Chalmers University, Sweden",
+      },
+      { 
+        name: "Prof. Tomasz Puzyn", 
+        institution: "University of Gdańsk, Poland",
+      },
+      { 
+        name: "Dr. Tommaso Serchi", 
+        institution: "LIST, Luxembourg",
+      },
+      { 
+        name: "Dr. Priyanka Singh", 
+        institution: "Technical University of Denmark",
+      },
     ],
     domestic: [
-      { name: "Prof. Sri Renukadevi Balusamy", institution: "Sejong University" },
-      { name: "Prof. Kim Yeon Ju", institution: "Kyung Hee University" },
-      { name: "Suresh Ramakrishna", institution: "Hanyang University" },
+      { 
+        name: "Prof. Sri Renukadevi Balusamy", 
+        institution: "Sejong University",
+      },
+      { 
+        name: "Prof. Kim Yeon Ju", 
+        institution: "Kyung Hee University",
+      },
+      { 
+        name: "Suresh Ramakrishna", 
+        institution: "Hanyang University",
+      },
     ],
   },
   team: {
@@ -211,9 +236,43 @@ export const labData = {
     ]
   },
   gallery: [
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=ANBL+Laboratory+Facility', caption: 'ANBL Laboratory Facility' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=ANBL+Laboratory+Facility', caption: 'ANBL Laboratory Facility' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
+  ],
+  webTools: [
+    {
+      id: 'toxicology-ai',
+      name: "ANBL Toxicology AI",
+      category: "Predictive Analytics",
+      description: "Advanced machine learning models for predicting nanomaterial biosafety and toxicity outcomes.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'omics-hub',
+      name: "Multi-Omics Hub",
+      category: "Data Integration",
+      description: "Integrated platform for scRNA-seq and CyTOF data analysis in the context of nanotechnology.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'polymer-db',
+      name: "Polymer Material DB",
+      category: "Database",
+      description: "Comprehensive repository of polymeric nanomaterials with curated physicochemical properties.",
+      status: "Early Access",
+      link: "/coming-soon"
+    },
+    {
+      id: 'alzheimers-pred',
+      name: "AD-Nano Predictor",
+      category: "Disease Modeling",
+      description: "Specialized framework for evaluating nanoparticle therapeutic potential in Alzheimer's systems.",
+      status: "Early Access",
+      link: "/coming-soon"
+    }
   ]
 };

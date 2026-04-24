@@ -503,3 +503,42 @@
   .page-num { width: 36px; height: 36px; font-size: 13px; }
   .page-nav { font-size: 12px; padding: 6px 10px; }
 }
+
+/* ── States (Loading/Error) ───────────────────────── */
+.loading-state, .error-state {
+  padding: 80px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--red-soft);
+  border-top: 4px solid var(--red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.error-state p {
+  color: var(--text-secondary);
+  max-width: 300px;
+  margin-bottom: 20px;
+}
