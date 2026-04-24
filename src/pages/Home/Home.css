@@ -15,6 +15,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   opacity: 1;
   pointer-events: none;
 }
@@ -499,6 +500,7 @@
   .intro-grid   { gap: 48px; }
 }
 @media (max-width: 768px) {
+  .hero { min-height: 80vh; }
   .hero__content { padding: 32px 24px; border-radius: 20px; }
   .intro-grid   { grid-template-columns: 1fr; }
   .intro-visual { display: none; }
