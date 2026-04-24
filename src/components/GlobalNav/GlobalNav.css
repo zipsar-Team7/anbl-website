@@ -176,4 +176,5 @@
   .gnav__links { display: none; }
   .gnav__hamburger { display: flex; }
   .gnav__contact-btn { display: none; }
+  .gnav__right { margin-left: auto; }
 }
