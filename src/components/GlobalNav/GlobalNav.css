@@ -19,6 +19,9 @@
   align-items: center;
   height: 100%;
   gap: 0;
+  width: 100%;
+  max-width: none;
+  padding: 0 20px;
 }
 
 /* ── Logo ─────────────────────────────────────────────── */
@@ -26,7 +29,6 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-right: 56px;
   text-decoration: none;
   transition: opacity 0.2s;
 }
@@ -60,12 +62,13 @@
 .gnav__links {
   display: flex;
   align-items: center;
-  gap: 0;
-  flex: 1;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-left: auto;
 }
 .gnav__link {
   position: relative;
-  padding: 6px 14px;
+  padding: 6px 10px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-secondary);
@@ -101,7 +104,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: auto;
 }
 .gnav__contact-btn {
   font-size: 14px;

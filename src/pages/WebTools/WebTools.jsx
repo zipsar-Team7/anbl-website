@@ -61,7 +61,7 @@ export default function WebTools() {
       </section>
 
       {/* ── EARLY ACCESS BANNER ────────────────────────── */}
-      <section className="section info-banner-section">
+      {/* <section className="section info-banner-section">
         <div className="container">
           <div className="info-banner">
             <div className="info-banner__content">
@@ -74,7 +74,7 @@ export default function WebTools() {
             <a href="/contact" className="btn btn-red">Contact for Partnership</a>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }

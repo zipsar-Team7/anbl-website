@@ -167,15 +167,40 @@ export const labData = {
   ],
   collaborations: {
     international: [
-      { name: "Prof. Ivan Mijakovic & Dr. Shadi Rahimi", institution: "Chalmers University, Sweden" },
-      { name: "Prof. Tomasz Puzyn", institution: "University of Gdańsk, Poland" },
-      { name: "Dr. Tommaso Serchi", institution: "LIST, Luxembourg" },
-      { name: "Dr. Priyanka Singh", institution: "Technical University of Denmark" },
+      { 
+        name: "Prof. Ivan Mijakovic", 
+        institution: "Chalmers University, Sweden",
+      },
+      { 
+        name: "Dr. Shadi Rahimi", 
+        institution: "Chalmers University, Sweden",
+      },
+      { 
+        name: "Prof. Tomasz Puzyn", 
+        institution: "University of Gdańsk, Poland",
+      },
+      { 
+        name: "Dr. Tommaso Serchi", 
+        institution: "LIST, Luxembourg",
+      },
+      { 
+        name: "Dr. Priyanka Singh", 
+        institution: "Technical University of Denmark",
+      },
     ],
     domestic: [
-      { name: "Prof. Sri Renukadevi Balusamy", institution: "Sejong University" },
-      { name: "Prof. Kim Yeon Ju", institution: "Kyung Hee University" },
-      { name: "Suresh Ramakrishna", institution: "Hanyang University" },
+      { 
+        name: "Prof. Sri Renukadevi Balusamy", 
+        institution: "Sejong University",
+      },
+      { 
+        name: "Prof. Kim Yeon Ju", 
+        institution: "Kyung Hee University",
+      },
+      { 
+        name: "Suresh Ramakrishna", 
+        institution: "Hanyang University",
+      },
     ],
   },
   team: {
@@ -211,10 +236,10 @@ export const labData = {
     ]
   },
   gallery: [
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=ANBL+Laboratory+Facility', caption: 'ANBL Laboratory Facility' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
-    { type: 'image', url: 'https://placehold.co/800x500/0a0a0a/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=ANBL+Laboratory+Facility', caption: 'ANBL Laboratory Facility' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Nanotechnology+Research', caption: 'Nanotechnology Research' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Cell+Culture+Analysis', caption: 'Cell Culture Analysis' },
+    { type: 'image', url: 'https://placehold.co/800x500/ffffff/DC150C?text=Collaborative+Discussion', caption: 'Collaborative Discussion' }
   ],
   webTools: [
     {

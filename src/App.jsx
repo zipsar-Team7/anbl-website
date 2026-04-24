@@ -8,8 +8,10 @@ import {
 import { useState, useEffect } from "react";
 import GlobalNav from "./components/GlobalNav/GlobalNav";
 import GlobalFooter from "./components/GlobalFooter/GlobalFooter";
+import logo from "./assets/logo-new.png";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
+import ResearchTeam from "./pages/ResearchTeam/ResearchTeam";
 import Research from "./pages/Research/Research";
 import Publications from "./pages/Publications/Publications";
 import Contact from "./pages/Contact/Contact";
@@ -24,16 +26,29 @@ import ComingSoon from "./pages/ComingSoon/ComingSoon";
 function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loading-visual">
-        <div className="wave-container">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="wave-particle" style={{ "--idx": i }} />
-          ))}
-        </div>
-        <div className="loading-text">
-          <span className="loading-brand">ANBL</span>
-          <span className="loading-dots">Initializing Website</span>
-        </div>
+      {/* Vibrating Particles Background */}
+      <div className="loading-particles">
+        {[...Array(15)].map((_, i) => (
+          <div 
+            key={i} 
+            className="vibrate-particle" 
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${2 + Math.random() * 4}px`,
+              height: `${2 + Math.random() * 4}px`,
+              animationDelay: `${Math.random() * 0.2}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="loading-logo-container">
+        <img src={logo} alt="ANBL Logo" className="loading-logo-img" />
+      </div>
+
+      <div className="loading-progress-container">
+        <div className="loading-progress-bar" />
       </div>
     </div>
   );
@@ -142,6 +157,7 @@ function App() {
         >
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<ResearchTeam />} />
           <Route path="/research" element={<Research />} />
           <Route path="/publications" element={<Publications />} />
           <Route path="/projects" element={<Projects />} />

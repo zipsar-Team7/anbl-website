@@ -78,28 +78,6 @@ export default function Opportunities() {
           </div>
         </div>
       </section>
-
-      <section className="section section--dark">
-        <div className="container narrow">
-          <div className="application-info">
-            <h2 className="t-h2">How to Apply</h2>
-            <div className="info-steps">
-              <div className="step">
-                <span className="step-num">01</span>
-                <p>Prepare your CV and a brief statement of research interests.</p>
-              </div>
-              <div className="step">
-                <span className="step-num">02</span>
-                <p>Include transcripts (for student positions) and contact info for 2-3 references.</p>
-              </div>
-              <div className="step">
-                <span className="step-num">03</span>
-                <p>Send your application materials to <strong>harijai2004@hanyang.ac.kr</strong></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

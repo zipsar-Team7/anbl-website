@@ -76,6 +76,33 @@ export default function Projects() {
           </div>
         </div>
       </section>
+
+      {/* ── GRANTS & FUNDING ────────────────────────────── */}
+      <section className="section grants-section">
+        <div className="container narrow">
+          <div className="section-header center">
+            <h2 className="t-h2">Research Grants</h2>
+          </div>
+          
+          <div className="grants-list">
+            {grants.map((grant, i) => (
+              <div key={i} className="grant-item resource-card">
+                <div className="grant-meta">
+                  <span className={`badge ${grant.type === 'Ongoing' ? 'badge-red' : 'badge-gray'}`}>
+                    {grant.type}
+                  </span>
+                  <span className="grant-agency">{grant.agency}</span>
+                </div>
+                <h4 className="t-h4">{grant.title}</h4>
+                <div className="grant-details">
+                  <span><strong>Period:</strong> {grant.period}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }

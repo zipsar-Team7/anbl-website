@@ -61,7 +61,7 @@ export default function News() {
                 <div className="news-item__content">
                   <h2 className="t-h3">{item.title}</h2>
                   <p className="t-body">{item.summary}</p>
-                  <button className="btn-text">Read More →</button>
+                  {/* <button className="btn-text">Read More →</button> */}
                 </div>
               </article>
             ))}

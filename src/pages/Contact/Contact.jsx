@@ -104,47 +104,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-      {/* ── CTA BAND ───────────────────────────────────────── */}
-      <section className="cta-band">
-        {/* Background Particles */}
-        <div className="cta-band__visual-particles" aria-hidden="true">
-          {[...Array(12)].map((_, i) => (
-            <div 
-              key={i} 
-              className="particle" 
-              style={{ 
-                width: `${Math.random() * 40 + 20}px`,
-                height: `${Math.random() * 40 + 20}px`,
-                top: `${Math.random() * 100}%`, 
-                right: `${Math.random() * 50}%`,
-                animationDelay: `${Math.random() * -10}s`,
-                opacity: 0.15
-              }} 
-            />
-          ))}
-        </div>
-
-        <div className="container">
-          <div className="cta-band__glass">
-            <div className="cta-band__inner">
-              <div className="cta-band__text">
-                <p className="cta-band__label">Our Vision</p>
-                <h2 className="cta-band__headline">Advancing health through nanotechnology.</h2>
-                <p className="cta-band__sub">
-                  We are dedicated to developing safer, more effective medical 
-                  solutions for the next generation.
-                </p>
-              </div>
-              <div className="cta-band__actions">
-                <a href="/research" className="btn btn-red btn-lg">Explore Research</a>
-                <a href="/about" className="btn btn-outline btn-lg" style={{ color: 'var(--text-primary)', background: 'rgba(0,0,0,0.03)' }}>
-                  Meet the Team
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

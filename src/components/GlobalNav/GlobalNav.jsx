@@ -8,11 +8,13 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'Principal Investigator' },
   { to: '/research', label: 'Research' },
+  { to: '/team', label: 'Research Team' },
   { to: '/projects', label: 'Projects' },
-  { to: '/publications', label: 'Publications' },
-  { to: '/news', label: 'News' },
-  { to: '/opportunities', label: 'Opportunities' },
   { to: '/webtool', label: 'Web Tools' },
+  { to: '/publications', label: 'Publications' },
+  { to: '/opportunities', label: 'Opportunities' },
+  { to: '/news', label: 'News' },
+  { to: '/contact', label: 'Contact Us' },
 ];
 
 export default function GlobalNav() {
@@ -23,7 +25,7 @@ export default function GlobalNav() {
 
   return (
     <header className="gnav">
-      <div className="gnav__inner container">
+      <div className="gnav__inner">
         <NavLink to="/" className="gnav__logo" id="nav-logo">
           <div className="logo-wrapper">
             <img
@@ -53,13 +55,6 @@ export default function GlobalNav() {
 
         {/* Right CTA */}
         <div className="gnav__right">
-          <NavLink
-            to="/contact"
-            className="btn gnav__contact-btn"
-            id="nav-contact"
-          >
-            Contact Us
-          </NavLink>
           <button
             className={`gnav__hamburger ${open ? 'open' : ''}`}
             id="nav-mobile-toggle"
@@ -86,11 +81,6 @@ export default function GlobalNav() {
               {l.label}
             </NavLink>
           ))}
-          <div className="gnav__mobile-actions">
-            <NavLink to="/contact" className="btn btn-red" style={{ width: '100%', justifyContent: 'center' }}>
-              Contact Us
-            </NavLink>
-          </div>
         </div>
       )}
     </header>
