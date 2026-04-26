@@ -1,8 +1,7 @@
 import { labData } from "../../data/labData";
 import "./Home.css";
-import heroBg from "../../assets/hero.jpg";
+import heroBg from "../../assets/hero-4.jpg";
 import nanoTech from "../../assets/herobgmain.jpg";
-import heroContent from "../../assets/hero-content.jpeg";
 // src\assets\herobgmain.jpg
 const { labInfo, quickNav, researchThemes } = labData;
 
@@ -73,11 +72,35 @@ export default function Home() {
               <p className="t-body" style={{ marginTop: 8 }}>
                 {labInfo.description}
               </p>
-              <div className="intro-feature">
+              
+              <div style={{ marginTop: '24px' }}>
+                <h3 className="t-h3" style={{ fontSize: '1.2rem', marginBottom: '12px' }}>Areas of Expertise</h3>
+                <ul className="innovation-list" style={{ marginTop: '0' }}>
+                  {labInfo.expertise.map((item, idx) => (
+                    <li key={idx} style={{ alignItems: 'flex-start' }}>
+                      <span className="list-icon" style={{ marginTop: '4px' }}>✓</span>
+                      <div>{item}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div style={{ marginTop: '48px' }}>
+                <h3 className="t-h3" style={{ fontSize: '1.4rem', marginBottom: '16px' }}>AI Platform Initiative</h3>
                 <p className="t-body">
-                  <strong>AI Platform Initiative: </strong>
                   {labInfo.featureHighlight}
                 </p>
+                <ul className="innovation-list" style={{ marginTop: '16px' }}>
+                  {labInfo.featureBullets.map((bullet, idx) => (
+                    <li key={idx} style={{ alignItems: 'flex-start' }}>
+                      <span className="list-icon" style={{ marginTop: '4px' }}>✓</span>
+                      <div>
+                        <strong>{bullet.title} </strong>
+                        {bullet.desc}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -100,40 +123,41 @@ export default function Home() {
           <div className="innovation-grid">
             <div className="innovation-content">
               <p className="intro-eyebrow">Our Mission & Innovation</p>
-              <h2 className="t-h2">Bridging Multi-Omics with AI</h2>
+              <h2 className="t-h2">Our Mission</h2>
               <p className="t-body">
-                We are pioneering a paradigm shift in nanomedicine by integrating single-cell multi-omics, mechanistic biology, and predictive machine learning models. Our approach moves beyond traditional trial-and-error, enabling mechanism-informed design for safer and more effective therapeutic solutions.
+                To transform nanomaterial development from empirical, trial-and-error approaches into a predictive, mechanism-driven science by integrating artificial intelligence with experimental biology. ANBL aims to establish a unified and generalizable framework for the rational design of safe and effective nanomaterials across biomedical and industrial applications.
               </p>
+              <h3 className="t-h3" style={{ fontSize: '1.2rem', marginTop: '24px', marginBottom: '12px' }}>Innovation</h3>
               <ul className="innovation-list">
                 <li>
                   <span className="list-icon">✓</span>
                   <div>
-                    <strong>Predictive Analytics:</strong> Leveraging AI for rapid screening of nanomaterial biosafety.
+                    <strong>Biology-informed AI framework: </strong>
+                    Applies biological response features when modeling heterogeneous nanoparticle systems, where material- and exposure-based descriptors alone are insufficient, enabling accurate and generalizable prediction
                   </div>
                 </li>
                 <li>
                   <span className="list-icon">✓</span>
                   <div>
-                    <strong>Precision Medicine:</strong> Engineering targeted drug delivery systems for complex diseases.
+                    <strong>Biological response pathway concept: </strong>
+                    Identifies key pathways governing biosafety and recovery across materials, models, and organs
                   </div>
                 </li>
                 <li>
                   <span className="list-icon">✓</span>
                   <div>
-                    <strong>Human-Centric Models:</strong> Reducing reliance on animal testing through advanced in silico frameworks.
+                    <strong>Context-dependent modeling strategy: </strong>
+                    Defines when material-centric approaches are sufficient and when biological information becomes essential, establishing a principled and adaptive modeling framework
+                  </div>
+                </li>
+                <li>
+                  <span className="list-icon">✓</span>
+                  <div>
+                    <strong>Cross-scale integration: </strong>
+                    Unifies molecular, cellular, and in vivo data into a single predictive framework, bridging experimental scales
                   </div>
                 </li>
               </ul>
-            </div>
-
-            <div className="innovation-visual">
-              <div className="visual-box">
-                <img
-                  src={heroContent}
-                  alt=""
-                  className="visual-img"
-                />
-              </div>
             </div>
           </div>
         </div>

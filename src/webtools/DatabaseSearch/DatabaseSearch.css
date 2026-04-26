@@ -1,0 +1,405 @@
+.database-search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Landing Screen --- */
+.tool-landing-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+}
+
+.landing-content {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 64px 48px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.landing-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--red-soft);
+  color: var(--red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.landing-content h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.landing-content p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+/* --- Loading Screen --- */
+.tool-loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 500px;
+  gap: 24px;
+}
+
+.loader-ring {
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--surface-2);
+  border-top: 4px solid var(--red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.tool-loading-screen h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.tool-loading-screen p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* --- Search Container --- */
+.search-module {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-bar-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.main-search-input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.main-search-input-wrapper svg {
+  position: absolute;
+  left: 20px;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+}
+
+.main-search-input {
+  width: 100%;
+  padding: 16px 24px 16px 56px;
+  font-size: 17px;
+  font-family: var(--font);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  color: var(--text-primary);
+}
+
+.main-search-input:focus {
+  outline: none;
+  border-color: var(--red);
+  background: var(--white);
+  box-shadow: 0 0 0 4px var(--red-soft);
+}
+
+.btn-filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  height: 58px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-filter-toggle:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.btn-filter-toggle.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+/* --- Filter Tray --- */
+.filter-tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-select {
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+  background: var(--white);
+  font-size: 15px;
+  color: var(--text-primary);
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-select:focus {
+  border-color: var(--red);
+}
+
+.filter-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Re-using global button styles where possible, or adapting them */
+.btn-reset {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-reset:hover {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.btn-apply {
+  padding: 10px 24px;
+  background: var(--red);
+  border: 1.5px solid var(--red);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.btn-apply:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+  box-shadow: 0 4px 12px rgba(246, 58, 49, 0.25);
+  transform: translateY(-1px);
+}
+
+/* --- Data Table Area --- */
+.results-module {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.results-header h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.results-count {
+  padding: 4px 12px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.data-table th {
+  background: var(--surface);
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-strong);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr {
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.data-table tbody tr:hover {
+  background: var(--surface);
+}
+
+/* Override existing badges with global classes if needed, 
+   but since they are custom to the tool, we will map them to the theme */
+.badge-custom {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.badge-green { 
+  background: rgba(34, 197, 94, 0.1); 
+  color: #15803d; 
+  border-color: rgba(34, 197, 94, 0.2);
+}
+.badge-blue { 
+  background: rgba(59, 130, 246, 0.1); 
+  color: #1d4ed8; 
+  border-color: rgba(59, 130, 246, 0.2);
+}
+.badge-gray { 
+  background: var(--surface); 
+  color: var(--text-muted); 
+  border-color: var(--border);
+}
+
+.action-btn {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}

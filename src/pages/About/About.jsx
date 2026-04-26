@@ -1,5 +1,6 @@
 import { labData } from "../../data/labData";
 import "./About.css";
+import piImage from "../../assets/Dr. Haribalan Perumalsamy, Ph.D..png";
 
 const { director } = labData;
 
@@ -40,9 +41,7 @@ export default function About() {
         <aside className="about-sidebar">
           <div className="profile-card">
             <div className="profile-img-box">
-              <div className="profile-img-fallback">
-                <span>ANBL</span>
-              </div>
+              <img src={piImage} alt={director.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </div>
             <div className="profile-card__info">
               <h1 className="t-h3" style={{ fontSize: '24px', marginBottom: '8px' }}>{director.name}</h1>

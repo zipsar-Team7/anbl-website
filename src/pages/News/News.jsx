@@ -7,12 +7,7 @@ const newsItems = [
     category: 'Grant',
     summary: 'The lab has been awarded a major grant for research on plant growth promotion using silica-based seed treatments.'
   },
-  {
-    date: 'March 10, 2026',
-    title: 'New Publication in ACS Nano',
-    category: 'Publication',
-    summary: 'Our latest research on AI-driven nanotoxicology has been published. Read more in our publications section.'
-  },
+
   {
     date: 'February 20, 2026',
     title: 'ANBL Lab Website Launched',
@@ -49,7 +44,7 @@ export default function News() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section-sm">
         <div className="container">
           <div className="news-list">
             {newsItems.map((item, i) => (

@@ -19,6 +19,9 @@ import Projects from "./pages/Projects/Projects";
 import News from "./pages/News/News";
 import Opportunities from "./pages/Opportunities/Opportunities";
 import WebTools from "./pages/WebTools/WebTools";
+import WebToolsLayout from "./webtools/Layout/WebToolsLayout";
+import WebToolsLanding from "./webtools/Layout/WebToolsLanding";
+import DatabaseSearch from "./webtools/DatabaseSearch/DatabaseSearch";
 import NotFound from "./pages/NotFound/NotFound";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -90,7 +93,7 @@ function ScrollToTop() {
 function MainLayout({ showBar, setShowBar }) {
   return (
     <>
-      {/* {showBar && (
+      {showBar && (
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
             <span>
@@ -105,7 +108,7 @@ function MainLayout({ showBar, setShowBar }) {
             </button>
           </div>
         </div>
-      )} */}
+      )}
       <GlobalNav />
       <Outlet />
       <GlobalFooter />
@@ -165,6 +168,12 @@ function App() {
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/webtool" element={<WebTools />} />
+        </Route>
+
+        {/* WebTools Dashboard Layout */}
+        <Route path="/webtools" element={<WebToolsLayout />}>
+          <Route index element={<WebToolsLanding />} />
+          <Route path="database-search" element={<DatabaseSearch />} />
         </Route>
 
         {/* 404 & Coming Soon Pages without Nav & Footer */}
