@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet, useLocation, Link } from 'react-router-dom';
 import './WebToolsLayout.css';
 import logo from '../../assets/logo-new.png';
+import { labData } from '../../data/labData';
+
+const { webTools } = labData;
 
 const WebToolsLayout = () => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -22,35 +26,118 @@ const WebToolsLayout = () => {
 
   if (isInitialLoading) {
     return (
-      <div className="tool-loading-screen" style={{ background: 'var(--bg)', position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
-        <div style={{ width: '64px', height: '64px', border: '4px solid var(--surface-2)', borderTop: '4px solid var(--red)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-        <h2 style={{ fontSize: '24px', fontWeight: '600', color: 'var(--text-primary)', margin: 0 }}>Initializing Dashboard...</h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '15px' }}>Loading tools and secure connections.</p>
-        <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+      <div className="loading-screen">
+        {/* Vibrating Particles Background */}
+        <div className="loading-particles">
+          {[...Array(15)].map((_, i) => (
+            <div 
+              key={i} 
+              className="vibrate-particle" 
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${2 + Math.random() * 4}px`,
+                height: `${2 + Math.random() * 4}px`,
+                animationDelay: `${Math.random() * 0.2}s`
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="loading-logo-container">
+          <img src={logo} alt="ANBL Logo" className="loading-logo-img" />
+        </div>
+
+        <div className="loading-progress-container">
+          <div className="loading-progress-bar" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="webtools-layout">
+    <div className={`webtools-layout ${isCollapsed ? 'collapsed' : ''}`}>
+      {/* Sidebar Navigation */}
+      <aside className={`webtools-sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+        <div className="sidebar-top">
+          <Link to="/" className="sidebar-logo">
+            <img src={logo} alt="ANBL" />
+          </Link>
+          <button className="toggle-sidebar-btn" onClick={() => setIsCollapsed(!isCollapsed)}>
+            {isCollapsed ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+            )}
+          </button>
+        </div>
+        
+        <nav className="sidebar-nav">
+          <NavLink to="/webtools" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            {!isCollapsed && <span>Overview</span>}
+          </NavLink>
+          
+          <div className="sidebar-divider"></div>
+          {!isCollapsed && <div className="sidebar-label">Platforms</div>}
+          
+          {webTools.map(tool => (
+            <NavLink 
+              key={tool.id} 
+              to={tool.link} 
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''} ${tool.status !== 'Available' ? 'disabled' : ''}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l9 4.9V17L12 22l-9-4.9V7z"></path>
+                <path d="M12 22V12"></path>
+                <path d="M21 7l-9 5-9-5"></path>
+              </svg>
+              {!isCollapsed && <span>{tool.name}</span>}
+            </NavLink>
+          ))}
+
+          <div className="sidebar-divider"></div>
+          {!isCollapsed && <div className="sidebar-label">Resources</div>}
+          <NavLink to="/webtools/documentation" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            {!isCollapsed && <span>Documentation</span>}
+          </NavLink>
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="user-profile">
+            <div className="user-avatar">RP</div>
+            {!isCollapsed && (
+              <div className="user-info">
+                <span className="user-name">Researcher</span>
+                <span className="user-status">Standard Access</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </aside>
+
       {/* Main Area */}
       <main className="webtools-main">
         {/* Header */}
         <header className="webtools-header">
           <div className="header-left">
-            <Link to="/" className="header-logo" title="Back to Main Site">
-              <img src={logo} alt="ANBL Logo" />
-            </Link>
             <div className="header-breadcrumbs">
               <Link to="/webtools" className="breadcrumb-link">ANBL Tools</Link>
               {currentPathName !== 'webtools' && (
                 <>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="breadcrumb-sep" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
                   <span className="breadcrumb-current">{formattedPathName}</span>
                 </>
               )}
+            </div>
+          </div>
+          <div className="header-right">
+            <div className="system-status">
+              <span className="status-dot"></span>
+              Live System
             </div>
           </div>
         </header>

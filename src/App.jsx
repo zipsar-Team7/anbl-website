@@ -21,7 +21,11 @@ import Opportunities from "./pages/Opportunities/Opportunities";
 import WebTools from "./pages/WebTools/WebTools";
 import WebToolsLayout from "./webtools/Layout/WebToolsLayout";
 import WebToolsLanding from "./webtools/Layout/WebToolsLanding";
-import DatabaseSearch from "./webtools/DatabaseSearch/DatabaseSearch";
+import NeuroBioAxis from "./webtools/Platforms/NeuroBioAxis";
+import PolyToxMap from "./webtools/Platforms/PolyToxMap";
+import MaterialDetails from "./webtools/Platforms/MaterialDetails";
+import ArrivingSoon from "./webtools/Platforms/ArrivingSoon";
+import WebToolsDocumentation from "./webtools/Documentation/WebToolsDocumentation";
 import NotFound from "./pages/NotFound/NotFound";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -173,7 +177,12 @@ function App() {
         {/* WebTools Dashboard Layout */}
         <Route path="/webtools" element={<WebToolsLayout />}>
           <Route index element={<WebToolsLanding />} />
-          <Route path="database-search" element={<DatabaseSearch />} />
+          <Route path="neuro-bio-axis" element={<NeuroBioAxis />} />
+          <Route path="poly-toxmap" element={<ArrivingSoon toolName="Poly-ToxMap" />} />
+          <Route path="derm-nanomap" element={<ArrivingSoon toolName="Derm-NanoMap" />} />
+          <Route path="hepato-bioaxis" element={<ArrivingSoon toolName="Hepato-BioAxis" />} />
+          <Route path="details/:id" element={<MaterialDetails />} />
+          <Route path="documentation" element={<WebToolsDocumentation />} />
         </Route>
 
         {/* 404 & Coming Soon Pages without Nav & Footer */}

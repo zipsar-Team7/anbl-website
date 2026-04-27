@@ -262,15 +262,15 @@ export const labData = {
       category: "Platform",
       description: "A cross-scale nano–bio interaction platform integrating heterogeneous neurological datasets across multiple nanoparticle classes and both in vitro and in vivo systems. By incorporating biological response features alongside material and exposure data, it enables mechanism-informed exploration of toxicity and recovery outcomes. Designed for cross-study comparison, hypothesis generation, and future predictive modeling. Covers neurological conditions including neuroinflammation, neurodegeneration, and injury models.",
       status: "Available",
-      link: "/webtools/database-search"
+      link: "/webtools/neuro-bio-axis"
     },
     {
       id: 'poly-toxmap',
       name: "Poly-ToxMap",
       category: "Platform",
       description: "A focused platform for functional polymer-based nanomaterials, built on curated in vitro toxicity datasets. It enables rapid, material-centric exploration using material properties and exposure conditions, supporting efficient screening and comparison within a defined material class. Structured for consistency and future integration into predictive tools. Covers neurodegenerative and neuroinflammatory models.",
-      status: "Available",
-      link: "/webtools/database-search"
+      status: "Arriving Soon",
+      link: "/webtools/poly-toxmap"
     },
     {
       id: 'derm-nanomap',
@@ -278,7 +278,7 @@ export const labData = {
       category: "Platform",
       description: "An integrated dataset platform for skin disorders and nano–bio interactions, compiling literature-curated data across nanoparticle types and dermatological models. Designed for rapid exploration of skin-specific toxicity and therapeutic responses, with a roadmap to incorporate biological response features and evolve into a predictive system. Covers skin inflammatory conditions including skin psoriasis, atopic dermatitis, UV induced inflammatory conditions.",
       status: "Arriving Soon",
-      link: "#"
+      link: "/webtools/derm-nanomap"
     },
     {
       id: 'hepato-bioaxis',
@@ -286,7 +286,7 @@ export const labData = {
       category: "Platform",
       description: "A cross-scale platform for liver diseases, integrating in vitro and in vivo datasets across diverse nanomaterials. By combining material, exposure, and biological response data, it enables mechanism-informed analysis of toxicity and recovery in hepatic systems. Built to support translational insights and future predictive modeling. Covers liver diseases including hepatitis, NAFLD, NASH, drug induced injury, and fibrosis.",
       status: "Arriving Soon",
-      link: "#"
+      link: "/webtools/hepato-bioaxis"
     }
   ]
 };

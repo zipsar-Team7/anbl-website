@@ -103,8 +103,8 @@ function ToolCard({ tool }) {
         )}
       </p>
       <div className="tool-card__footer">
-        <Link to={tool.link} className="btn btn-outline-red btn-sm">
-          {tool.status === 'Available' || tool.status === 'Early Access' ? 'Access Tool' : 'View Documentation'}
+        <Link to="/webtools" className="btn btn-outline-red btn-sm">
+          {tool.status === 'Available' || tool.status === 'Early Access' ? 'Access Platform' : 'View Documentation'}
         </Link>
       </div>
     </div>

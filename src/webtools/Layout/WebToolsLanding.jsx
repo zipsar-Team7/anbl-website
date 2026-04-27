@@ -10,25 +10,14 @@ const WebToolsLanding = () => {
 
   return (
     <div className="webtools-landing fade-in">
-      {/* Background Animated Blobs */}
-      <div className="landing-bg-elements">
-        <div className="landing-blob blob-1"></div>
-        <div className="landing-blob blob-2"></div>
-      </div>
-
       <div className="landing-content-wrapper">
         <div className="landing-header-modern">
           <div className="landing-badge">
-            <span className="pulse-dot"></span>
-            System Online
+            Dashboard Overview
           </div>
-          <h1>Web-Based Research Tools</h1>
-          <p>
-            Explore our web-based, biology-informed AI platforms and curated datasets for rapid prediction of nanomaterial biosafety and therapeutic outcomes, empowering faster, data-driven research and design.
-          </p>
-          <p style={{ marginTop: '16px', fontSize: '0.95rem' }}>
-            We have developed web-based platforms that curate and harmonize large-scale experimental data into unified nano–bio interaction databases. By integrating diverse nanoparticle classes, biological systems, and experimental conditions, these tools enable rapid, mechanism-informed exploration and hypothesis generation, supporting data-driven decision-making in nanomedicine and biosafety research.<br/><br/>
-            All datasets are systematically curated and standardized into structured formats to ensure robustness, reproducibility, and generalizability across studies. These platforms are currently being advanced toward predictive systems through the integration of biology-informed machine learning approaches.
+          <h1 className="t-h2">Research Tools & Datasets</h1>
+          <p className="t-body">
+            Select a platform below to begin your data-driven exploration and predictive modeling.
           </p>
         </div>
 
@@ -38,9 +27,10 @@ const WebToolsLanding = () => {
           ))}
         </div>
         
-        <p style={{ marginTop: '32px', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-          All platforms are developed using internally standardized data integration and curation frameworks to ensure consistency, reproducibility, and cross-study comparability.
-        </p>
+        <div className="landing-info-footer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <p>All platforms utilize internally standardized data curation frameworks for cross-study comparability.</p>
+        </div>
       </div>
     </div>
   );
