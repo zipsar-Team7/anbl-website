@@ -275,7 +275,11 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
                 ))
               ) : (
                 <div className="no-results">
-                  <div className="no-results-icon">🔍</div>
+                  <div className="no-results-icon fade-in">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/>
+                    </svg>
+                  </div>
                   <h3>No materials found</h3>
                   <p>Try adjusting your search terms or filters to find what you're looking for.</p>
                   <button className="btn-reset-search" onClick={clearFilters}>Clear Search</button>

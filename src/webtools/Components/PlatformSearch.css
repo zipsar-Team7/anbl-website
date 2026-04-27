@@ -565,8 +565,16 @@
 }
 
 .no-results-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--red);
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 .btn-reset-search {
