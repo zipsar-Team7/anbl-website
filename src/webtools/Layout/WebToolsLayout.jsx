@@ -9,6 +9,7 @@ const { webTools } = labData;
 const WebToolsLayout = () => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,6 +19,11 @@ const WebToolsLayout = () => {
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Close mobile menu on path change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // Basic breadcrumb generation based on path
   const pathParts = location.pathname.split('/').filter(Boolean);
@@ -56,30 +62,33 @@ const WebToolsLayout = () => {
   }
 
   return (
-    <div className={`webtools-layout ${isCollapsed ? 'collapsed' : ''}`}>
+    <div className={`webtools-layout ${isCollapsed ? 'collapsed' : ''} ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
       {/* Sidebar Navigation */}
-      <aside className={`webtools-sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+      <aside className={`webtools-sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileMenuOpen ? 'show' : ''}`}>
         <div className="sidebar-top">
           <Link to="/" className="sidebar-logo">
             <img src={logo} alt="ANBL" />
           </Link>
-          <button className="toggle-sidebar-btn" onClick={() => setIsCollapsed(!isCollapsed)}>
+          <button className="toggle-sidebar-btn desktop-only" onClick={() => setIsCollapsed(!isCollapsed)}>
             {isCollapsed ? (
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
             ) : (
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
             )}
           </button>
+          <button className="close-mobile-btn mobile-only" onClick={() => setIsMobileMenuOpen(false)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
         
         <nav className="sidebar-nav">
           <NavLink to="/webtools" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            {!isCollapsed && <span>Overview</span>}
+            {(!isCollapsed || isMobileMenuOpen) && <span>Overview</span>}
           </NavLink>
           
           <div className="sidebar-divider"></div>
-          {!isCollapsed && <div className="sidebar-label">Platforms</div>}
+          {(!isCollapsed || isMobileMenuOpen) && <div className="sidebar-label">Platforms</div>}
           
           {webTools.map(tool => (
             <NavLink 
@@ -92,22 +101,22 @@ const WebToolsLayout = () => {
                 <path d="M12 22V12"></path>
                 <path d="M21 7l-9 5-9-5"></path>
               </svg>
-              {!isCollapsed && <span>{tool.name}</span>}
+              {(!isCollapsed || isMobileMenuOpen) && <span>{tool.name}</span>}
             </NavLink>
           ))}
 
           <div className="sidebar-divider"></div>
-          {!isCollapsed && <div className="sidebar-label">Resources</div>}
+          {(!isCollapsed || isMobileMenuOpen) && <div className="sidebar-label">Resources</div>}
           <NavLink to="/webtools/documentation" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-            {!isCollapsed && <span>Documentation</span>}
+            {(!isCollapsed || isMobileMenuOpen) && <span>Documentation</span>}
           </NavLink>
         </nav>
 
         <div className="sidebar-footer">
           <div className="user-profile">
             <div className="user-avatar">RP</div>
-            {!isCollapsed && (
+            {(!isCollapsed || isMobileMenuOpen) && (
               <div className="user-info">
                 <span className="user-name">Researcher</span>
                 <span className="user-status">Standard Access</span>
@@ -117,11 +126,17 @@ const WebToolsLayout = () => {
         </div>
       </aside>
 
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && <div className="mobile-sidebar-overlay" onClick={() => setIsMobileMenuOpen(false)}></div>}
+
       {/* Main Area */}
       <main className="webtools-main">
         {/* Header */}
         <header className="webtools-header">
           <div className="header-left">
+            <button className="mobile-menu-toggle mobile-only" onClick={() => setIsMobileMenuOpen(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
             <div className="header-breadcrumbs">
               <Link to="/webtools" className="breadcrumb-link">ANBL Tools</Link>
               {currentPathName !== 'webtools' && (
@@ -135,7 +150,7 @@ const WebToolsLayout = () => {
             </div>
           </div>
           <div className="header-right">
-            <div className="system-status">
+            <div className="system-status desktop-only">
               <span className="status-dot"></span>
               Live System
             </div>

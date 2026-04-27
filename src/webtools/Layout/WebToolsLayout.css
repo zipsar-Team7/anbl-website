@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   padding: 24px 12px;
-  z-index: 100;
+  z-index: 1000;
   color: var(--text-primary);
   height: 100vh;
   position: sticky;
@@ -56,7 +56,7 @@
   width: auto;
 }
 
-.toggle-sidebar-btn {
+.toggle-sidebar-btn, .close-mobile-btn, .mobile-menu-toggle {
   width: 32px;
   height: 32px;
   display: flex;
@@ -70,7 +70,7 @@
   cursor: pointer;
 }
 
-.toggle-sidebar-btn:hover {
+.toggle-sidebar-btn:hover, .close-mobile-btn:hover, .mobile-menu-toggle:hover {
   background: var(--surface-2);
   color: var(--red);
 }
@@ -205,7 +205,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  z-index: 90;
+  z-index: 900;
   position: sticky;
   top: 0;
 }
@@ -213,6 +213,7 @@
 .header-left {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
 .header-breadcrumbs {
@@ -281,17 +282,68 @@
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE STYLES ──────────────────────────────── */
+
+.mobile-only {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
+  .webtools-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
   .webtools-sidebar {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.1);
   }
-  
+
+  .webtools-sidebar.show {
+    left: 0;
+  }
+
+  .mobile-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+
   .webtools-header {
-    padding: 0 20px;
+    padding: 0 16px;
   }
-  
+
   .webtools-content {
-    padding: 24px 20px;
+    padding: 16px;
+  }
+
+  .header-breadcrumbs {
+    font-size: 13px;
+  }
+
+  .sidebar-link {
+    padding: 12px 16px;
+    font-size: 15px;
   }
 }
 

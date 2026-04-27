@@ -10,17 +10,36 @@ const WebToolsLanding = () => {
 
   return (
     <div className="webtools-landing fade-in">
-      <div className="landing-content-wrapper">
+      {/* Animated Hero Header */}
+      <section className="landing-hero-section">
+        <div className="inner-hero__bg-gradient"></div>
+        <div className="inner-hero__particles">
+          {[...Array(15)].map((_, i) => (
+            <div 
+              key={i} 
+              className="vibrating-particle" 
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${3 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
+
         <div className="landing-header-modern">
           <div className="landing-badge">
             Dashboard Overview
           </div>
-          <h1 className="t-h2">Research Tools & Datasets</h1>
+          <h1 className="t-h1">Research Tools & Datasets</h1>
           <p className="t-body">
             Select a platform below to begin your data-driven exploration and predictive modeling.
           </p>
         </div>
+      </section>
 
+      <div className="landing-content-wrapper">
         <div className="modern-tools-grid">
           {webTools.map((tool) => (
             <ModernToolCard key={tool.id} tool={tool} navigate={navigate} />
