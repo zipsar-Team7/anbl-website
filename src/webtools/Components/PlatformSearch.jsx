@@ -9,6 +9,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   const [records, setRecords] = useState([]);
   const [totalRecords, setTotalRecords] = useState(0);
   const [hasSearched, setHasSearched] = useState(false);
+  const [error, setError] = useState(null);
   
   const [filterOptions, setFilterOptions] = useState({
     Type_of_materials: [],
@@ -58,6 +59,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
 
     const fetchData = async () => {
       setLoading(true);
+      setError(null); // Reset error on new search
       setHasSearched(true);
       try {
         const response = await fetch('http://localhost:5000/api/search', {
@@ -70,13 +72,23 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
             limit
           })
         });
+
         const result = await response.json();
+
+        if (response.status === 429) {
+          setError('Rate limit exceeded. Please wait 15 minutes before your next search.');
+          return;
+        }
+
         if (result.status === 'success') {
           setRecords(result.data);
           setTotalRecords(result.totalRecords);
+        } else {
+          setError(result.message || 'An error occurred while fetching data.');
         }
       } catch (err) {
         console.error('Search failed:', err);
+        setError('Network error: Unable to connect to the research database.');
       } finally {
         setLoading(false);
       }
@@ -195,6 +207,13 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
               <button className="done-btn" onClick={() => setShowFilters(false)}>Show Results</button>
             </div>
           </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="apple-error-alert fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span>{error}</span>
         </div>
       )}
 
