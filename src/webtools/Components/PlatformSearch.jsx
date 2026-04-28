@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { API_ENDPOINTS } from '../../config/api';
 import './PlatformSearch.css';
 
 const PlatformSearch = ({ toolName, toolSubtitle }) => {
@@ -44,7 +45,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   useEffect(() => {
     const fetchFilters = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/filters');
+        const response = await fetch(API_ENDPOINTS.FILTERS);
         const result = await response.json();
         if (result.status === 'success') {
           setFilterOptions(result.data);
@@ -92,7 +93,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
           }
         });
 
-        const response = await fetch('http://localhost:5000/api/search', {
+        const response = await fetch(API_ENDPOINTS.SEARCH, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

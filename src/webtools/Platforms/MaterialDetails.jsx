@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
+import { API_ENDPOINTS } from '../../config/api';
 import './MaterialDetails.css';
 import logo from '../../assets/logo-new.png';
 
@@ -16,7 +17,7 @@ const MaterialDetails = () => {
   useEffect(() => {
     const fetchMaterialDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/records/${id}`);
+        const response = await fetch(`${API_ENDPOINTS.RECORDS}/${id}`);
         const result = await response.json();
         if (result.status === 'success') {
           setMaterial(result.data);
