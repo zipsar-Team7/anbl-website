@@ -32,7 +32,7 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section-sm">
         <div className="container">
           <div className="section-header">
             <h2 className="t-h2">Ongoing Research</h2>
@@ -44,9 +44,8 @@ export default function Projects() {
                   <div className="project-tag">Ongoing</div>
                   <h3 className="t-h3">{grant.title}</h3>
                   <div className="project-meta">
-                    <p><strong>Agency:</strong> {grant.agency}</p>
-                    <p><strong>Period:</strong> {grant.period}</p>
-                    <p><strong>Funding:</strong> {grant.funding}</p>
+                    <p>{grant.role}</p>
+                    <p>{grant.agency}</p>
                   </div>
                 </div>
               </div>
@@ -55,7 +54,7 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="section" style={{ background: 'var(--surface)' }}>
+      <section className="section-sm" style={{ background: 'var(--surface)' }}>
         <div className="container">
           <div className="section-header">
             <h2 className="t-h2">Completed Initiatives</h2>
@@ -67,8 +66,8 @@ export default function Projects() {
                   <div className="project-tag project-tag--completed">Completed</div>
                   <h3 className="t-h3">{grant.title}</h3>
                   <div className="project-meta">
-                    <p><strong>Agency:</strong> {grant.agency}</p>
-                    <p><strong>Period:</strong> {grant.period}</p>
+                    <p>{grant.role}</p>
+                    <p>{grant.agency}</p>
                   </div>
                 </div>
               </div>
@@ -77,31 +76,7 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* ── GRANTS & FUNDING ────────────────────────────── */}
-      <section className="section grants-section">
-        <div className="container narrow">
-          <div className="section-header center">
-            <h2 className="t-h2">Research Grants</h2>
-          </div>
-          
-          <div className="grants-list">
-            {grants.map((grant, i) => (
-              <div key={i} className="grant-item resource-card">
-                <div className="grant-meta">
-                  <span className={`badge ${grant.type === 'Ongoing' ? 'badge-red' : 'badge-gray'}`}>
-                    {grant.type}
-                  </span>
-                  <span className="grant-agency">{grant.agency}</span>
-                </div>
-                <h4 className="t-h4">{grant.title}</h4>
-                <div className="grant-details">
-                  <span><strong>Period:</strong> {grant.period}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
     </main>
   );

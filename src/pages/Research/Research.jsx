@@ -27,12 +27,9 @@ export default function Research() {
         <div className="container">
           <div className="inner-hero__content">
             <span className="section-label">Research Program</span>
-            <h1 className="t-h1">Multi-Scale, Mechanism-Informed Research</h1>
+            <h1 className="t-h1">Research themes</h1>
             <p className="t-body inner-hero__sub">
-              Our research focuses on understanding and predicting nanoparticle–biological interactions. 
-              By identifying conserved biological response programs and incorporating them into 
-              machine learning models, we develop interpretable and generalizable predictive systems for 
-              nanomaterial biosafety and recovery.
+              Core areas of investigation and methodology
             </p>
           </div>
         </div>
@@ -41,10 +38,10 @@ export default function Research() {
       {/* ── RESEARCH THEMES ──────────────────────────────── */}
       <section className="section themes-section">
         <div className="container">
-          <div className="section-header">
+          {/* <div className="section-header">
             <h2 className="t-h2">Research Themes</h2>
             <p className="t-body text-muted">Core areas of investigation and methodology.</p>
-          </div>
+          </div> */}
           
           <div className="themes-grid">
             {researchThemes.map((theme, i) => (
@@ -55,9 +52,9 @@ export default function Research() {
                 <h3 className="t-h3">{theme.title}</h3>
                 <p className="t-body">{theme.description}</p>
                 <div className="card-footer-tags">
-                  {theme.keywords.split(' · ').map((tag, j) => (
+                  {/* {theme.keywords.split(' · ').map((tag, j) => (
                     <span key={j} className="pill-tag">{tag}</span>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             ))}

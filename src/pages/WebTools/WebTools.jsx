@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { labData } from '../../data/labData';
 import './WebTools.css';
 
@@ -27,10 +29,14 @@ export default function WebTools() {
           <div className="inner-hero__content">
             <span className="section-label">AI Platforms</span>
             <h1 className="t-h1">Web-Based Research Tools</h1>
-            <p className="t-body inner-hero__sub">
-              Access our laboratory's proprietary AI frameworks and curated 
-              databases designed to accelerate nanomedicine research and biosafety screening.
-            </p>
+            <div className="t-body inner-hero__sub">
+              <p style={{ marginBottom: '16px' }}>
+                We have developed web-based platforms that curate and harmonize large-scale experimental data into unified nano–bio interaction databases. By integrating diverse nanoparticle classes, biological systems, and experimental conditions, these tools enable rapid, mechanism-informed exploration and hypothesis generation, supporting data-driven decision-making in nanomedicine and biosafety research.
+              </p>
+              <p>
+                All datasets are systematically curated and standardized into structured formats to ensure robustness, reproducibility, and generalizability across studies. These platforms are currently being advanced toward predictive systems through the integration of biology-informed machine learning approaches.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -40,23 +46,13 @@ export default function WebTools() {
         <div className="container">
           <div className="tools-grid">
             {webTools.map((tool) => (
-              <div key={tool.id} className="tool-card">
-                <div className="tool-card__header">
-                  <span className="tool-category">{tool.category}</span>
-                  <span className={`tool-status status--${tool.status.toLowerCase().replace(' ', '-')}`}>
-                    {tool.status}
-                  </span>
-                </div>
-                <h3 className="t-h3">{tool.name}</h3>
-                <p className="t-body tool-desc">{tool.description}</p>
-                <div className="tool-card__footer">
-                  <a href={tool.link} className="btn btn-outline-red btn-sm">
-                    {tool.status === 'Available' || tool.status === 'Early Access' ? 'Access Tool' : 'View Documentation'}
-                  </a>
-                </div>
-              </div>
+              <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
+          
+          <p style={{ marginTop: '48px', textAlign: 'center', fontSize: '15px', color: 'var(--text-secondary)' }}>
+            All platforms are developed using internally standardized data integration and curation frameworks to ensure consistency, reproducibility, and cross-study comparability.
+          </p>
         </div>
       </section>
 
@@ -76,5 +72,41 @@ export default function WebTools() {
         </div>
       </section> */}
     </main>
+  );
+}
+
+function ToolCard({ tool }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = tool.description.length > 150;
+  const displayDescription = isLong && !isExpanded 
+    ? tool.description.substring(0, 150) + '...' 
+    : tool.description;
+
+  return (
+    <div className="tool-card">
+      <div className="tool-card__header">
+        <span className="tool-category">{tool.category}</span>
+        <span className={`tool-status status--${tool.status.toLowerCase().replace(' ', '-')}`}>
+          {tool.status}
+        </span>
+      </div>
+      <h3 className="t-h3">{tool.name}</h3>
+      <p className="t-body tool-desc">
+        {displayDescription}
+        {isLong && (
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="read-more-btn"
+          >
+            {isExpanded ? 'Read Less' : 'Read More'}
+          </button>
+        )}
+      </p>
+      <div className="tool-card__footer">
+        <Link to="/webtools" className="btn btn-outline-red btn-sm">
+          {tool.status === 'Available' || tool.status === 'Early Access' ? 'Access Platform' : 'View Documentation'}
+        </Link>
+      </div>
+    </div>
   );
 }

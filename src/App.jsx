@@ -19,6 +19,13 @@ import Projects from "./pages/Projects/Projects";
 import News from "./pages/News/News";
 import Opportunities from "./pages/Opportunities/Opportunities";
 import WebTools from "./pages/WebTools/WebTools";
+import WebToolsLayout from "./webtools/Layout/WebToolsLayout";
+import WebToolsLanding from "./webtools/Layout/WebToolsLanding";
+import NeuroBioAxis from "./webtools/Platforms/NeuroBioAxis";
+import PolyToxMap from "./webtools/Platforms/PolyToxMap";
+import MaterialDetails from "./webtools/Platforms/MaterialDetails";
+import ArrivingSoon from "./webtools/Platforms/ArrivingSoon";
+import WebToolsDocumentation from "./webtools/Documentation/WebToolsDocumentation";
 import NotFound from "./pages/NotFound/NotFound";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -90,7 +97,7 @@ function ScrollToTop() {
 function MainLayout({ showBar, setShowBar }) {
   return (
     <>
-      {/* {showBar && (
+      {showBar && (
         <div className="announcement-bar">
           <div className="container announcement-bar__inner">
             <span>
@@ -105,7 +112,7 @@ function MainLayout({ showBar, setShowBar }) {
             </button>
           </div>
         </div>
-      )} */}
+      )}
       <GlobalNav />
       <Outlet />
       <GlobalFooter />
@@ -165,6 +172,17 @@ function App() {
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/webtool" element={<WebTools />} />
+        </Route>
+
+        {/* WebTools Dashboard Layout */}
+        <Route path="/webtools" element={<WebToolsLayout />}>
+          <Route index element={<WebToolsLanding />} />
+          <Route path="neuro-bio-axis" element={<NeuroBioAxis />} />
+          <Route path="poly-toxmap" element={<ArrivingSoon toolName="Poly-ToxMap" />} />
+          <Route path="derm-nanomap" element={<ArrivingSoon toolName="Derm-NanoMap" />} />
+          <Route path="hepato-bioaxis" element={<ArrivingSoon toolName="Hepato-BioAxis" />} />
+          <Route path="details/:id" element={<MaterialDetails />} />
+          <Route path="documentation" element={<WebToolsDocumentation />} />
         </Route>
 
         {/* 404 & Coming Soon Pages without Nav & Footer */}

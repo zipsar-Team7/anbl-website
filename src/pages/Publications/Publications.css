@@ -6,7 +6,7 @@
 
 /* Search Hub (Creative Experience) */
 .search-hub-section {
-  margin-top: -60px; /* Overlap with hero */
+  margin-top: -20px; /* Overlap with hero */
   position: relative;
   z-index: 100;
   padding-bottom: 40px;

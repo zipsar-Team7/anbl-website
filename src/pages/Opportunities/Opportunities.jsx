@@ -51,7 +51,7 @@ export default function Opportunities() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section-sm">
         <div className="container">
           <div className="section-header">
             <h2 className="t-h2">Open Positions</h2>
@@ -65,13 +65,19 @@ export default function Opportunities() {
             {positions.map((pos, i) => (
               <div key={i} className="position-card">
                 <div className="position-card__header">
-                  <h3 className="t-h3">{pos.title}</h3>
                   <span className="position-type">{pos.type}</span>
+                  <h3 className="t-h3">{pos.title}</h3>
                 </div>
-                <p className="position-loc">📍 {pos.location}</p>
+                <p className="position-loc">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '6px', opacity: 0.6}}>
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  {pos.location}
+                </p>
                 <p className="t-body">{pos.description}</p>
                 <div className="position-card__footer">
-                  <a href="/contact" className="btn btn-red">Apply Now</a>
+                  <a href="/contact" className="btn btn-outline-red btn-sm">Apply Now →</a>
                 </div>
               </div>
             ))}

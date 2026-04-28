@@ -188,7 +188,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .inner-hero {
   position: relative;
   background: var(--white);
-  padding: 120px 0 80px;
+  padding: 80px 0 40px;
   overflow: hidden;
   color: var(--text-primary);
 }
