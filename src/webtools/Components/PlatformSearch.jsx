@@ -12,19 +12,29 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   const [error, setError] = useState(null);
   
   const [filterOptions, setFilterOptions] = useState({
-    Type_of_materials: [],
-    Sub_type_of_materials: [],
-    Shape: [],
-    Injury_Model: [],
-    Cell_Type: []
+    categorical: {
+      Type_of_materials: [],
+      Sub_type_of_materials: [],
+      Shape: [],
+      Injury_Model: [],
+      Cell_Type: []
+    },
+    ranges: {
+      Size_nm: { min: 0, max: 1000 }
+    }
   });
   
   const [activeFilters, setActiveFilters] = useState({
-    Type_of_materials: [],
-    Sub_type_of_materials: [],
-    Shape: [],
-    Injury_Model: [],
-    Cell_Type: []
+    categorical: {
+      Type_of_materials: [],
+      Sub_type_of_materials: [],
+      Shape: [],
+      Injury_Model: [],
+      Cell_Type: []
+    },
+    ranges: {
+      Size_nm: { min: 0, max: 1000, active: false }
+    }
   });
 
   const [page, setPage] = useState(1);
@@ -38,6 +48,15 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
         const result = await response.json();
         if (result.status === 'success') {
           setFilterOptions(result.data);
+          // Initialize active range filters with the global min/max
+          const initialRanges = {};
+          Object.entries(result.data.ranges).forEach(([key, bounds]) => {
+            initialRanges[key] = { ...bounds, active: false };
+          });
+          setActiveFilters(prev => ({
+            ...prev,
+            ranges: initialRanges
+          }));
         }
       } catch (err) {
         console.error('Failed to fetch filters:', err);
@@ -49,7 +68,10 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   // Fetch data when filters or search query changes
   useEffect(() => {
     // Don't fetch data if no search or filter is active
-    const totalActiveFilters = Object.values(activeFilters).flat().length;
+    const totalActiveFilters = 
+      Object.values(activeFilters.categorical).flat().length + 
+      Object.values(activeFilters.ranges).filter(r => r.active).length;
+
     if (!searchQuery && totalActiveFilters === 0) {
       setRecords([]);
       setTotalRecords(0);
@@ -62,12 +84,20 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
       setError(null); // Reset error on new search
       setHasSearched(true);
       try {
+        // Construct filters for API
+        const apiFilters = { ...activeFilters.categorical };
+        Object.entries(activeFilters.ranges).forEach(([key, val]) => {
+          if (val.active) {
+            apiFilters[key] = { min: val.min, max: val.max };
+          }
+        });
+
         const response = await fetch('http://localhost:5000/api/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             keyword: searchQuery,
-            filters: activeFilters,
+            filters: apiFilters,
             page,
             limit
           })
@@ -100,29 +130,54 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
 
   const toggleFilter = (category, value) => {
     setActiveFilters(prev => {
-      const current = prev[category] || [];
+      const current = prev.categorical[category] || [];
       const next = current.includes(value) 
         ? current.filter(v => v !== value) 
         : [...current, value];
-      return { ...prev, [category]: next };
+      return { 
+        ...prev, 
+        categorical: { ...prev.categorical, [category]: next } 
+      };
     });
     setPage(1); 
   };
 
+  const handleRangeChange = (key, type, value) => {
+    setActiveFilters(prev => ({
+      ...prev,
+      ranges: {
+        ...prev.ranges,
+        [key]: { 
+          ...prev.ranges[key], 
+          [type]: Number(value),
+          active: true 
+        }
+      }
+    }));
+    setPage(1);
+  };
+
   const clearFilters = () => {
+    const clearedCategorical = {};
+    Object.keys(activeFilters.categorical).forEach(k => clearedCategorical[k] = []);
+    
+    const clearedRanges = {};
+    Object.entries(filterOptions.ranges).forEach(([k, v]) => {
+      clearedRanges[k] = { ...v, active: false };
+    });
+
     setActiveFilters({
-      Type_of_materials: [],
-      Sub_type_of_materials: [],
-      Shape: [],
-      Injury_Model: [],
-      Cell_Type: []
+      categorical: clearedCategorical,
+      ranges: clearedRanges
     });
     setSearchQuery('');
     setPage(1);
     setHasSearched(false);
   };
 
-  const totalActive = Object.values(activeFilters).flat().length;
+  const totalActive = 
+    Object.values(activeFilters.categorical).flat().length + 
+    Object.values(activeFilters.ranges).filter(r => r.active).length;
 
   return (
     <div className={`apple-search-container ${!hasSearched ? 'hero-mode' : 'results-mode'} fade-in`}>
@@ -182,7 +237,45 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
             </div>
 
             <div className="filter-sections-layout scrollable-popup-content">
-              {Object.entries(filterOptions).map(([key, options]) => (
+              {/* Range Filters */}
+              {Object.entries(filterOptions.ranges).map(([key, bounds]) => (
+                <div key={key} className="filter-layout-group">
+                  <h3 className="group-title">{key.replace(/_/g, ' ')} (nm)</h3>
+                  <div className="group-content range-filter-content">
+                    <div className="range-inputs">
+                      <div className="range-input-box">
+                        <label>Min</label>
+                        <input 
+                          type="number" 
+                          value={activeFilters.ranges[key]?.min} 
+                          onChange={(e) => handleRangeChange(key, 'min', e.target.value)}
+                        />
+                      </div>
+                      <div className="range-input-box">
+                        <label>Max</label>
+                        <input 
+                          type="number" 
+                          value={activeFilters.ranges[key]?.max} 
+                          onChange={(e) => handleRangeChange(key, 'max', e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="range-slider-container">
+                      <input 
+                        type="range" 
+                        min={bounds.min} 
+                        max={bounds.max} 
+                        value={activeFilters.ranges[key]?.max}
+                        onChange={(e) => handleRangeChange(key, 'max', e.target.value)}
+                        className="apple-range-slider"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Categorical Filters */}
+              {Object.entries(filterOptions.categorical).map(([key, options]) => (
                 <div key={key} className="filter-layout-group">
                   <h3 className="group-title">{key.replace(/_/g, ' ')}</h3>
                   <div className="group-content">
@@ -190,7 +283,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
                       {options.slice(0, 15).map(opt => (
                         <button 
                           key={opt}
-                          className={`filter-pill ${activeFilters[key]?.includes(opt) ? 'active' : ''}`}
+                          className={`filter-pill ${activeFilters.categorical[key]?.includes(opt) ? 'active' : ''}`}
                           onClick={() => toggleFilter(key, opt)}
                         >
                           {opt}
