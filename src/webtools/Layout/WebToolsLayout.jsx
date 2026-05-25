@@ -20,9 +20,16 @@ const WebToolsLayout = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Close mobile menu on path change
+  // Close mobile menu and automatically collapse sidebar when navigating to a specific tool or sub-page
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    if (pathParts.length > 1) {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
   }, [location.pathname]);
 
   // Basic breadcrumb generation based on path
