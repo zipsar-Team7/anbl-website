@@ -178,7 +178,7 @@ function App() {
         <Route path="/webtools" element={<WebToolsLayout />}>
           <Route index element={<WebToolsLanding />} />
           <Route path="neuro-bio-axis" element={<NeuroBioAxis />} />
-          <Route path="poly-toxmap" element={<ArrivingSoon toolName="Poly-ToxMap" />} />
+          <Route path="poly-toxmap" element={<PolyToxMap />} />
           <Route path="details/:id" element={<MaterialDetails />} />
           <Route path="documentation" element={<WebToolsDocumentation />} />
         </Route>

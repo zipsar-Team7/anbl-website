@@ -269,7 +269,7 @@ export const labData = {
       name: "Poly-ToxMap",
       category: "Platform",
       description: "A focused platform for functional polymer-based nanomaterials, built on curated in vitro toxicity datasets. It enables rapid, material-centric exploration using material properties and exposure conditions, supporting efficient screening and comparison within a defined material class. Structured for consistency and future integration into predictive tools. Covers neurodegenerative and neuroinflammatory models.",
-      status: "Arriving Soon",
+      status: "Available",
       link: "/webtools/poly-toxmap"
     }
   ]

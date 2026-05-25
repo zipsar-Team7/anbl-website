@@ -6,6 +6,9 @@ export const API_ENDPOINTS = {
   RECORDS: `${BASE_URL}/records`,
   CITATIONS: `${BASE_URL}/citations`,
   HEALTH: `${BASE_URL}/health`,
+  POLYTOX_SEARCH: `${BASE_URL}/polytox/search`,
+  POLYTOX_FILTERS: `${BASE_URL}/polytox/filters`,
+  POLYTOX_RECORDS: `${BASE_URL}/polytox/records`,
 };
 
 export default BASE_URL;

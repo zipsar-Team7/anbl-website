@@ -372,3 +372,18 @@
     padding: 0 !important;
   }
 }
+
+/* Responsive Viewport Scroll-Lock for Platforms */
+@media (min-width: 1025px) {
+  .webtools-layout:has(.platform-search-wrapper),
+  .webtools-main:has(.platform-search-wrapper) {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  .webtools-content:has(.platform-search-wrapper) {
+    padding: 0;
+    overflow: hidden;
+    height: calc(100vh - 64px);
+  }
+}

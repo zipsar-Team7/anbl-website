@@ -1,0 +1,364 @@
+/* PolyToxMapSearch.css - Specifc UI Overrides for Poly-ToxMap Search Interface */
+
+/* Text & Range Input elements to match the filters design */
+.filter-text-input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-text-input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px var(--red-soft);
+}
+
+.filter-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-range-input {
+  flex: 1;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.filter-range-input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px var(--red-soft);
+}
+
+.filter-range-sep {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #86868b;
+}
+
+/* Header buttons */
+.polytox-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-action.outline {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.btn-action.outline:hover {
+  background: #f5f5f7;
+}
+
+.btn-action.fill {
+  background: var(--red);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(246, 58, 49, 0.12);
+}
+
+.btn-action.fill:hover {
+  background: var(--red-dark);
+  box-shadow: 0 6px 16px rgba(246, 58, 49, 0.2);
+}
+
+/* Alert banner */
+.alert-banner {
+  background: rgba(246, 58, 49, 0.05);
+  border-left: 4px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.alert-icon-wrapper {
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.alert-banner p {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Results section */
+.results-table-section {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+  margin-bottom: 2rem;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.section-title-row .title-icon {
+  color: var(--red);
+}
+
+.section-title {
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Visual results table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.polytox-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.polytox-table th {
+  background: #f5f5f7;
+  color: #86868b;
+  font-weight: 700;
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.polytox-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--text-primary);
+}
+
+.polytox-table tr:hover {
+  background: #f5f5f7;
+}
+
+.polytox-table td.bold {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.polytox-table td.code {
+  font-family: monospace;
+  font-weight: 600;
+  color: #5e6c84;
+}
+
+.table-action-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--red-soft);
+  color: var(--red);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.78rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(246, 58, 49, 0.08);
+}
+
+.table-action-btn:hover {
+  background: var(--red);
+  color: #ffffff;
+  border-color: var(--red);
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 3rem !important;
+  color: #86868b;
+  font-size: 0.9rem;
+}
+
+/* Visualizations style */
+.visualizations-section {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+  margin-bottom: 2rem;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.chart-card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fcfdfe;
+}
+
+.chart-title {
+  font-size: 0.85rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.chart-canvas-mock {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mock-svg-chart {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mock bars */
+.mock-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 100%;
+  height: 95px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  margin-left: 10px;
+}
+
+.bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.3s;
+}
+
+.bar-label {
+  font-size: 0.6rem;
+  color: #86868b;
+  margin-top: 4px;
+}
+
+/* Export Bottom Banner */
+.export-bottom-banner {
+  background: #ffffff;
+  border: 1px dashed rgba(246, 58, 49, 0.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.export-bottom-banner .banner-icon {
+  color: var(--red);
+}
+
+.export-bottom-banner span {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #86868b;
+}
+
+.btn-export-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  background: #ffffff;
+  color: var(--red);
+  border: 1px solid rgba(246, 58, 49, 0.2);
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(246, 58, 49, 0.05);
+}
+
+.btn-export-bottom:hover {
+  background: var(--red);
+  color: white;
+  border-color: var(--red);
+  box-shadow: 0 4px 12px rgba(246, 58, 49, 0.15);
+}
+
+/* Warnings and custom typography matching Apple details view */
+.text-warning {
+  color: #c53030;
+  font-weight: 700;
+}
+
+/* Remove disabled visual effects on the search button */
+.btn-sidebar-search:disabled {
+  opacity: 1 !important;
+  cursor: pointer !important;
+  transform: none !important;
+  box-shadow: 0 4px 10px rgba(246, 58, 49, 0.12) !important;
+}
+
+/* Custom Category Tags for Poly-ToxMap */
+.category-tag.dendrimer { background: #f3e5f5 !important; color: #7b1fa2 !important; }
+.category-tag.liposome { background: #e3f2fd !important; color: #1976d2 !important; }
+.category-tag.polymeric-micelle { background: #fff3e0 !important; color: #e65100 !important; }
+.category-tag.hydrogel { background: #e0f2f1 !important; color: #004d40 !important; }
+.category-tag.hybrid { background: #efebe9 !important; color: #4e342e !important; }
+.category-tag.polymeric-nanoparticle { background: #e8f5e9 !important; color: #2e7d32 !important; }
