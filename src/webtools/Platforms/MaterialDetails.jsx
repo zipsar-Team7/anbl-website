@@ -116,7 +116,9 @@ const MaterialDetails = () => {
       "Dose (mg/Kg)": material.MIE_E_NPs_Dose_mg_Kg,
       "Dose Regimen": material.MIE_E_Dose_Regimen,
       "Administration Route": material.MIE_E_Ad_route,
-      "Injury Model": material.MIE_E_Injury_Model,
+      "Injury Model": material.MIE_E_Injury_Model
+    },
+    biosafetyRecovery: {
       "Biosafety": material.AO_Biosafety,
       "Recovery": material.AO_Recovery
     }
@@ -211,9 +213,27 @@ const MaterialDetails = () => {
             </section>
           )}
 
-          {/* Section 4.0: Reference */}
+          {/* Section 4.0: Safety & Recovery (Only for Neuro-Bio-Axis Tool 1) */}
+          {!isPolyTox && (
+            <section className="report-section">
+              <div className="section-number">4.0</div>
+              <div className="section-content">
+                <h2 className="report-section-title">Biosafety & Recovery Assessment</h2>
+                <div className="report-data-grid">
+                  {Object.entries(sections.biosafetyRecovery).map(([key, val]) => (
+                    <div key={key} className="report-data-cell">
+                      <span className="cell-label">{key}</span>
+                      <span className="cell-value">{val || "—"}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Section 4.0 / 5.0: Reference */}
           <section className="report-section">
-            <div className="section-number">4.0</div>
+            <div className="section-number">{isPolyTox ? "4.0" : "5.0"}</div>
             <div className="section-content">
               <h2 className="report-section-title">Reference Documentation</h2>
               <div className="reference-box">

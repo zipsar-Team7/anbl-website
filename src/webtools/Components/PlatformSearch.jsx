@@ -18,6 +18,95 @@ const getFilterLabel = (key) => {
   return labels[key] || key.replace(/_/g, ' ');
 };
 
+const getFilterIcon = (key) => {
+  switch (key) {
+    case 'MIE_P_M_Type':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+          <polyline points="2 17 12 22 22 17"/>
+          <polyline points="2 12 12 17 22 12"/>
+        </svg>
+      );
+    case 'MIE_P_Size_nm':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="7" width="20" height="10" rx="2" ry="2"/>
+          <line x1="6" y1="7" x2="6" y2="12"/>
+          <line x1="10" y1="7" x2="10" y2="10"/>
+          <line x1="14" y1="7" x2="14" y2="12"/>
+          <line x1="18" y1="7" x2="18" y2="10"/>
+        </svg>
+      );
+    case 'MIE_P_Shape':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2l9.5 5.5v11L12 22l-9.5-3.5v-11z"/>
+        </svg>
+      );
+    case 'MIE_E_Cell_Type':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      );
+    case 'MIE_E_NPs_Conc_ug_mL':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 3h12M8 3v12a6 6 0 0 0 8 0V3M12 3v11"/>
+        </svg>
+      );
+    case 'MIE_E_Stimulant':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      );
+    case 'MIE_E_Injury_Model':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      );
+    case 'MIE_E_Organism':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4.5 10.5C6 9 9 9 9 9s3 0 4.5-1.5"/>
+          <path d="M4.5 13.5C6 15 9 15 9 15s3 0 4.5 1.5"/>
+          <path d="M12 3v18"/>
+        </svg>
+      );
+    case 'Scale_Coverage':
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      );
+    default:
+      return (
+        <svg className="diagnostics-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      );
+  }
+};
+
+const FILTER_ORDER = [
+  'MIE_P_M_Type',
+  'Scale_Coverage',
+  'MIE_P_Size_nm',
+  'MIE_P_Shape',
+  'MIE_E_Cell_Type',
+  'MIE_E_NPs_Conc_ug_mL',
+  'MIE_E_Stimulant',
+  'MIE_E_Injury_Model',
+  'MIE_E_Organism'
+];
+
 // Interactive Canvas Nanoparticle Particle Network Animation
 const NanoparticleCanvas = () => {
   const canvasRef = useRef(null);
@@ -196,6 +285,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState(null);
   const [filtersError, setFiltersError] = useState(null);
+  const [isPartial, setIsPartial] = useState(false);
   
   const [filterOptions, setFilterOptions] = useState({
     categorical: {
@@ -294,12 +384,20 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
       if (result.status === 'success') {
         setRecords(result.data);
         setTotalRecords(result.totalRecords);
-        showToast(
-          result.totalRecords > 0 
-            ? `Found ${result.totalRecords} matching datasets.` 
-            : 'No matching datasets found.',
-          result.totalRecords > 0 ? 'success' : 'info'
-        );
+        if (result.isPartial) {
+          setIsPartial(true);
+          setError('Showing Partial Matches: No records matched all of your selected filters simultaneously.');
+          showToast('No exact matches found. Showing partial matches.', 'info');
+        } else {
+          setIsPartial(false);
+          setError(null);
+          showToast(
+            result.totalRecords > 0 
+              ? `Found ${result.totalRecords} matching datasets.` 
+              : 'No matching datasets found.',
+            result.totalRecords > 0 ? 'success' : 'info'
+          );
+        }
       } else {
         const msg = result.message || 'An error occurred while fetching data.';
         setError(msg);
@@ -348,6 +446,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
     setSearchQuery('');
     setPage(1);
     setHasSearched(false);
+    setIsPartial(false);
     setRecords([]);
     setTotalRecords(0);
     setError(null);
@@ -424,6 +523,35 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
               </div>
               <p>Select the desired parameters and click "Search Dataset". Results can be viewed online or downloaded as a PDF.</p>
             </div>
+            
+            {isPartial && (
+              <div className="partial-diagnostics-card fade-in">
+                <h4>
+                  <svg className="diagnostics-title-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, color: 'var(--red)' }}>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <polyline points="7 12 9 12 11 8 13 16 15 12 17 12"/>
+                  </svg>
+                  Query Diagnostics
+                </h4>
+                <p>
+                  Your search for <strong>{totalActive} filters</strong> returned 0 exact matches. 
+                  To help you find relevant data, we relaxed the query criteria from <code>Intersection (Strict Match)</code> to <code>Union (Broad Match)</code>.
+                </p>
+                <div className="diagnostics-filters-list">
+                  {FILTER_ORDER.map(key => {
+                    const vals = activeFilters.categorical[key];
+                    if (!vals || vals.length === 0) return null;
+                    return (
+                      <div key={key} className="diagnostics-filter-tag">
+                        {getFilterIcon(key)}
+                        <span className="filter-name">{getFilterLabel(key)}:</span>
+                        <span className="filter-val">{vals.join(', ')}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
             {loading ? (
               <div className="loading-grid">
                 {[...Array(6)].map((_, i) => <div key={i} className="skeleton-card"></div>)}
@@ -555,7 +683,8 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
               </button>
             </div>
           ) : (
-            Object.entries(filterOptions.categorical).map(([key, options]) => {
+            FILTER_ORDER.map(key => {
+              const options = filterOptions.categorical[key];
               if (!options || options.length === 0) return null;
               const activeGroupFilters = activeFilters.categorical[key] || [];
 
@@ -565,7 +694,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
                   className={`filter-dropdown-container ${openDropdown === key ? 'open-dropdown' : ''}`}
                 >
                   <label className="filter-dropdown-label">
-                    {getFilterLabel(key)}
+                    {getFilterLabel(key)} {key === 'MIE_P_M_Type' && <span style={{ color: 'var(--red)' }}>*</span>}
                   </label>
                   <div className="filter-dropdown">
                     <button
@@ -630,9 +759,9 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
             type="button" 
             className="btn-sidebar-search" 
             onClick={() => {
-              const hasAnyActiveFilters = Object.values(activeFilters.categorical).some(arr => arr.length > 0);
-              if (!hasAnyActiveFilters) {
-                showToast('Please select at least one filter.');
+              const materialTypeFilters = activeFilters.categorical.MIE_P_M_Type || [];
+              if (materialTypeFilters.length === 0) {
+                showToast('Please select at least one Material Type.', 'error');
                 return;
               }
               setHasSearched(true);
