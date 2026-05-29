@@ -10,6 +10,7 @@ const WebToolsLayout = () => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
   const location = useLocation();
 
   useEffect(() => {
@@ -20,22 +21,26 @@ const WebToolsLayout = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Close mobile menu and automatically collapse sidebar when navigating to a specific tool or sub-page
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Close mobile menu when navigating to a specific tool or sub-page
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    if (pathParts.length > 1) {
-      setIsCollapsed(true);
-    } else {
-      setIsCollapsed(false);
-    }
   }, [location.pathname]);
 
   // Basic breadcrumb generation based on path
   const pathParts = location.pathname.split('/').filter(Boolean);
   const currentPathName = pathParts[pathParts.length - 1] || 'dashboard';
   const formattedPathName = currentPathName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+  // Find if current path belongs to any of our tools
+  const activeTool = webTools.find(tool => location.pathname.startsWith(tool.link));
 
   if (isInitialLoading) {
     return (
@@ -166,7 +171,31 @@ const WebToolsLayout = () => {
 
         {/* Dynamic Content */}
         <div className="webtools-content">
-          <Outlet />
+          {isMobile && activeTool && activeTool.desktopOnly ? (
+            <div className="desktop-only-warning-card fade-in">
+              <div className="warning-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <h2 className="warning-title">Desktop Access Required</h2>
+              <p className="warning-description">
+                The <strong>{activeTool.name}</strong> platform is designed for high-resolution desktop workspaces.
+              </p>
+              <p className="warning-instructions">
+                To explore datasets, apply advanced filters, and generate scientific reports, please open this portal on a desktop or laptop computer.
+              </p>
+              <div className="warning-actions">
+                <Link to="/webtools" className="btn-back-overview">
+                  Back to Overview
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </div>
       </main>
     </div>
