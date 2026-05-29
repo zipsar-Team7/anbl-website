@@ -252,9 +252,14 @@ const NanoparticleCanvas = () => {
 };
 
 const PlatformSearch = ({ toolName, toolSubtitle }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => {
+    return sessionStorage.getItem('anbl_platform_search_query') || '';
+  });
   const [loading, setLoading] = useState(false);
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_records');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [toast, setToast] = useState({ show: false, message: '', type: 'info', id: 0 });
 
   const showToast = (message, type = 'info') => {
@@ -269,7 +274,11 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
       return () => clearTimeout(timer);
     }
   }, [toast.show, toast.id]);
-  const [totalRecords, setTotalRecords] = useState(0);
+
+  const [totalRecords, setTotalRecords] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_total_records');
+    return saved ? Number(saved) : 0;
+  });
   const [openDropdown, setOpenDropdown] = useState(null);
   const sidebarRef = useRef(null);
 
@@ -282,46 +291,62 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  const [hasSearched, setHasSearched] = useState(false);
+
+  const [hasSearched, setHasSearched] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_has_searched');
+    return saved ? JSON.parse(saved) : false;
+  });
   const [error, setError] = useState(null);
   const [filtersError, setFiltersError] = useState(null);
   const [isPartial, setIsPartial] = useState(false);
   
-  const [filterOptions, setFilterOptions] = useState({
-    categorical: {
-      Scale_Coverage: [],
-      MIE_P_M_Type: [],
-      MIE_P_Size_nm: [],
-      MIE_P_Shape: [],
-      MIE_E_Cell_Type: [],
-      MIE_E_NPs_Conc_ug_mL: [],
-      MIE_E_Stimulant: [],
-      MIE_E_Injury_Model: [],
-      MIE_E_Organism: []
-    },
-    ranges: {}
+  const [filterOptions, setFilterOptions] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_filters');
+    return saved ? JSON.parse(saved) : {
+      categorical: {
+        Scale_Coverage: [],
+        MIE_P_M_Type: [],
+        MIE_P_Size_nm: [],
+        MIE_P_Shape: [],
+        MIE_E_Cell_Type: [],
+        MIE_E_NPs_Conc_ug_mL: [],
+        MIE_E_Stimulant: [],
+        MIE_E_Injury_Model: [],
+        MIE_E_Organism: []
+      },
+      ranges: {}
+    };
   });
   
-  const [activeFilters, setActiveFilters] = useState({
-    categorical: {
-      Scale_Coverage: [],
-      MIE_P_M_Type: [],
-      MIE_P_Size_nm: [],
-      MIE_P_Shape: [],
-      MIE_E_Cell_Type: [],
-      MIE_E_NPs_Conc_ug_mL: [],
-      MIE_E_Stimulant: [],
-      MIE_E_Injury_Model: [],
-      MIE_E_Organism: []
-    },
-    ranges: {}
+  const [activeFilters, setActiveFilters] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_active_filters');
+    return saved ? JSON.parse(saved) : {
+      categorical: {
+        Scale_Coverage: [],
+        MIE_P_M_Type: [],
+        MIE_P_Size_nm: [],
+        MIE_P_Shape: [],
+        MIE_E_Cell_Type: [],
+        MIE_E_NPs_Conc_ug_mL: [],
+        MIE_E_Stimulant: [],
+        MIE_E_Injury_Model: [],
+        MIE_E_Organism: []
+      },
+      ranges: {}
+    };
   });
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() => {
+    const saved = sessionStorage.getItem('anbl_platform_page');
+    return saved ? Number(saved) : 1;
+  });
   const limit = 12;
 
   // Fetch filter options (does not query datasets, only counts distinct options)
   const fetchFilters = async () => {
+    if (sessionStorage.getItem('anbl_platform_filters')) {
+      return;
+    }
     setFiltersError(null);
     try {
       const response = await fetch(API_ENDPOINTS.FILTERS);
@@ -329,15 +354,19 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
       const result = await response.json();
       if (result.status === 'success') {
         setFilterOptions(result.data);
-        // Initialize active categorical filters dynamically
-        const initialCategorical = {};
-        Object.keys(result.data.categorical).forEach(key => {
-          initialCategorical[key] = [];
-        });
-        setActiveFilters({
-          categorical: initialCategorical,
-          ranges: {}
-        });
+        sessionStorage.setItem('anbl_platform_filters', JSON.stringify(result.data));
+        
+        // Initialize active categorical filters dynamically if not already saved
+        if (!sessionStorage.getItem('anbl_platform_active_filters')) {
+          const initialCategorical = {};
+          Object.keys(result.data.categorical).forEach(key => {
+            initialCategorical[key] = [];
+          });
+          setActiveFilters({
+            categorical: initialCategorical,
+            ranges: {}
+          });
+        }
       } else {
         throw new Error(result.message || 'Failed to fetch filters');
       }
@@ -350,6 +379,31 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
   useEffect(() => {
     fetchFilters();
   }, []);
+
+  // Save states to sessionStorage
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_active_filters', JSON.stringify(activeFilters));
+  }, [activeFilters]);
+
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_search_query', searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_has_searched', JSON.stringify(hasSearched));
+  }, [hasSearched]);
+
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_records', JSON.stringify(records));
+  }, [records]);
+
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_total_records', totalRecords.toString());
+  }, [totalRecords]);
+
+  useEffect(() => {
+    sessionStorage.setItem('anbl_platform_page', page.toString());
+  }, [page]);
 
   // Actual search query fetcher
   const performSearch = async (targetPage = 1, overrideKeyword = null) => {
@@ -450,6 +504,15 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
     setRecords([]);
     setTotalRecords(0);
     setError(null);
+    
+    // Clear session storage cache
+    sessionStorage.removeItem('anbl_platform_active_filters');
+    sessionStorage.removeItem('anbl_platform_search_query');
+    sessionStorage.removeItem('anbl_platform_has_searched');
+    sessionStorage.removeItem('anbl_platform_records');
+    sessionStorage.removeItem('anbl_platform_total_records');
+    sessionStorage.removeItem('anbl_platform_page');
+    
     showToast('Filters reset successfully.', 'success');
   };
 
