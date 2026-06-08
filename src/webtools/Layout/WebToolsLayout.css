@@ -376,12 +376,15 @@
 /* Responsive Viewport Scroll-Lock for Platforms */
 @media (min-width: 1025px) {
   .webtools-layout:has(.platform-search-wrapper),
-  .webtools-main:has(.platform-search-wrapper) {
+  .webtools-layout:has(.polytox-predictor-wrapper),
+  .webtools-main:has(.platform-search-wrapper),
+  .webtools-main:has(.polytox-predictor-wrapper) {
     height: 100vh;
     max-height: 100vh;
     overflow: hidden;
   }
-  .webtools-content:has(.platform-search-wrapper) {
+  .webtools-content:has(.platform-search-wrapper),
+  .webtools-content:has(.polytox-predictor-wrapper) {
     padding: 0;
     overflow: hidden;
     height: calc(100vh - 64px);

@@ -1,0 +1,572 @@
+/* PolyToxPredictor.css - High Fidelity scientific UI matching AI flow image */
+
+.polytox-predictor-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #fcfcfd;
+  align-items: stretch;
+}
+
+/* Sidebar (Left) */
+.predictor-filter-sidebar {
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--red);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Form Sections */
+.predictor-form-section {
+  margin-bottom: 1.25rem;
+}
+
+.section-title-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--red);
+  background: rgba(220, 53, 69, 0.08);
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.predictor-field-group {
+  margin-bottom: 1rem;
+}
+
+.predictor-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 0.75rem;
+}
+
+.predictor-fields-grid .predictor-field-group {
+  margin-bottom: 0;
+}
+
+.predictor-field-group.span-2 {
+  grid-column: span 2;
+}
+
+.predictor-field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.predictor-select, .predictor-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #111;
+  transition: all 0.2s;
+}
+
+.predictor-input:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.05);
+  background: white;
+}
+
+/* Dashboard (Right) */
+.predictor-main-content {
+  background: #fcfcfd;
+  padding: 2.5rem 3.5rem;
+  overflow-y: auto;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+/* Card Professionalism */
+.professional-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  padding: 1.75rem;
+}
+
+.col-12 { grid-column: span 12; }
+.col-8 { grid-column: span 8; }
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+
+/* Prediction Summary Section (Top) */
+.prediction-summary-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border-bottom: 4px solid var(--red);
+  margin-bottom: 2rem;
+}
+
+.viability-score-large {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.viability-score-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.status-indicator-badge {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator-badge.biosafe { background: #e8f5e9; color: #2e7d32; }
+.status-indicator-badge.moderate { background: #fff3e0; color: #ef6c00; }
+.status-indicator-badge.severe { background: #ffebee; color: #c62828; }
+
+/* SHAP Force Plot Visualization */
+.force-plot-container {
+  margin: 2rem 0;
+  position: relative;
+  height: 60px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+}
+
+.force-plot-segment {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: width 1s ease-out;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Feature Importance High Fidelity */
+.feature-row-v2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.feature-name-v2 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.importance-bar-v2 {
+  height: 8px;
+  border-radius: 4px;
+  background: #f3f4f6;
+  width: 100px;
+  overflow: hidden;
+}
+
+.importance-fill-v2 {
+  height: 100%;
+  background: var(--red);
+  border-radius: 4px;
+}
+
+/* Radar & Multi-variable Space */
+.radar-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.radar-v2 {
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));
+}
+
+/* Insight Professional Box */
+.insight-pro-card {
+  background: #111827;
+  color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.insight-pro-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.insight-pro-content h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.insight-pro-content p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e5e7eb;
+}
+
+/* Empty State High Fidelity */
+.professional-empty-state {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  border-radius: 24px;
+  border: 2px dashed #e5e7eb;
+}
+
+.empty-state-visual {
+  width: 120px;
+  height: 120px;
+  background: #f9fafb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  border: 1px solid #f3f4f6;
+}
+
+/* Interactive elements */
+.btn-ai-predict {
+  background: #111827;
+  color: white;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.2s;
+  margin-top: auto;
+}
+
+.btn-ai-predict:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* XGBoost Prediction Section */
+.xgb-prediction-container {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.xgb-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.xgb-badge {
+  background: #2e7d32;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.xgb-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #2e7d32;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.xgb-cards-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.xgb-card {
+  background: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+}
+
+.xgb-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.xgb-card-value-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.xgb-indicator-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xgb-indicator-icon.safe {
+  color: #4caf50;
+}
+
+.xgb-indicator-icon.unsafe {
+  color: #f44336;
+}
+
+.xgb-indicator-icon.viability {
+  color: #007aff;
+}
+
+.xgb-indicator-icon.confidence {
+  color: #7b1fa2;
+}
+
+.xgb-card-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.xgb-card-value.text-safe {
+  color: #4caf50;
+}
+
+.xgb-card-value.text-unsafe {
+  color: #f44336;
+}
+
+.xgb-card-value.text-viability {
+  color: #007aff;
+}
+
+.xgb-card-value.text-confidence {
+  color: #7b1fa2;
+}
+
+.xgb-card-subtext {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Row 2: Gauge & Classification */
+.xgb-gauge-classification-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.xgb-gauge-card, .xgb-classification-card {
+  background: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.xgb-gauge-card .xgb-card-title, .xgb-classification-card .xgb-card-title {
+  align-self: flex-start;
+}
+
+.xgb-class-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.xgb-class-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 10px;
+}
+
+.xgb-class-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.xgb-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.xgb-dot.green { background: #4caf50; }
+.xgb-dot.yellow { background: #ff9800; }
+.xgb-dot.red { background: #f44336; }
+.xgb-dot.gray { background: #9ca3af; }
+
+.xgb-class-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.xgb-class-badge.green { background: #e8f5e9; color: #2e7d32; }
+.xgb-class-badge.yellow { background: #fff3e0; color: #ef6c00; }
+.xgb-class-badge.red { background: #ffebee; color: #c62828; }
+.xgb-class-badge.gray { background: #f3f4f6; color: #4b5563; }
+
+/* Gauge styling */
+.gauge-outer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.gauge-svg {
+  overflow: visible;
+}
+
+.gauge-val-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -24px;
+}
+
+.gauge-val-num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1f2937;
+  line-height: 1;
+}
+
+.gauge-val-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+@media (max-width: 1200px) {
+  .polytox-predictor-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .col-8, .col-4, .col-6 {
+    grid-column: span 12;
+  }
+}

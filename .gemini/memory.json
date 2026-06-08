@@ -1,0 +1,39 @@
+{
+  "project": "ANBL Laboratory Portal",
+  "summary": "Apple-inspired research dashboard and public landing portal for the Advanced Nanomedicine & Biosafety Laboratory, featuring interactive data tools and publications bibliography search.",
+  "tech_stack": {
+    "framework": "React (v19) via Vite (v8)",
+    "routing": "React Router DOM (v7)",
+    "styling": "Vanilla CSS (modularized structures)",
+    "features": ["Vibrating particle animations", "Connectivity monitoring", "Glassmorphism layouts"]
+  },
+  "branch_status": {
+    "active_branch": "ver-2.0",
+    "active_layout": "SPA Router"
+  },
+  "portal_pages": {
+    "Home": "Overview of lab, announcement bars, research highlights.",
+    "About": "Academic timeline, background, and PI profiles.",
+    "Publications": "Database-driven bibliography with search, filtering, and page navigation.",
+    "Research & Team": "Lab projects descriptions and personnel rosters."
+  },
+  "webtools_dashboard": {
+    "layout": "WebToolsLayout with sticky navigation and responsive mobile side-drawer.",
+    "tools": {
+      "NeuroBioAxis": "Search portal for Tool 1 (nanoparticle interactions in neurological systems).",
+      "PolyToxMap": "Filter/search interface for Tool 2 (polymer-based toxicity data).",
+      "PolyToxPredictor": "Interactive playground for machine learning toxicity simulation.",
+      "MaterialDetails": "Exportable PDF-styled report displaying physiochemical parameters, in vitro, in vivo, safety recovery stats, and reference articles."
+    }
+  },
+  "recent_updates": [
+    "Created WebTools platform dashboard layout with responsive sidebar navigation.",
+    "Built PolyToxMapSearch with customizable range sliders and data tables.",
+    "Designed MaterialDetails component supporting multi-section scientific reports (1.0 - 5.0) and PDF export triggers.",
+    "Added an offline detector screen blocking queries and prompting for reconnection when offline."
+  ],
+  "development_notes": {
+    "api_connection": "Proxied to backend on http://localhost:5000. Production builds can modify fetch base parameters in components.",
+    "animations": "Page transition animations are handled via the .fade-in utility class inside index.css."
+  }
+}

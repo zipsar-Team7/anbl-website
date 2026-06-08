@@ -40,8 +40,16 @@ const WebToolsLanding = () => {
       </section>
 
       <div className="landing-content-wrapper">
+        <h2 className="section-title-modern">Research Platforms</h2>
         <div className="modern-tools-grid">
-          {webTools.map((tool) => (
+          {webTools.filter(t => t.category === "Platforms").map((tool) => (
+            <ModernToolCard key={tool.id} tool={tool} navigate={navigate} />
+          ))}
+        </div>
+
+        <h2 className="section-title-modern" style={{ marginTop: '4rem' }}>AI Prediction Tools</h2>
+        <div className="modern-tools-grid">
+          {webTools.filter(t => t.category === "Prediction Tools").map((tool) => (
             <ModernToolCard key={tool.id} tool={tool} navigate={navigate} />
           ))}
         </div>
@@ -81,6 +89,16 @@ const ModernToolCard = ({ tool, navigate }) => {
             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
             <polyline points="2 17 12 22 22 17"></polyline>
             <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        );
+      case 'poly-toxmap-predictor':
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <path d="M12 7v4"></path>
+            <path d="M9 11h6"></path>
           </svg>
         );
       case 'derm-nanomap':

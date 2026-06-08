@@ -259,7 +259,7 @@ export const labData = {
     {
       id: 'neuro-bio-axis',
       name: "Neuro-Bio-Axis",
-      category: "Platform",
+      category: "Platforms",
       description: "A cross-scale nano–bio interaction platform integrating heterogeneous neurological datasets across multiple nanoparticle classes and both in vitro and in vivo systems. By incorporating biological response features alongside material and exposure data, it enables mechanism-informed exploration of toxicity and recovery outcomes. Designed for cross-study comparison, hypothesis generation, and future predictive modeling. Covers neurological conditions including neuroinflammation, neurodegeneration, and injury models.",
       status: "Available",
       link: "/webtools/neuro-bio-axis",
@@ -268,10 +268,19 @@ export const labData = {
     {
       id: 'poly-toxmap',
       name: "Poly-ToxMap",
-      category: "Platform",
+      category: "Platforms",
       description: "A focused platform for functional polymer-based nanomaterials, built on curated in vitro toxicity datasets. It enables rapid, material-centric exploration using material properties and exposure conditions, supporting efficient screening and comparison within a defined material class. Structured for consistency and future integration into predictive tools. Covers neurodegenerative and neuroinflammatory models.",
       status: "Available",
       link: "/webtools/poly-toxmap",
+      desktopOnly: true
+    },
+    {
+      id: 'poly-toxmap-predictor',
+      name: "Poly-ToxMap AI Predictor",
+      category: "Prediction Tools",
+      description: "Advanced AI-driven prediction model for functional polymer-based nanomaterials. Utilizing XGBoost and SHAP analysis, this tool predicts cell viability and toxicity based on physiochemical properties and experimental parameters. Features include multi-variable radar analysis, SHAP feature importance mapping, and bulk dataset processing.",
+      status: "Available",
+      link: "/webtools/poly-toxmap-predictor",
       desktopOnly: true
     }
   ]
