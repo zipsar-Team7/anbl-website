@@ -273,6 +273,15 @@ export const labData = {
       status: "Available",
       link: "/webtools/poly-toxmap",
       desktopOnly: true
+    },
+    {
+      id: 'poly-tox-predict',
+      name: "PolyTox Predictor",
+      category: "Prediction Tool",
+      description: "An AI-powered prediction tool utilizing an XGBoost machine learning model to estimate nanoparticle toxicity and cell viability based on 9 physicochemical and exposure descriptors. Features explainable AI metrics and a continuous viability gauge.",
+      status: "Available",
+      link: "/webtools/poly-tox-predict",
+      desktopOnly: true
     }
   ]
 };

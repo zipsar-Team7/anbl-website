@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   POLYTOX_SEARCH: `${BASE_URL}/polytox/search`,
   POLYTOX_FILTERS: `${BASE_URL}/polytox/filters`,
   POLYTOX_RECORDS: `${BASE_URL}/polytox/records`,
+  POLYTOX_PREDICT: `${BASE_URL}/polytox/predict`,
 };
 
 export default BASE_URL;
