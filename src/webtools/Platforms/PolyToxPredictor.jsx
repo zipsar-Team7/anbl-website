@@ -1,6 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { API_ENDPOINTS } from '../../config/api';
 import './PolyToxPredictor.css';
+
+const CustomSelect = ({ value, onChange, options, placeholder, isPolymersField }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSelect = (opt) => {
+    onChange(opt);
+    setIsOpen(false);
+  };
+
+  const getDisplayLabel = (val) => {
+    if (isPolymersField && val === '0') return 'No Polymers';
+    return val;
+  };
+  return (
+    <div className="custom-select-container" ref={containerRef}>
+      <div 
+        className={`custom-select-trigger ${isOpen ? 'active' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span title={getDisplayLabel(value) || placeholder}>
+          {getDisplayLabel(value) || placeholder}
+        </span>
+        <span className="custom-select-arrow"></span>
+      </div>
+      {isOpen && (
+        <ul className="custom-select-options">
+          {options.map(opt => (
+            <li 
+              key={opt} 
+              className={`custom-select-option ${opt === value ? 'selected' : ''}`}
+              onClick={() => handleSelect(opt)}
+            >
+              {getDisplayLabel(opt)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const DEFAULT_INPUTS = {
   synthesis: 'Double emulsion solvent evaporation',
@@ -19,6 +70,13 @@ const PolyToxPredictor = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [toast, setToast] = useState({ show: false, message: '', type: 'info', id: 0 });
+  const [customModes, setCustomModes] = useState({
+    synthesis: false,
+    polymers: false,
+    polymer_type: false,
+    functional_group: false,
+    shape: false
+  });
 
   // Dynamic dropdown options loaded from API
   const [options, setOptions] = useState({
@@ -97,8 +155,61 @@ const PolyToxPredictor = () => {
     }));
   };
 
+  const toggleCustomMode = (field) => {
+    setCustomModes(prev => {
+      const nextVal = !prev[field];
+      if (!nextVal) {
+        // Switching to list view: reset back to default or first option
+        setInputs(inputsPrev => ({
+          ...inputsPrev,
+          [field]: options[field]?.[0] || DEFAULT_INPUTS[field]
+        }));
+      } else {
+        // Switching to custom input: clear or set empty string
+        setInputs(inputsPrev => ({
+          ...inputsPrev,
+          [field]: ''
+        }));
+      }
+      return { ...prev, [field]: nextVal };
+    });
+  };
+
+  const toggleAllCustomModes = () => {
+    const allAreCustom = Object.values(customModes).every(v => v === true);
+    const targetVal = !allAreCustom;
+    
+    setCustomModes({
+      synthesis: targetVal,
+      polymers: targetVal,
+      polymer_type: targetVal,
+      functional_group: targetVal,
+      shape: targetVal
+    });
+
+    setInputs(inputsPrev => {
+      const updated = { ...inputsPrev };
+      const fields = ['synthesis', 'polymers', 'polymer_type', 'functional_group', 'shape'];
+      fields.forEach(field => {
+        if (!targetVal) {
+          updated[field] = options[field]?.[0] || DEFAULT_INPUTS[field];
+        } else {
+          updated[field] = '';
+        }
+      });
+      return updated;
+    });
+  };
+
   const handleReset = () => {
     setInputs(DEFAULT_INPUTS);
+    setCustomModes({
+      synthesis: false,
+      polymers: false,
+      polymer_type: false,
+      functional_group: false,
+      shape: false
+    });
     setResult(null);
     showToast('Parameters reset to model baseline values.', 'success');
   };
@@ -176,63 +287,174 @@ const PolyToxPredictor = () => {
         <div className="sidebar-header">
           <div className="sidebar-header-title-row">
             <h2 className="sidebar-title">Prediction Inputs</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span className="toggle-label-text">All Custom</span>
+              <label className="ios-switch">
+                <input
+                  type="checkbox"
+                  checked={Object.values(customModes).every(v => v)}
+                  onChange={toggleAllCustomModes}
+                  title="Toggle all fields to custom typing mode"
+                />
+                <span className="ios-switch-slider"></span>
+              </label>
+            </div>
           </div>
         </div>
         <form onSubmit={runPrediction} className="predictor-form">
 
           {/* Categoricals */}
           <div className="form-group">
-            <label>Synthesis Method</label>
-            <select
-              value={inputs.synthesis}
-              onChange={(e) => handleInputChange('synthesis', e.target.value)}
-            >
-              {options.synthesis.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-            </select>
+            <div className="form-group-header">
+              <label>Synthesis Method</label>
+              <label className="ios-switch">
+                <input
+                  type="checkbox"
+                  checked={customModes.synthesis}
+                  onChange={() => toggleCustomMode('synthesis')}
+                  title="Toggle custom typing mode"
+                />
+                <span className="ios-switch-slider"></span>
+              </label>
+            </div>
+            {customModes.synthesis ? (
+              <input
+                type="text"
+                className="custom-text-input"
+                placeholder="Type synthesis method..."
+                value={inputs.synthesis}
+                onChange={(e) => handleInputChange('synthesis', e.target.value)}
+              />
+            ) : (
+              <CustomSelect
+                value={inputs.synthesis}
+                onChange={(val) => handleInputChange('synthesis', val)}
+                options={options.synthesis}
+              />
+            )}
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label>Polymers</label>
-              <select
-                value={inputs.polymers}
-                onChange={(e) => handleInputChange('polymers', e.target.value)}
-              >
-                {options.polymers.map(opt => <option key={opt} value={opt}>{opt === '0' ? 'No Polymers' : opt}</option>)}
-              </select>
+              <div className="form-group-header">
+                <label>Polymers</label>
+                <label className="ios-switch">
+                  <input
+                    type="checkbox"
+                    checked={customModes.polymers}
+                    onChange={() => toggleCustomMode('polymers')}
+                    title="Toggle custom typing mode"
+                  />
+                  <span className="ios-switch-slider"></span>
+                </label>
+              </div>
+              {customModes.polymers ? (
+                <input
+                  type="text"
+                  className="custom-text-input"
+                  placeholder="Type polymer name..."
+                  value={inputs.polymers}
+                  onChange={(e) => handleInputChange('polymers', e.target.value)}
+                />
+              ) : (
+                <CustomSelect
+                  value={inputs.polymers}
+                  onChange={(val) => handleInputChange('polymers', val)}
+                  options={options.polymers}
+                  isPolymersField={true}
+                />
+              )}
             </div>
 
             <div className="form-group">
-              <label>Polymer Type</label>
-              <select
-                value={inputs.polymer_type}
-                onChange={(e) => handleInputChange('polymer_type', e.target.value)}
-              >
-                {options.polymer_type.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
+              <div className="form-group-header">
+                <label>Polymer Type</label>
+                <label className="ios-switch">
+                  <input
+                    type="checkbox"
+                    checked={customModes.polymer_type}
+                    onChange={() => toggleCustomMode('polymer_type')}
+                    title="Toggle custom typing mode"
+                  />
+                  <span className="ios-switch-slider"></span>
+                </label>
+              </div>
+              {customModes.polymer_type ? (
+                <input
+                  type="text"
+                  className="custom-text-input"
+                  placeholder="Type polymer type..."
+                  value={inputs.polymer_type}
+                  onChange={(e) => handleInputChange('polymer_type', e.target.value)}
+                />
+              ) : (
+                <CustomSelect
+                  value={inputs.polymer_type}
+                  onChange={(val) => handleInputChange('polymer_type', val)}
+                  options={options.polymer_type}
+                />
+              )}
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
+          <div className="form-group">
+            <div className="form-group-header">
               <label>Functional Group (Material 2)</label>
-              <select
+              <label className="ios-switch">
+                <input
+                  type="checkbox"
+                  checked={customModes.functional_group}
+                  onChange={() => toggleCustomMode('functional_group')}
+                  title="Toggle custom typing mode"
+                />
+                <span className="ios-switch-slider"></span>
+              </label>
+            </div>
+            {customModes.functional_group ? (
+              <input
+                type="text"
+                className="custom-text-input"
+                placeholder="Type functional group..."
                 value={inputs.functional_group}
                 onChange={(e) => handleInputChange('functional_group', e.target.value)}
-              >
-                {options.functional_group.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
+              />
+            ) : (
+              <CustomSelect
+                value={inputs.functional_group}
+                onChange={(val) => handleInputChange('functional_group', val)}
+                options={options.functional_group}
+              />
+            )}
+          </div>
 
-            <div className="form-group">
+          <div className="form-group">
+            <div className="form-group-header">
               <label>Shape</label>
-              <select
+              <label className="ios-switch">
+                <input
+                  type="checkbox"
+                  checked={customModes.shape}
+                  onChange={() => toggleCustomMode('shape')}
+                  title="Toggle custom typing mode"
+                />
+                <span className="ios-switch-slider"></span>
+              </label>
+            </div>
+            {customModes.shape ? (
+              <input
+                type="text"
+                className="custom-text-input"
+                placeholder="Type shape..."
                 value={inputs.shape}
                 onChange={(e) => handleInputChange('shape', e.target.value)}
-              >
-                {options.shape.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
+              />
+            ) : (
+              <CustomSelect
+                value={inputs.shape}
+                onChange={(val) => handleInputChange('shape', val)}
+                options={options.shape}
+              />
+            )}
           </div>
 
           <div className="form-divider"></div>
