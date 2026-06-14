@@ -155,6 +155,12 @@ export const labData = {
       agency: "Funding agency: RDA Joint Research Grants"
     },
     {
+      type: "Ongoing",
+      title: "2. Prediction of Nanomaterial Toxicity and Safety through Conserved Biological Reactions Using an AI Mechanistic Framework Based on Single-Cell RNA Sequencing (scRNA-seq).",
+      role: "Role: Principal Investigator (2026) Ongoing",
+      agency: "Funding agency: National Research Foundation of Korea (NRF)"
+    },
+    {
       type: "Completed",
       title: "1. Development of mass cytometry and multi-omics approaches for QSAR-based nanotoxicity models.",
       role: "Role: Principal Investigator (2021.11-2022.10)",

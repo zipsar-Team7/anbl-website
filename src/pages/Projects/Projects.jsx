@@ -24,7 +24,7 @@ export default function Projects() {
         </div>
         <div className="container">
           <span className="section-label">Our Work</span>
-          <h1 className="t-h1">Research Projects & Grants</h1>
+          <h1 className="t-h1">Research Grants</h1>
           <p className="t-body-large">
             Driving innovation through strategic research initiatives and 
             national/international collaborations.

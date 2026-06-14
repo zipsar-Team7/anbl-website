@@ -9,7 +9,7 @@ const footerNav = [
   { label: 'Home', to: '/' },
   { label: 'Principal Investigator', to: '/about' },
   { label: 'Research', to: '/research' },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Grants', to: '/grants' },
   { label: 'Publications', to: '/publications' },
   { label: 'News', to: '/news' },
   { label: 'Opportunities', to: '/opportunities' },
