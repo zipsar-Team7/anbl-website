@@ -27,7 +27,7 @@ const CustomSelect = ({ value, onChange, options, placeholder, isPolymersField }
   };
   return (
     <div className="custom-select-container" ref={containerRef}>
-      <div 
+      <div
         className={`custom-select-trigger ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -39,8 +39,8 @@ const CustomSelect = ({ value, onChange, options, placeholder, isPolymersField }
       {isOpen && (
         <ul className="custom-select-options">
           {options.map(opt => (
-            <li 
-              key={opt} 
+            <li
+              key={opt}
               className={`custom-select-option ${opt === value ? 'selected' : ''}`}
               onClick={() => handleSelect(opt)}
             >
@@ -70,6 +70,9 @@ const PolyToxPredictor = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [toast, setToast] = useState({ show: false, message: '', type: 'info', id: 0 });
+  const [metadata, setMetadata] = useState(null);
+  const [suggestions, setSuggestions] = useState(null);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
   const [customModes, setCustomModes] = useState({
     synthesis: false,
     polymers: false,
@@ -148,6 +151,23 @@ const PolyToxPredictor = () => {
     fetchOptions();
   }, []);
 
+  // Fetch model metadata and comparison details on page mount
+  useEffect(() => {
+    const fetchMetadata = async () => {
+      try {
+        const response = await fetch(API_ENDPOINTS.POLYTOX_METADATA);
+        if (!response.ok) throw new Error('Failed to load model metadata');
+        const res = await response.json();
+        if (res.status === 'success') {
+          setMetadata(res.data);
+        }
+      } catch (err) {
+        console.warn('Could not load model metadata details.', err);
+      }
+    };
+    fetchMetadata();
+  }, []);
+
   const handleInputChange = (field, val) => {
     setInputs(prev => ({
       ...prev,
@@ -178,7 +198,7 @@ const PolyToxPredictor = () => {
   const toggleAllCustomModes = () => {
     const allAreCustom = Object.values(customModes).every(v => v === true);
     const targetVal = !allAreCustom;
-    
+
     setCustomModes({
       synthesis: targetVal,
       polymers: targetVal,
@@ -211,7 +231,47 @@ const PolyToxPredictor = () => {
       shape: false
     });
     setResult(null);
+    setSuggestions(null);
+    setSuggestionsLoading(false);
     showToast('Parameters reset to model baseline values.', 'success');
+  };
+
+  const fetchOptimizationSuggestions = async (predData) => {
+    const isToxicOrModerate = predData.predictionLabel.toLowerCase() !== 'biosafe';
+    if (!isToxicOrModerate) {
+      setSuggestions(null);
+      return;
+    }
+
+    setSuggestionsLoading(true);
+    setSuggestions(null);
+
+    try {
+      const response = await fetch(API_ENDPOINTS.POLYTOX_SUGGEST, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          inputs,
+          predictionLabel: predData.predictionLabel,
+          confidence: predData.confidence,
+          featureImpacts: predData.featureImpacts
+        })
+      });
+
+      if (!response.ok) throw new Error('API server error');
+      const res = await response.json();
+
+      if (res.status === 'success') {
+        setSuggestions(res.data);
+      } else {
+        throw new Error(res.message || 'Failed to fetch suggestions');
+      }
+    } catch (err) {
+      console.warn('Could not generate optimization recommendations.', err);
+      showToast('AI suggestion generation failed.', 'error');
+    } finally {
+      setSuggestionsLoading(false);
+    }
   };
 
   const runPrediction = async (e) => {
@@ -236,6 +296,8 @@ const PolyToxPredictor = () => {
           setResult(res.data);
           setLoading(false);
           showToast('Toxicity report generated successfully.', 'success');
+          // Trigger suggestions asynchronously
+          fetchOptimizationSuggestions(res.data);
         }, 800);
       } else {
         throw new Error(res.message || 'Prediction failed');
@@ -795,6 +857,119 @@ const PolyToxPredictor = () => {
                 <span>SHAP value (impact on toxicity)</span>
               </div>
             </div>
+
+            {/* MODEL PERFORMANCE COMPARISON */}
+            {metadata && metadata.model_comparison && (
+              <div className="result-card-large performance-comparison-card fade-in" style={{ marginTop: '24px' }}>
+                <div className="performance-header">
+                  <h4 className="card-label">Model Performance Comparison</h4>
+                </div>
+                <p className="card-sub-p">Comparative analysis of XGBoost vs other machine learning models trained.</p>
+
+                <div className="table-responsive">
+                  <table className="comparison-table">
+                    <thead>
+                      <tr>
+                        <th>Model Architecture</th>
+                        <th>Test Accuracy</th>
+                        <th>Precision (Weighted)</th>
+                        <th>F1-Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {metadata.model_comparison.map((row) => {
+                        const isMainModel = row.model === "XGBoost";
+                        return (
+                          <tr key={row.model} className={isMainModel ? "highlight-row" : ""}>
+                            <td className="model-name">
+                              {row.model} {isMainModel && <span className="active-pill">Main Tool</span>}
+                            </td>
+                            <td>{(row.accuracy * 100).toFixed(2)}%</td>
+                            <td>{(row.precision * 100).toFixed(2)}%</td>
+                            <td>{(row.f1_score * 100).toFixed(2)}%</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* AI OPTIMIZATION RECOMMENDATIONS */}
+            {suggestionsLoading && (
+              <div className="result-card-large suggestions-card loading-suggestions fade-in" style={{ marginTop: '24px' }}>
+                <h4 className="card-label">AI Optimization Recommendations</h4>
+                <div className="suggestions-loader-container">
+                  <div className="suggestions-spinner"></div>
+                  <p className="loader-text">Analyzing toxicity drivers and compiling optimized formulation tweaks...</p>
+                </div>
+              </div>
+            )}
+
+            {!suggestionsLoading && suggestions && (
+              <div className="result-card-large suggestions-card fade-in" style={{ marginTop: '24px' }}>
+                <div className="suggestions-card-header">
+                  <div className="header-title-wrapper">
+                    <h4 className="card-label" style={{ margin: 0 }}>AI Optimization Recommendations</h4>
+                    <span className={`engine-badge badge-${suggestions.engine}`}>
+                      {suggestions.engine === 'gemini' ? '🧠 Gemini AI' : '🛡️ Fallback Rules'}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="suggestions-explanation-section">
+                  <div className="explanation-icon">💡</div>
+                  <p className="explanation-text">{suggestions.explanation}</p>
+                </div>
+
+                {suggestions.tweaks && suggestions.tweaks.length > 0 && (
+                  <div className="tweaks-table-container">
+                    <h5 className="section-subtitle">Recommended Descriptor Adjustments</h5>
+                    <div className="table-responsive">
+                      <table className="tweaks-table">
+                        <thead>
+                          <tr>
+                            <th>Parameter</th>
+                            <th>Current Value</th>
+                            <th>Recommended Value</th>
+                            <th>Optimized Effect / Reason</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {suggestions.tweaks.map((tweak, index) => (
+                            <tr key={index}>
+                              <td className="tweak-param-name">{tweak.parameter}</td>
+                              <td>
+                                <span className="tweak-badge current-badge">{tweak.currentValue}</span>
+                              </td>
+                              <td>
+                                <span className="tweak-badge recommended-badge">{tweak.recommendedValue}</span>
+                              </td>
+                              <td className="tweak-reason">{tweak.reason}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {suggestions.generalTips && suggestions.generalTips.length > 0 && (
+                  <div className="tips-section">
+                    <h5 className="section-subtitle">General Formulation Guidelines</h5>
+                    <ul className="tips-list">
+                      {suggestions.generalTips.map((tip, index) => (
+                        <li key={index} className="tip-item">
+                          <span className="tip-bullet">⚡</span>
+                          <span className="tip-text">{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
 
           </div>
         )}
