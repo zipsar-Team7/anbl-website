@@ -859,42 +859,45 @@ const PolyToxPredictor = () => {
             </div>
 
             {/* MODEL PERFORMANCE COMPARISON */}
-            {metadata && metadata.model_comparison && (
-              <div className="result-card-large performance-comparison-card fade-in" style={{ marginTop: '24px' }}>
-                <div className="performance-header">
-                  <h4 className="card-label">Model Performance Comparison</h4>
-                </div>
-                <p className="card-sub-p">Comparative analysis of XGBoost vs other machine learning models trained.</p>
-
-                <div className="table-responsive">
-                  <table className="comparison-table">
-                    <thead>
-                      <tr>
-                        <th>Model Architecture</th>
-                        <th>Test Accuracy</th>
-                        <th>Precision (Weighted)</th>
-                        <th>F1-Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {metadata.model_comparison.map((row) => {
-                        const isMainModel = row.model === "XGBoost";
-                        return (
-                          <tr key={row.model} className={isMainModel ? "highlight-row" : ""}>
-                            <td className="model-name">
-                              {row.model} {isMainModel && <span className="active-pill">Main Tool</span>}
-                            </td>
-                            <td>{(row.accuracy * 100).toFixed(2)}%</td>
-                            <td>{(row.precision * 100).toFixed(2)}%</td>
-                            <td>{(row.f1_score * 100).toFixed(2)}%</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+            <div className="result-card-large performance-comparison-card fade-in" style={{ marginTop: '24px' }}>
+              <div className="performance-header">
+                <h4 className="card-label">Model Performance Comparison</h4>
               </div>
-            )}
+              <p className="card-sub-p">Comparative analysis of XGBoost vs other machine learning models trained.</p>
+
+              <div className="table-responsive">
+                <table className="comparison-table">
+                  <thead>
+                    <tr>
+                      <th>MODEL ARCHITECTURE</th>
+                      <th>TEST ACCURACY</th>
+                      <th>F1-SCORE</th>
+                      <th>AUROC (ROC-AUC)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { model: "XGBoost", accuracy: "65.00%", precision: "74.00%", f1_score: "67.00%", auroc: "88.00%" },
+                      { model: "SVM", accuracy: "61.00%", precision: "60.00%", f1_score: "56.00%", auroc: "83.00%" },
+                      { model: "RF", accuracy: "63.00%", precision: "76.00%", f1_score: "59.00%", auroc: "89.00%" },
+                      { model: "NaiveBayes", accuracy: "61.00%", precision: "47.00%", f1_score: "51.00%", auroc: "80.00%" }
+                    ].map((row) => {
+                      const isMainModel = row.model === "XGBoost";
+                      return (
+                        <tr key={row.model} className={isMainModel ? "highlight-row" : ""}>
+                          <td className="model-name">
+                            {row.model} {isMainModel && <span className="active-pill">Main Model</span>}
+                          </td>
+                          <td>{row.accuracy}</td>
+                          <td>{row.f1_score}</td>
+                          <td>{row.auroc}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
             {/* AI OPTIMIZATION RECOMMENDATIONS */}
             {suggestionsLoading && (
