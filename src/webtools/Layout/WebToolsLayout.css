@@ -378,13 +378,16 @@
   .webtools-layout:has(.platform-search-wrapper),
   .webtools-main:has(.platform-search-wrapper),
   .webtools-layout:has(.polytox-predictor-page),
-  .webtools-main:has(.polytox-predictor-page) {
+  .webtools-main:has(.polytox-predictor-page),
+  .webtools-layout:has(.nba-predictor-page),
+  .webtools-main:has(.nba-predictor-page) {
     height: 100vh;
     max-height: 100vh;
     overflow: hidden;
   }
   .webtools-content:has(.platform-search-wrapper),
-  .webtools-content:has(.polytox-predictor-page) {
+  .webtools-content:has(.polytox-predictor-page),
+  .webtools-content:has(.nba-predictor-page) {
     padding: 0;
     overflow: hidden;
     height: calc(100vh - 64px);

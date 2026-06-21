@@ -288,6 +288,15 @@ export const labData = {
       status: "Available",
       link: "/webtools/poly-tox-predict",
       desktopOnly: true
+    },
+    {
+      id: 'neuro-bio-axis-predict',
+      name: "Neuro-Bio-Axis Predictor",
+      category: "Prediction Tool",
+      description: "An AI-powered dual-target prediction tool to estimate nanoparticle Recovery and Biosafety based on 21 physicochemical, exposure, and cellular response descriptors.",
+      status: "Available",
+      link: "/webtools/neuro-bio-axis-predict",
+      desktopOnly: true
     }
   ]
 };
