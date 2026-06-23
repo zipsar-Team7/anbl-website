@@ -543,11 +543,10 @@
 }
 
 .roc-radar-row {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
-  align-items: stretch;
 }
 
 .nba-card {
@@ -602,14 +601,67 @@
   background-color: #fafafa;
 }
 
+.chart-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 5px;
+  margin-bottom: 8px;
+}
+
 .chart-title {
   font-size: 0.75rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  color: var(--text-muted);
-  font-weight: 650;
+  color: var(--text-primary);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.chart-layer-badge {
+  font-size: 8.5px;
+  font-weight: 750;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.roc-auroc-label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.roc-auroc-label strong {
+  font-weight: 800;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.roc-watermark {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
 }
 
 .roc-container {
@@ -618,20 +670,25 @@
   gap: 1rem;
 }
 
-.shap-table-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.combined-analysis-card {
   margin-bottom: 1.5rem;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 2.5rem;
   align-items: stretch;
 }
 
-.shap-container {
-  margin-bottom: 0;
+.shap-column {
+  border-right: 1px solid var(--border-light);
+  padding-right: 2.5rem;
 }
 
-.radar-container {
-  margin-bottom: 0;
+.radar-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .radar-grid {
@@ -660,6 +717,26 @@
 .performance-comparison-card {
   border-top: 4px solid var(--red) !important;
   margin-bottom: 0;
+}
+
+.comparison-subtitle {
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 16px 0 8px 0;
+}
+
+.performance-comparison-card .comparison-subtitle:first-of-type {
+  margin-top: 4px;
+}
+
+.comparison-tables-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
 }
 
 .card-sub-p {
@@ -828,11 +905,22 @@
   .roc-radar-row {
     grid-template-columns: 1fr;
   }
-  .shap-table-row {
+  .analysis-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .shap-column {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
   }
   .radar-grid {
     height: auto;
+  }
+  .comparison-tables-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 

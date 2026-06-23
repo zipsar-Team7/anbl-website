@@ -237,12 +237,6 @@ const PolyToxPredictor = () => {
   };
 
   const fetchOptimizationSuggestions = async (predData) => {
-    const isToxicOrModerate = predData.predictionLabel.toLowerCase() !== 'biosafe';
-    if (!isToxicOrModerate) {
-      setSuggestions(null);
-      return;
-    }
-
     setSuggestionsLoading(true);
     setSuggestions(null);
 
@@ -724,9 +718,11 @@ const PolyToxPredictor = () => {
                       <svg viewBox="0 0 200 100" className="speedometer-svg">
                         <defs>
                           <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#ff4b4b" />
-                            <stop offset="50%" stopColor="#ffa500" />
-                            <stop offset="100%" stopColor="#00cc44" />
+                            <stop offset="0%" stopColor="#FF4D4D" />
+                            <stop offset="25%" stopColor="#FF9500" />
+                            <stop offset="50%" stopColor="#FFCC00" />
+                            <stop offset="75%" stopColor="#8CD137" />
+                            <stop offset="100%" stopColor="#10B981" />
                           </linearGradient>
                         </defs>
                         {/* Background Arc */}
