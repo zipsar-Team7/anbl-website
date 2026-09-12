@@ -134,6 +134,15 @@
   font-family: var(--font);
   outline: none;
   transition: border-color 0.2s;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.filter-select option {
+  white-space: normal;
+  word-break: break-word;
 }
 
 .filter-select:focus {

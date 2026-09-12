@@ -155,6 +155,12 @@ export const labData = {
       agency: "Funding agency: RDA Joint Research Grants"
     },
     {
+      type: "Ongoing",
+      title: "2. Prediction of Nanomaterial Toxicity and Safety through Conserved Biological Reactions Using an AI Mechanistic Framework Based on Single-Cell RNA Sequencing (scRNA-seq).",
+      role: "Role: Principal Investigator (2026) Ongoing",
+      agency: "Funding agency: National Research Foundation of Korea (NRF)"
+    },
+    {
       type: "Completed",
       title: "1. Development of mass cytometry and multi-omics approaches for QSAR-based nanotoxicity models.",
       role: "Role: Principal Investigator (2021.11-2022.10)",
@@ -272,6 +278,24 @@ export const labData = {
       description: "A focused platform for functional polymer-based nanomaterials, built on curated in vitro toxicity datasets. It enables rapid, material-centric exploration using material properties and exposure conditions, supporting efficient screening and comparison within a defined material class. Structured for consistency and future integration into predictive tools. Covers neurodegenerative and neuroinflammatory models.",
       status: "Available",
       link: "/webtools/poly-toxmap",
+      desktopOnly: true
+    },
+    {
+      id: 'poly-tox-predict',
+      name: "PolyTox Predictor",
+      category: "Prediction Tool",
+      description: "An AI-powered prediction tool utilizing an XGBoost machine learning model to estimate nanoparticle toxicity and cell viability based on 9 physicochemical and exposure descriptors. Features explainable AI metrics and a continuous viability gauge.",
+      status: "Available",
+      link: "/webtools/poly-tox-predict",
+      desktopOnly: true
+    },
+    {
+      id: 'neuro-bio-axis-predict',
+      name: "Neuro-Bio-Axis Predictor",
+      category: "Prediction Tool",
+      description: "An AI-powered dual-target prediction tool to estimate nanoparticle Recovery and Biosafety based on 21 physicochemical, exposure, and cellular response descriptors.",
+      status: "Available",
+      link: "/webtools/neuro-bio-axis-predict",
       desktopOnly: true
     }
   ]

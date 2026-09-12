@@ -40,24 +40,24 @@
 .contact-form {
   padding: 48px;
 }
-.form-grid {
+.contact-form .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
-.form-group {
+.contact-form .form-group {
   margin-bottom: 24px;
 }
-.form-group label {
+.contact-form .form-group label {
   display: block;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--text-primary);
 }
-.form-group input,
-.form-group select,
-.form-group textarea {
+.contact-form .form-group input,
+.contact-form .form-group select,
+.contact-form .form-group textarea {
   width: 100%;
   padding: 14px 16px;
   border-radius: var(--radius-sm);
@@ -65,9 +65,9 @@
   background: var(--surface);
   font-size: 15px;
 }
-.form-group input:focus, 
-.form-group select:focus, 
-.form-group textarea:focus {
+.contact-form .form-group input:focus, 
+.contact-form .form-group select:focus, 
+.contact-form .form-group textarea:focus {
   outline: none;
   border-color: var(--red);
 }

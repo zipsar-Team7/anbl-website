@@ -178,6 +178,35 @@ const RangeSlider = ({ label, minLimit, maxLimit, currentMin, currentMax, onChan
         <span>{min}</span>
         <span>{max}</span>
       </div>
+      <div className="filter-range-inputs" style={{ marginTop: '10px' }}>
+        <input
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          placeholder="Min"
+          value={currentMin === '' ? '' : currentMin}
+          onChange={(e) => {
+            const val = e.target.value === '' ? '' : Number(e.target.value);
+            onChange(val, currentMax);
+          }}
+          className="filter-range-input"
+        />
+        <span className="filter-range-sep">-</span>
+        <input
+          type="number"
+          min={min}
+          max={max}
+          step={step}
+          placeholder="Max"
+          value={currentMax === '' ? '' : currentMax}
+          onChange={(e) => {
+            const val = e.target.value === '' ? '' : Number(e.target.value);
+            onChange(currentMin, val);
+          }}
+          className="filter-range-input"
+        />
+      </div>
     </div>
   );
 };
@@ -349,7 +378,7 @@ const PolyToxMapSearch = () => {
       Shape: []
     },
     ranges: {
-      Core_size_nm: { min: 0, max: 500 },
+      Core_size_nm: { min: 1, max: 10000 },
       PDI: { min: 0, max: 1 },
       Hydrodynamic_size_water_nm: { min: 0, max: 1000 },
       Surface_charge_water_mV: { min: -100, max: 100 }
@@ -366,8 +395,8 @@ const PolyToxMapSearch = () => {
       Shape: []
     },
     abbreviation: '',
-    core_min: 0,
-    core_max: 500,
+    core_min: 1,
+    core_max: 10000,
     pdi_min: 0,
     pdi_max: 1,
     hydro_min: 0,
@@ -543,8 +572,8 @@ const PolyToxMapSearch = () => {
         Shape: []
       },
       abbreviation: '',
-      core_min: ranges?.Core_size_nm?.min !== undefined ? ranges.Core_size_nm.min : 0,
-      core_max: ranges?.Core_size_nm?.max !== undefined ? ranges.Core_size_nm.max : 500,
+      core_min: ranges?.Core_size_nm?.min !== undefined ? ranges.Core_size_nm.min : 1,
+      core_max: ranges?.Core_size_nm?.max !== undefined ? ranges.Core_size_nm.max : 10000,
       pdi_min: ranges?.PDI?.min !== undefined ? ranges.PDI.min : 0,
       pdi_max: ranges?.PDI?.max !== undefined ? ranges.PDI.max : 1,
       hydro_min: ranges?.Hydrodynamic_size_water_nm?.min !== undefined ? ranges.Hydrodynamic_size_water_nm.min : 0,

@@ -23,8 +23,10 @@ import WebToolsLayout from "./webtools/Layout/WebToolsLayout";
 import WebToolsLanding from "./webtools/Layout/WebToolsLanding";
 import NeuroBioAxis from "./webtools/Platforms/NeuroBioAxis";
 import PolyToxMap from "./webtools/Platforms/PolyToxMap";
+import PolyToxPredictor from "./webtools/Platforms/PolyToxPredictor";
 import MaterialDetails from "./webtools/Platforms/MaterialDetails";
 import ArrivingSoon from "./webtools/Platforms/ArrivingSoon";
+import NeuroBioAxisPredictor from "./webtools/Platforms/NeuroBioAxisPredictor";
 import WebToolsDocumentation from "./webtools/Documentation/WebToolsDocumentation";
 import NotFound from "./pages/NotFound/NotFound";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
@@ -167,7 +169,7 @@ function App() {
           <Route path="/team" element={<ResearchTeam />} />
           <Route path="/research" element={<Research />} />
           <Route path="/publications" element={<Publications />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/grants" element={<Projects />} />
           <Route path="/news" element={<News />} />
           <Route path="/opportunities" element={<Opportunities />} />
           <Route path="/contact" element={<Contact />} />
@@ -179,6 +181,8 @@ function App() {
           <Route index element={<WebToolsLanding />} />
           <Route path="neuro-bio-axis" element={<NeuroBioAxis />} />
           <Route path="poly-toxmap" element={<PolyToxMap />} />
+          <Route path="neuro-bio-axis-predict" element={<NeuroBioAxisPredictor />} />
+          <Route path="poly-tox-predict" element={<PolyToxPredictor />} />
           <Route path="details/:id" element={<MaterialDetails />} />
           <Route path="documentation" element={<WebToolsDocumentation />} />
         </Route>

@@ -9,7 +9,7 @@ const links = [
   { to: '/about', label: 'Principal Investigator' },
   { to: '/research', label: 'Research' },
   { to: '/team', label: 'Research Team' },
-  { to: '/projects', label: 'Projects' },
+  { to: '/grants', label: 'Grants' },
   { to: '/webtool', label: 'Web Tools' },
   { to: '/publications', label: 'Publications' },
   { to: '/opportunities', label: 'Opportunities' },
