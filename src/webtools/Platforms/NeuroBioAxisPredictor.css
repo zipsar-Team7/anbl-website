@@ -853,6 +853,7 @@
 }
 
 .border-safe { border-left: 5px solid #22c55e; }
+.border-warning { border-left: 5px solid #f59e0b; }
 .border-danger { border-left: 5px solid #ef4444; }
 
 .card-label {
@@ -877,6 +878,7 @@
 }
 
 .icon-safe { color: #22c55e; }
+.icon-warning { color: #f59e0b; }
 .icon-danger { color: #ef4444; }
 
 .status-text {
@@ -885,6 +887,7 @@
 }
 
 .text-safe { color: #22c55e; }
+.text-warning { color: #f59e0b; }
 .text-danger { color: #ef4444; }
 
 .card-sub {

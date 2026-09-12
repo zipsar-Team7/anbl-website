@@ -14,10 +14,10 @@ const WebToolsLayout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // 1.5 second loading screen when accessing the dashboard
+    // Fast snappy loading screen transition when accessing the webtools
     const timer = setTimeout(() => {
       setIsInitialLoading(false);
-    }, 1500);
+    }, 250);
     return () => clearTimeout(timer);
   }, []);
 

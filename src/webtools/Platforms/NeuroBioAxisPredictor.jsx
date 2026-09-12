@@ -239,7 +239,27 @@ const NeuroBioAxisPredictor = () => {
     setSuggestionsLoading(false);
   };
 
-  const generateNeuroSuggestions = async (currentInputs, toxPred, recPred, toxConf, recConf) => {
+  const getToxTier = (val) => {
+    if (val >= 0.60) {
+      return { status: 'safe', label: 'SAFE', sub: 'Low risk predicted' };
+    }
+    if (val >= 0.40) {
+      return { status: 'warning', label: 'MODERATE RISK', sub: 'Borderline toxicity risk — Caution' };
+    }
+    return { status: 'danger', label: 'TOXIC', sub: 'High hazard risk predicted' };
+  };
+
+  const getRecTier = (val) => {
+    if (val >= 0.60) {
+      return { status: 'safe', label: 'High Recovery', sub: 'Predicted to support positive recovery' };
+    }
+    if (val >= 0.40) {
+      return { status: 'warning', label: 'Moderate Recovery', sub: 'Partial recovery response predicted' };
+    }
+    return { status: 'danger', label: 'Poor Recovery', sub: 'Unlikely to yield positive outcomes' };
+  };
+
+  const generateNeuroSuggestions = async (currentInputs, toxPred, recPred, toxScore, recScore, toxStatus, recStatus) => {
     setSuggestionsLoading(true);
     setSuggestions(null);
 
@@ -253,8 +273,10 @@ const NeuroBioAxisPredictor = () => {
           inputs: currentInputs,
           toxicityPrediction: toxPred,
           recoveryPrediction: recPred,
-          toxicityConfidence: toxConf,
-          recoveryConfidence: recConf
+          toxicityConfidence: toxScore,
+          recoveryConfidence: recScore,
+          toxStatus,
+          recStatus
         })
       });
       
@@ -290,7 +312,19 @@ const NeuroBioAxisPredictor = () => {
       if (resultJson.status === 'success') {
         const { recovery, toxicity } = resultJson.data;
         setResult({ recovery, toxicity });
-        generateNeuroSuggestions(inputs, toxicity.prediction, recovery.prediction, toxicity.confidence, recovery.confidence);
+
+        const toxScore = (toxicity.probGood !== undefined 
+          ? toxicity.probGood 
+          : (toxicity.prediction === 'Good' ? toxicity.confidence : 1 - toxicity.confidence));
+
+        const recScore = (recovery.probGood !== undefined 
+          ? recovery.probGood 
+          : (recovery.prediction === 'Good' ? recovery.confidence : 1 - recovery.confidence));
+
+        const toxTier = getToxTier(toxScore);
+        const recTier = getRecTier(recScore);
+
+        generateNeuroSuggestions(inputs, toxTier.label, recTier.label, toxScore, recScore, toxTier.status, recTier.status);
       } else {
         console.error("API error:", resultJson.message);
       }
@@ -493,57 +527,108 @@ const NeuroBioAxisPredictor = () => {
         {!loading && result && (
           <div className="prediction-results-active fade-in">
             {/* TOP CARDS ROW */}
-            <div className="results-top-cards">
-              {/* Card 1: Biosafety */}
-              <div className={`result-card-small border-${result.toxicity.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '16px' }}>
-                  <div style={{ flex: 1 }}>
-                    <h4 className="card-label">BIOSAFETY PREDICTION</h4>
-                    <div className="card-status-row">
-                      <span className={`status-icon icon-${result.toxicity.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                        {result.toxicity.prediction === 'Good' ? (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 11 13 15 9"/></svg>
-                        ) : (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                        )}
-                      </span>
-                      <span className={`status-text text-${result.toxicity.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                        {result.toxicity.prediction === 'Good' ? 'SAFE' : 'TOXIC'}
-                      </span>
-                    </div>
-                    <p className="card-sub" style={{ margin: 0 }}>{result.toxicity.prediction === 'Good' ? 'Low risk predicted' : 'High hazard risk predicted'}</p>
-                  </div>
-                  <div style={{ flexShrink: 0 }}>
-                    <GaugeChart value={result.toxicity.confidence} color={result.toxicity.prediction === 'Good' ? '#22c55e' : '#ef4444'} />
-                  </div>
-                </div>
-              </div>
+            {(() => {
+              const toxScore = (result.toxicity.probGood !== undefined 
+                ? result.toxicity.probGood 
+                : (result.toxicity.prediction === 'Good' ? result.toxicity.confidence : 1 - result.toxicity.confidence));
 
-              {/* Card 2: Recovery */}
-              <div className={`result-card-small border-${result.recovery.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '16px' }}>
-                  <div style={{ flex: 1 }}>
-                    <h4 className="card-label">RECOVERY PREDICTION</h4>
-                    <div className="card-status-row">
-                      <span className={`status-icon icon-${result.recovery.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                        {result.recovery.prediction === 'Good' ? (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-                        ) : (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
-                        )}
-                      </span>
-                      <span className={`status-text text-${result.recovery.prediction === 'Good' ? 'safe' : 'danger'}`}>
-                        {result.recovery.prediction === 'Good' ? 'High Recovery' : 'Poor Recovery'}
-                      </span>
+              const recScore = (result.recovery.probGood !== undefined 
+                ? result.recovery.probGood 
+                : (result.recovery.prediction === 'Good' ? result.recovery.confidence : 1 - result.recovery.confidence));
+
+              // 3-Tier Classification: Safe (>= 0.60), Moderate (0.40 - 0.599), Toxic/Poor (< 0.40)
+              const getToxTier = (val) => {
+                if (val >= 0.60) {
+                  return { status: 'safe', label: 'SAFE', sub: 'Low risk predicted' };
+                }
+                if (val >= 0.40) {
+                  return { status: 'warning', label: 'MODERATE RISK', sub: 'Borderline toxicity risk — Caution' };
+                }
+                return { status: 'danger', label: 'TOXIC', sub: 'High hazard risk predicted' };
+              };
+
+              const getRecTier = (val) => {
+                if (val >= 0.60) {
+                  return { status: 'safe', label: 'High Recovery', sub: 'Predicted to support positive recovery' };
+                }
+                if (val >= 0.40) {
+                  return { status: 'warning', label: 'Moderate Recovery', sub: 'Partial recovery response predicted' };
+                }
+                return { status: 'danger', label: 'Poor Recovery', sub: 'Unlikely to yield positive outcomes' };
+              };
+
+              const toxTier = getToxTier(toxScore);
+              const recTier = getRecTier(recScore);
+
+              return (
+                <div className="results-top-cards">
+                  {/* Card 1: Biosafety */}
+                  <div className={`result-card-small border-${toxTier.status}`}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '16px' }}>
+                      <div style={{ flex: 1 }}>
+                        <h4 className="card-label">BIOSAFETY PREDICTION</h4>
+                        <div className="card-status-row">
+                          <span className={`status-icon icon-${toxTier.status}`}>
+                            {toxTier.status === 'safe' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 11 13 15 9"/></svg>
+                            )}
+                            {toxTier.status === 'warning' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            )}
+                            {toxTier.status === 'danger' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            )}
+                          </span>
+                          <span className={`status-text text-${toxTier.status}`}>
+                            {toxTier.label}
+                          </span>
+                        </div>
+                        <p className="card-sub" style={{ margin: 0 }}>{toxTier.sub}</p>
+                      </div>
+                      <div style={{ flexShrink: 0 }}>
+                        <GaugeChart 
+                          value={toxScore} 
+                          color={toxTier.status === 'safe' ? '#22c55e' : (toxTier.status === 'warning' ? '#f59e0b' : '#ef4444')} 
+                        />
+                      </div>
                     </div>
-                    <p className="card-sub" style={{ margin: 0 }}>{result.recovery.prediction === 'Good' ? 'Predicted to support positive recovery' : 'Unlikely to yield positive outcomes'}</p>
                   </div>
-                  <div style={{ flexShrink: 0 }}>
-                    <GaugeChart value={result.recovery.confidence} color={result.recovery.prediction === 'Good' ? '#22c55e' : '#ef4444'} />
+
+                  {/* Card 2: Recovery */}
+                  <div className={`result-card-small border-${recTier.status}`}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: '16px' }}>
+                      <div style={{ flex: 1 }}>
+                        <h4 className="card-label">RECOVERY PREDICTION</h4>
+                        <div className="card-status-row">
+                          <span className={`status-icon icon-${recTier.status}`}>
+                            {recTier.status === 'safe' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                            )}
+                            {recTier.status === 'warning' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            )}
+                            {recTier.status === 'danger' && (
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+                            )}
+                          </span>
+                          <span className={`status-text text-${recTier.status}`}>
+                            {recTier.label}
+                          </span>
+                        </div>
+                        <p className="card-sub" style={{ margin: 0 }}>{recTier.sub}</p>
+                      </div>
+                      <div style={{ flexShrink: 0 }}>
+                        <GaugeChart 
+                          value={recScore} 
+                          color={recTier.status === 'safe' ? '#22c55e' : (recTier.status === 'warning' ? '#f59e0b' : '#ef4444')} 
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })()}
+
             {/* ROC Curves Row */}
             <div className="roc-radar-row">
               {/* Left Column: Biosafety ROC */}
