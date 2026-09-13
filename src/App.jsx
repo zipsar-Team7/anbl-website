@@ -4,6 +4,7 @@ import {
   Route,
   useLocation,
   Outlet,
+  Navigate,
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import GlobalNav from "./components/GlobalNav/GlobalNav";
@@ -19,15 +20,16 @@ import Projects from "./pages/Projects/Projects";
 import News from "./pages/News/News";
 import Opportunities from "./pages/Opportunities/Opportunities";
 import WebTools from "./pages/WebTools/WebTools";
-import WebToolsLayout from "./webtools/Layout/WebToolsLayout";
-import WebToolsLanding from "./webtools/Layout/WebToolsLanding";
+import DatabasesLayout from "./webtools/Layout/DatabasesLayout";
+import PredictionsLayout from "./webtools/Layout/PredictionsLayout";
 import NeuroBioAxis from "./webtools/Platforms/NeuroBioAxis";
 import PolyToxMap from "./webtools/Platforms/PolyToxMap";
 import PolyToxPredictor from "./webtools/Platforms/PolyToxPredictor";
 import MaterialDetails from "./webtools/Platforms/MaterialDetails";
 import ArrivingSoon from "./webtools/Platforms/ArrivingSoon";
 import NeuroBioAxisPredictor from "./webtools/Platforms/NeuroBioAxisPredictor";
-import WebToolsDocumentation from "./webtools/Documentation/WebToolsDocumentation";
+import DatabasesDocumentation from "./webtools/Documentation/DatabasesDocumentation";
+import PredictionsDocumentation from "./webtools/Documentation/PredictionsDocumentation";
 import NotFound from "./pages/NotFound/NotFound";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -176,16 +178,26 @@ function App() {
           <Route path="/webtool" element={<WebTools />} />
         </Route>
 
-        {/* WebTools Dashboard Layout */}
-        <Route path="/webtools" element={<WebToolsLayout />}>
-          <Route index element={<WebToolsLanding />} />
+        {/* 1. Database Platforms Dashboard Layout */}
+        <Route path="/databases" element={<DatabasesLayout />}>
+          <Route index element={<Navigate to="/databases/neuro-bio-axis" replace />} />
           <Route path="neuro-bio-axis" element={<NeuroBioAxis />} />
           <Route path="poly-toxmap" element={<PolyToxMap />} />
+          <Route path="documentation" element={<DatabasesDocumentation />} />
+          <Route path="details/:id" element={<MaterialDetails />} />
+        </Route>
+
+        {/* 2. AI Prediction Tools Dashboard Layout */}
+        <Route path="/predictions" element={<PredictionsLayout />}>
+          <Route index element={<Navigate to="/predictions/neuro-bio-axis-predict" replace />} />
           <Route path="neuro-bio-axis-predict" element={<NeuroBioAxisPredictor />} />
           <Route path="poly-tox-predict" element={<PolyToxPredictor />} />
-          <Route path="details/:id" element={<MaterialDetails />} />
-          <Route path="documentation" element={<WebToolsDocumentation />} />
+          <Route path="documentation" element={<PredictionsDocumentation />} />
         </Route>
+
+        {/* Backward compatibility redirects */}
+        <Route path="/webtools" element={<Navigate to="/webtool" replace />} />
+        <Route path="/webtools/*" element={<Navigate to="/webtool" replace />} />
 
         {/* 404 & Coming Soon Pages without Nav & Footer */}
 

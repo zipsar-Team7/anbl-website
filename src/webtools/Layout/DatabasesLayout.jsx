@@ -5,8 +5,9 @@ import logo from '../../assets/logo-new.png';
 import { labData } from '../../data/labData';
 
 const { webTools } = labData;
+const dbTools = webTools.filter(tool => tool.category === 'Platform');
 
-const WebToolsLayout = () => {
+const DatabasesLayout = () => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,7 +15,6 @@ const WebToolsLayout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Fast snappy loading screen transition when accessing the webtools
     const timer = setTimeout(() => {
       setIsInitialLoading(false);
     }, 250);
@@ -29,23 +29,19 @@ const WebToolsLayout = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Close mobile menu when navigating to a specific tool or sub-page
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Basic breadcrumb generation based on path
   const pathParts = location.pathname.split('/').filter(Boolean);
-  const currentPathName = pathParts[pathParts.length - 1] || 'dashboard';
+  const currentPathName = pathParts[pathParts.length - 1] || 'databases';
   const formattedPathName = currentPathName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
-  // Find if current path belongs to any of our tools
-  const activeTool = webTools.find(tool => location.pathname.startsWith(tool.link));
+  const activeTool = dbTools.find(tool => location.pathname.startsWith(tool.link));
 
   if (isInitialLoading) {
     return (
       <div className="loading-screen">
-        {/* Vibrating Particles Background */}
         <div className="loading-particles">
           {[...Array(15)].map((_, i) => (
             <div 
@@ -57,7 +53,7 @@ const WebToolsLayout = () => {
                 width: `${2 + Math.random() * 4}px`,
                 height: `${2 + Math.random() * 4}px`,
                 animationDelay: `${Math.random() * 0.2}s`
-              }}
+              }} 
             />
           ))}
         </div>
@@ -94,9 +90,24 @@ const WebToolsLayout = () => {
         </div>
         
         <nav className="sidebar-nav">
-          {(!isCollapsed || isMobileMenuOpen) && <div className="sidebar-label">Databases & Platforms</div>}
+          <Link to="/webtool" className="sidebar-link sidebar-home-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            {(!isCollapsed || isMobileMenuOpen) && <span>Tools Directory</span>}
+          </Link>
+
+          <div className="sidebar-divider"></div>
+
+          {(!isCollapsed || isMobileMenuOpen) && (
+            <div className="sidebar-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span>Database Platforms</span>
+              <span style={{ fontSize: '9px', background: '#e1f5fe', color: '#0284c7', padding: '2px 6px', borderRadius: '4px' }}>DBs</span>
+            </div>
+          )}
           
-          {webTools.filter(tool => tool.category === 'Platform').map(tool => (
+          {dbTools.map(tool => (
             <NavLink 
               key={tool.id} 
               to={tool.link} 
@@ -111,48 +122,34 @@ const WebToolsLayout = () => {
             </NavLink>
           ))}
 
-          <NavLink to="/webtools/databases-documentation" className={({ isActive }) => `sidebar-link sidebar-doc-link ${isActive ? 'active' : ''}`}>
+          <div className="sidebar-divider"></div>
+
+          <NavLink to="/databases/documentation" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
             </svg>
-            {(!isCollapsed || isMobileMenuOpen) && <span>Database Docs</span>}
+            {(!isCollapsed || isMobileMenuOpen) && <span>Documentation</span>}
           </NavLink>
 
           <div className="sidebar-divider"></div>
-          {(!isCollapsed || isMobileMenuOpen) && <div className="sidebar-label">AI Prediction Tools</div>}
-          
-          {webTools.filter(tool => tool.category === 'Prediction Tool').map(tool => (
-            <NavLink 
-              key={tool.id} 
-              to={tool.link} 
-              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''} ${tool.status !== 'Available' ? 'disabled' : ''}`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-              </svg>
-              {(!isCollapsed || isMobileMenuOpen) && <span>{tool.name}</span>}
-            </NavLink>
-          ))}
 
-          <NavLink to="/webtools/predictions-documentation" className={({ isActive }) => `sidebar-link sidebar-doc-link ${isActive ? 'active' : ''}`}>
+          {/* Quick Switch to Prediction Tools */}
+          <Link to="/predictions/neuro-bio-axis-predict" className="sidebar-link" style={{ color: 'var(--red)' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
             </svg>
-            {(!isCollapsed || isMobileMenuOpen) && <span>Prediction Docs</span>}
-          </NavLink>
+            {(!isCollapsed || isMobileMenuOpen) && <span>Go to AI Predictions &rarr;</span>}
+          </Link>
         </nav>
 
         <div className="sidebar-footer">
           <div className="user-profile">
-            <div className="user-avatar">RP</div>
+            <div className="user-avatar">DB</div>
             {(!isCollapsed || isMobileMenuOpen) && (
               <div className="user-info">
-                <span className="user-name">Researcher</span>
-                <span className="user-status">Standard Access</span>
+                <span className="user-name">Curated Repository</span>
+                <span className="user-status">Database Dashboard</span>
               </div>
             )}
           </div>
@@ -171,8 +168,12 @@ const WebToolsLayout = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
             <div className="header-breadcrumbs">
-              <Link to="/webtool" className="breadcrumb-link">ANBL Tools</Link>
-              {currentPathName !== 'webtools' && (
+              <Link to="/webtool" className="breadcrumb-link">All Tools</Link>
+              <svg className="breadcrumb-sep" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              <Link to="/databases/neuro-bio-axis" className="breadcrumb-link">Databases</Link>
+              {currentPathName !== 'databases' && currentPathName !== 'neuro-bio-axis' && (
                 <>
                   <svg className="breadcrumb-sep" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
@@ -183,9 +184,16 @@ const WebToolsLayout = () => {
             </div>
           </div>
           <div className="header-right">
+            <Link to="/webtool" className="header-home-btn" title="Back to Tools Directory">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Tools Home</span>
+            </Link>
             <div className="system-status desktop-only">
               <span className="status-dot"></span>
-              Live System
+              Database Live
             </div>
           </div>
         </header>
@@ -223,4 +231,5 @@ const WebToolsLayout = () => {
   );
 };
 
-export default WebToolsLayout;
+export default DatabasesLayout;
+
