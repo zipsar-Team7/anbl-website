@@ -763,7 +763,7 @@ const PolyToxMapSearch = () => {
                               )}
                             </div>
                             <Link 
-                              to={`/webtools/details/${row._id}`} 
+                              to={`/databases/details/${row._id}`} 
                               state={{ fromTool: 'Poly-ToxMap' }}
                               className="card-action-btn"
                             >

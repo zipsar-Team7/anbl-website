@@ -659,7 +659,7 @@ const PlatformSearch = ({ toolName, toolSubtitle }) => {
                                 : 'General toxicology'}
                             </div>
                             <Link 
-                              to={`/webtools/details/${row._id}`} 
+                              to={`/databases/details/${row._id}`} 
                               state={{ fromTool: 'Neuro-Bio-Axis' }}
                               className="card-action-btn"
                             >

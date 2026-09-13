@@ -268,7 +268,7 @@ export const labData = {
       category: "Platform",
       description: "A cross-scale nano–bio interaction platform integrating heterogeneous neurological datasets across multiple nanoparticle classes and both in vitro and in vivo systems. By incorporating biological response features alongside material and exposure data, it enables mechanism-informed exploration of toxicity and recovery outcomes. Designed for cross-study comparison, hypothesis generation, and future predictive modeling. Covers neurological conditions including neuroinflammation, neurodegeneration, and injury models.",
       status: "Available",
-      link: "/webtools/neuro-bio-axis",
+      link: "/databases/neuro-bio-axis",
       desktopOnly: true
     },
     {
@@ -277,7 +277,7 @@ export const labData = {
       category: "Platform",
       description: "A focused platform for functional polymer-based nanomaterials, built on curated in vitro toxicity datasets. It enables rapid, material-centric exploration using material properties and exposure conditions, supporting efficient screening and comparison within a defined material class. Structured for consistency and future integration into predictive tools. Covers neurodegenerative and neuroinflammatory models.",
       status: "Available",
-      link: "/webtools/poly-toxmap",
+      link: "/databases/poly-toxmap",
       desktopOnly: true
     },
     {
@@ -286,7 +286,7 @@ export const labData = {
       category: "Prediction Tool",
       description: "An AI-powered prediction tool utilizing an XGBoost machine learning model to estimate nanoparticle toxicity and cell viability based on 9 physicochemical and exposure descriptors. Features explainable AI metrics and a continuous viability gauge.",
       status: "Available",
-      link: "/webtools/poly-tox-predict",
+      link: "/predictions/poly-tox-predict",
       desktopOnly: true
     },
     {
@@ -295,7 +295,7 @@ export const labData = {
       category: "Prediction Tool",
       description: "An AI-powered dual-target prediction tool to estimate nanoparticle Recovery and Biosafety based on 21 physicochemical, exposure, and cellular response descriptors.",
       status: "Available",
-      link: "/webtools/neuro-bio-axis-predict",
+      link: "/predictions/neuro-bio-axis-predict",
       desktopOnly: true
     }
   ]
