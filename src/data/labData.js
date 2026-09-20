@@ -282,7 +282,7 @@ export const labData = {
     },
     {
       id: 'poly-tox-predict',
-      name: "PolyTox Predictor",
+      name: "PolySafeNet",
       category: "Prediction Tool",
       description: "An AI-powered prediction tool utilizing an XGBoost machine learning model to estimate nanoparticle toxicity and cell viability based on 9 physicochemical and exposure descriptors. Features explainable AI metrics and a continuous viability gauge.",
       status: "Available",

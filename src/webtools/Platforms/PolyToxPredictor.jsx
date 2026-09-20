@@ -609,7 +609,7 @@ const PolyToxPredictor = () => {
         <header className="predictor-header">
           <div className="header-text">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <h1 className="minimal-title">PolyTox AI Predictor</h1>
+              <h1 className="minimal-title">PolySafeNet</h1>
               <span className="badge badge-red">XGBoost Native</span>
             </div>
             <p className="minimal-subtitle">
