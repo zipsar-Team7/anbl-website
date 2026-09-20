@@ -497,7 +497,7 @@ const NeuroBioAxisPredictor = () => {
               <span className="badge-red">ONNX DUAL-MODEL</span>
             </div>
             <p className="minimal-subtitle">
-              Evaluate simultaneous predictions for nanomaterial recovery potential and biosafety using cross-scale predictive models.
+              Biological Response–Based Prediction of Nanoparticle Biosafety and Recovery Across In Vitro and In Vivo Models
             </p>
           </div>
         </header>

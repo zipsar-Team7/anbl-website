@@ -613,7 +613,7 @@ const PolyToxPredictor = () => {
               <span className="badge badge-red">XGBoost Native</span>
             </div>
             <p className="minimal-subtitle">
-              Estimate nanoparticle safety profile and cell viability based on physicochemical and exposure descriptors.
+              Estimate nanoparticle safety profile and cell viability based on material and physicochemical descriptors.
             </p>
           </div>
         </header>
