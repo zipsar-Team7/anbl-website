@@ -264,7 +264,7 @@ export const labData = {
   webTools: [
     {
       id: 'neuro-bio-axis',
-      name: "Neuro-Bio-Axis",
+      name: "NeuroSafeDB",
       category: "Platform",
       description: "A cross-scale nano–bio interaction platform integrating heterogeneous neurological datasets across multiple nanoparticle classes and both in vitro and in vivo systems. By incorporating biological response features alongside material and exposure data, it enables mechanism-informed exploration of toxicity and recovery outcomes. Designed for cross-study comparison, hypothesis generation, and future predictive modeling. Covers neurological conditions including neuroinflammation, neurodegeneration, and injury models.",
       status: "Available",
