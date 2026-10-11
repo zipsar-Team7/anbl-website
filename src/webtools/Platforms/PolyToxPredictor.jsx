@@ -644,67 +644,97 @@ const PolyToxPredictor = () => {
           <div className="prediction-results-active fade-in">
 
             {/* TOP CARDS ROW */}
-            <div className="results-top-cards">
+            {(() => {
+              // Ensure frontend strictly reflects the paper condition:
+              // Viability 80-100%: Non-toxic / Safe
+              // Viability 70-79.9%: Moderately toxic / Moderate
+              // Viability < 70%: Toxic / Severe Toxicity
+              const viability = result.estimatedViability !== undefined ? Number(result.estimatedViability) : 80;
+              let statusLabel = 'biosafe';
+              let safetyText = 'SAFE';
+              let safetySub = 'Low risk predicted';
+              let toxClassText = 'No Toxicity';
 
-              {/* CARD 1: Safety status */}
-              <div className={`result-card-small border-${result.predictionLabel.toLowerCase()}`}>
-                <h4 className="card-label">Safety Prediction</h4>
-                <div className="card-status-row">
-                  <span className={`status-icon icon-${result.predictionLabel.toLowerCase()}`}>
-                    {result.predictionLabel === 'Biosafe' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <polyline points="9 11 11 13 15 9" />
-                      </svg>
-                    ) : result.predictionLabel === 'Moderate' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                      </svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <line x1="15" y1="9" x2="9" y2="15" />
-                        <line x1="9" y1="9" x2="15" y2="15" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className={`status-text text-${result.predictionLabel.toLowerCase()}`}>
-                    {result.predictionLabel === 'Biosafe' ? 'SAFE' : result.predictionLabel === 'Moderate' ? 'MODERATE' : 'TOXIC'}
-                  </span>
-                </div>
-                <p className="card-sub">{result.predictionLabel === 'Biosafe' ? 'Low risk predicted' : result.predictionLabel === 'Moderate' ? 'Moderate hazard risk' : 'High hazard risk predicted'}</p>
-              </div>
+              if (viability >= 80.0) {
+                statusLabel = 'biosafe';
+                safetyText = 'SAFE';
+                safetySub = 'Low risk predicted';
+                toxClassText = 'No Toxicity';
+              } else if (viability >= 70.0) {
+                statusLabel = 'moderate';
+                safetyText = 'MODERATE';
+                safetySub = 'Moderate hazard risk';
+                toxClassText = 'Moderate Tox';
+              } else {
+                statusLabel = 'severe';
+                safetyText = 'TOXIC';
+                safetySub = 'High hazard risk predicted';
+                toxClassText = 'Toxic / Severe';
+              }
 
-              {/* CARD 2: Toxicity Class */}
-              <div className={`result-card-small border-${result.predictionLabel.toLowerCase()}`}>
-                <h4 className="card-label">Toxicity Class</h4>
-                <div className="card-status-row">
-                  <span className={`status-icon icon-${result.predictionLabel.toLowerCase()}`}>
-                    {result.predictionLabel === 'Biosafe' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 3h12M12 3v7M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
-                      </svg>
-                    ) : result.predictionLabel === 'Moderate' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 3h12M12 3v7M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
-                        <line x1="12" y1="13" x2="12" y2="17" />
-                      </svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 3h12M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
-                        <path d="M3 11h18M12 3v7" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className={`status-text text-${result.predictionLabel.toLowerCase()}`}>
-                    {result.predictionLabel === 'Biosafe' ? 'No Toxicity' : result.predictionLabel === 'Moderate' ? 'Moderate Tox' : 'Severe Toxicity'}
-                  </span>
+              return (
+                <div className="results-top-cards">
+                  {/* CARD 1: Safety status */}
+                  <div className={`result-card-small border-${statusLabel}`}>
+                    <h4 className="card-label">Safety Prediction</h4>
+                    <div className="card-status-row">
+                      <span className={`status-icon icon-${statusLabel}`}>
+                        {statusLabel === 'biosafe' ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <polyline points="9 11 11 13 15 9" />
+                          </svg>
+                        ) : statusLabel === 'moderate' ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                          </svg>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <line x1="15" y1="9" x2="9" y2="15" />
+                            <line x1="9" y1="9" x2="15" y2="15" />
+                          </svg>
+                        )}
+                      </span>
+                      <span className={`status-text text-${statusLabel}`}>
+                        {safetyText}
+                      </span>
+                    </div>
+                    <p className="card-sub">{safetySub}</p>
+                  </div>
+
+                  {/* CARD 2: Toxicity Class */}
+                  <div className={`result-card-small border-${statusLabel}`}>
+                    <h4 className="card-label">Toxicity Class</h4>
+                    <div className="card-status-row">
+                      <span className={`status-icon icon-${statusLabel}`}>
+                        {statusLabel === 'biosafe' ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M6 3h12M12 3v7M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
+                          </svg>
+                        ) : statusLabel === 'moderate' ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M6 3h12M12 3v7M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
+                            <line x1="12" y1="13" x2="12" y2="17" />
+                          </svg>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M6 3h12M10 10l-5.6 9.3c-.9 1.5.2 3.7 2 3.7h11.2c1.8 0 2.9-2.2 2-3.7L14 10V3" />
+                            <path d="M3 11h18M12 3v7" />
+                          </svg>
+                        )}
+                      </span>
+                      <span className={`status-text text-${statusLabel}`}>
+                        {toxClassText}
+                      </span>
+                    </div>
+                    <p className="card-sub">Estimated using XGBoost classifier</p>
+                  </div>
                 </div>
-                <p className="card-sub">Estimated using XGBoost classifier</p>
-              </div>
-            </div>
+              );
+            })()}
 
             {/* MIDDLE CARD: Speedometer Viability Gauge */}
             <div className="result-card-large gauge-container-card">
